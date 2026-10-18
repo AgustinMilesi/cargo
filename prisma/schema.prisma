@@ -1,0 +1,58 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Shipment {
+  id              String      @id @default(cuid())
+  reference       String      @unique // e.g. SHP-2026-001
+  type            String      @default("MARITIME") // MARITIME, AIR, GROUND
+  modality        String      @default("FCL") // FCL, LCL, AIR_EXPRESS
+  blNumber        String      // Bill of Lading or AWB
+  containerNumber String?     // e.g. MSCU7654321
+  carrier         String      // e.g. MSC, Maersk, CMA CGM, LATAM Cargo
+  vessel          String?     // e.g. MSC GÜLSÜN / 042E
+  shipper         String      // Exportador
+  consignee       String      // Importador / Cliente
+  pol             String      // Port of Loading (Origen)
+  pod             String      // Port of Discharge (Destino)
+  status          String      @default("BOOKED") // BOOKED, IN_TRANSIT, AT_PORT, CUSTOMS, DELIVERED
+  currentLocation String      @default("Origen")
+  etd             DateTime    // Estimated Time of Departure
+  eta             DateTime    // Estimated Time of Arrival
+  actualArrival   DateTime?
+  buyRate         Float       @default(0) // Cost USD
+  sellRate        Float       @default(0) // Sale USD
+  localCharges    Float       @default(0) // Local THC/Docs USD
+  profit          Float       @default(0) // Net Margin USD
+  invoiceStatus   String      @default("PENDING") // PENDING, INVOICED, PAID
+  notes           String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  milestones      Milestone[]
+}
+
+model Milestone {
+  id          String   @id @default(cuid())
+  shipmentId  String
+  title       String
+  location    String
+  date        DateTime
+  completed   Boolean  @default(false)
+  order       Int      @default(0)
+  shipment    Shipment @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+}
+
+model Client {
+  id        String   @id @default(cuid())
+  name      String
+  taxId     String   // CUIT / RUT / Tax ID
+  email     String
+  phone     String?
+  country   String   @default("Argentina")
+  createdAt DateTime @default(now())
+}
