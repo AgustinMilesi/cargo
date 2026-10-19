@@ -27,6 +27,19 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+.env.*
+.env*
+!.env.example
+
+# === Seguridad y credenciales ===
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+secrets.*
+credentials.*
+id_rsa*
 
 # vercel
 .vercel
