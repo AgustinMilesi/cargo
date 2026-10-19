@@ -5,12 +5,13 @@ import { DeliveringMap } from "@/components/DeliveringMap";
 import { PastDeliveryRecord } from "@/components/PastDeliveryRecord";
 
 export default async function DashboardPage() {
-  const [shipments, totalClients] = await Promise.all([
+  const [shipments, totalClients, totalQuotes] = await Promise.all([
     db.shipment.findMany({
       orderBy: { createdAt: "desc" },
       include: { milestones: { orderBy: { order: "asc" } } },
     }),
     db.client.count(),
+    db.quote.count(),
   ]);
 
   // Aggregate active and financial stats
@@ -50,8 +51,69 @@ export default async function DashboardPage() {
       {/* Top Header */}
       <TopBar
         title="Dashboard"
-        subtitle="Track your daily logistics loads and deliveries"
+        subtitle="Track your daily logistics loads, import folders, and quotes"
       />
+
+      {/* KipinTOCH Solutions Quick Access Bar */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <Link
+          href="/quotes"
+          className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] hover:border-indigo-500/50 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
+        >
+          <div className="space-y-0.5">
+            <span className="text-[10px] text-slate-400 uppercase font-bold block">KipinCARGO</span>
+            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+              Cotizaciones
+            </span>
+          </div>
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+            {totalQuotes}
+          </span>
+        </Link>
+
+        <Link
+          href="/shipments"
+          className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] hover:border-emerald-500/50 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
+        >
+          <div className="space-y-0.5">
+            <span className="text-[10px] text-slate-400 uppercase font-bold block">KipinPLUGINS</span>
+            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">
+              Despacho Aduana
+            </span>
+          </div>
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+            Activo
+          </span>
+        </Link>
+
+        <Link
+          href="/portal"
+          className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] hover:border-cyan-500/50 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
+        >
+          <div className="space-y-0.5">
+            <span className="text-[10px] text-slate-400 uppercase font-bold block">KipinTRACK</span>
+            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition">
+              Portal Clientes
+            </span>
+          </div>
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+            {totalClients}
+          </span>
+        </Link>
+
+        <Link
+          href="/preferences"
+          className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] hover:border-purple-500/50 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
+        >
+          <div className="space-y-0.5">
+            <span className="text-[10px] text-slate-400 uppercase font-bold block">Personalización</span>
+            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition">
+              Tema & 4 Idiomas
+            </span>
+          </div>
+          <span className="text-sm">🌐</span>
+        </Link>
+      </div>
 
       {/* Main Grid: Left Column (~42%) + Right Column (~58%) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
-import { updateShipmentStatus } from "@/app/actions";
+import { updateShipmentStatus, updateCustomsDetails } from "@/app/actions";
 import { TopBar } from "@/components/TopBar";
 import { DeliveringMap } from "@/components/DeliveringMap";
 
@@ -116,6 +116,198 @@ export default async function ShipmentDetailPage({
               destination={shipment.pod}
               currentPosition={shipment.currentLocation}
             />
+          </div>
+
+          {/* KipinPLUGINS: Customs Clearance, Demurrage & Import Folder */}
+          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 md:p-8 space-y-5 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-4">
+              <div>
+                <h2 className="text-sm font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                  Despacho Aduanero & Control de Sobrestadía (Demurrage)
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  KipinPLUGINS: Gestión de canales aduaneros, factura exterior y plazos de devolución de contenedor
+                </p>
+              </div>
+
+              {/* Customs Channel Badge */}
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold text-slate-400">Canal:</span>
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-bold ${
+                    shipment.customsChannel === "GREEN"
+                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                      : shipment.customsChannel === "ORANGE"
+                      ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20"
+                      : shipment.customsChannel === "RED"
+                      ? "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20"
+                      : "bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-300 border border-slate-200 dark:border-white/10"
+                  }`}
+                >
+                  {shipment.customsChannel === "GREEN"
+                    ? "Canal Verde (Liberación)"
+                    : shipment.customsChannel === "ORANGE"
+                    ? "Canal Naranja (Documental)"
+                    : shipment.customsChannel === "RED"
+                    ? "Canal Rojo (Aforo Físico)"
+                    : "Pendiente Asignación"}
+                </span>
+              </div>
+            </div>
+
+            <form
+              action={async (formData: FormData) => {
+                "use server";
+                await updateCustomsDetails(shipment.id, formData);
+              }}
+              className="space-y-4"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Número de Despacho Aduanero
+                  </label>
+                  <input
+                    type="text"
+                    name="customsDeclaration"
+                    defaultValue={shipment.customsDeclaration || ""}
+                    placeholder="e.g. 26001IC0400192X"
+                    className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-mono focus:border-indigo-500 outline-none transition"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Canal Aduana Asignado
+                  </label>
+                  <select
+                    name="customsChannel"
+                    defaultValue={shipment.customsChannel || "PENDING"}
+                    className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition cursor-pointer"
+                  >
+                    <option value="PENDING">Pendiente de Verificación</option>
+                    <option value="GREEN">Canal Verde (Sin inspección)</option>
+                    <option value="ORANGE">Canal Naranja (Revisión Documental)</option>
+                    <option value="RED">Canal Rojo (Aforo Físico y Documental)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Días Libres Contenedor (Free Days)
+                  </label>
+                  <input
+                    type="number"
+                    name="freeDaysCount"
+                    defaultValue={shipment.freeDaysCount || 14}
+                    className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-mono focus:border-indigo-500 outline-none transition"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Factura Comercial Proveedor
+                  </label>
+                  <input
+                    type="text"
+                    name="invoiceNumber"
+                    defaultValue={shipment.invoiceNumber || ""}
+                    placeholder="e.g. INV-EXP-84910"
+                    className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-mono focus:border-indigo-500 outline-none transition"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Valor Mercadería (FOB/CIF USD)
+                  </label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    name="invoiceValue"
+                    defaultValue={shipment.invoiceValue || 0}
+                    placeholder="54200.00"
+                    className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-mono focus:border-indigo-500 outline-none transition"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Bultos / Pallets y Volumen (CBM)
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="number"
+                      name="packagesCount"
+                      defaultValue={shipment.packagesCount || 0}
+                      placeholder="Bultos"
+                      className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-mono focus:border-indigo-500 outline-none transition"
+                    />
+                    <input
+                      type="number"
+                      step="0.1"
+                      name="volumeCbm"
+                      defaultValue={shipment.volumeCbm || 0}
+                      placeholder="m³ CBM"
+                      className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-mono focus:border-indigo-500 outline-none transition"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Digital Docs Links */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Enlace Conocimiento B/L
+                  </label>
+                  <input
+                    type="text"
+                    name="docBlUrl"
+                    defaultValue={shipment.docBlUrl || ""}
+                    placeholder="https://... o doc ref"
+                    className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Enlace Factura Comercial
+                  </label>
+                  <input
+                    type="text"
+                    name="docInvoiceUrl"
+                    defaultValue={shipment.docInvoiceUrl || ""}
+                    placeholder="https://... o doc ref"
+                    className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Enlace Packing List
+                  </label>
+                  <input
+                    type="text"
+                    name="docPackingListUrl"
+                    defaultValue={shipment.docPackingListUrl || ""}
+                    placeholder="https://... o doc ref"
+                    className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end pt-2">
+                <button
+                  type="submit"
+                  className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs rounded-2xl transition shadow-md shadow-emerald-600/20 cursor-pointer"
+                >
+                  Guardar Datos de Importación & Aduana
+                </button>
+              </div>
+            </form>
           </div>
 
           {/* Milestones Timeline */}

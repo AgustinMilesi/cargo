@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "./ThemeProvider";
+import { usePreferences, ThemeToggle } from "./PreferencesProvider";
+import { LOCALES } from "@/lib/i18n";
 
 interface NavItem {
+  key: string;
   name: string;
   href: string;
   badge?: number;
@@ -13,10 +15,12 @@ interface NavItem {
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { t, locale, setLocale } = usePreferences();
 
   const navItems: NavItem[] = [
     {
-      name: "Dashboard",
+      key: "dashboard",
+      name: t.navDashboard || "Dashboard",
       href: "/",
       icon: (active) => (
         <svg
@@ -37,7 +41,81 @@ export function Sidebar() {
       ),
     },
     {
-      name: "Monthly Report",
+      key: "quotes",
+      name: t.navQuotes || "Cotizaciones & Tarifas",
+      href: "/quotes",
+      icon: (active) => (
+        <svg
+          className={`w-5 h-5 transition-colors ${
+            active ? "text-white" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
+          }`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+          />
+        </svg>
+      ),
+    },
+    {
+      key: "shipments",
+      name: t.navShipments || "Carpetas de Importación",
+      href: "/shipments",
+      badge: 12,
+      icon: (active) => (
+        <svg
+          className={`w-5 h-5 transition-colors ${
+            active ? "text-white" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
+          }`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+          />
+        </svg>
+      ),
+    },
+    {
+      key: "tracking",
+      name: t.navTracking || "Live Tracker & GPS",
+      href: "/tracking",
+      icon: (active) => (
+        <svg
+          className={`w-5 h-5 transition-colors ${
+            active ? "text-white" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
+          }`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+          />
+        </svg>
+      ),
+    },
+    {
+      key: "finances",
+      name: t.navFinances || "Finanzas & Cuentas",
       href: "/finances",
       icon: (active) => (
         <svg
@@ -58,29 +136,8 @@ export function Sidebar() {
       ),
     },
     {
-      name: "Working Tracker",
-      href: "/tracking",
-      badge: 12,
-      icon: (active) => (
-        <svg
-          className={`w-5 h-5 transition-colors ${
-            active ? "text-white" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
-          }`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-      ),
-    },
-    {
-      name: "Company Division",
+      key: "clients",
+      name: t.navClients || "Empresas & Clientes",
       href: "/clients",
       icon: (active) => (
         <svg
@@ -101,9 +158,9 @@ export function Sidebar() {
       ),
     },
     {
-      name: "Approval Letter",
-      href: "/shipments",
-      badge: 12,
+      key: "portal",
+      name: t.navPortal || "Portal del Cliente",
+      href: "/portal",
       icon: (active) => (
         <svg
           className={`w-5 h-5 transition-colors ${
@@ -117,7 +174,29 @@ export function Sidebar() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      ),
+    },
+    {
+      key: "preferences",
+      name: t.navPreferences || "Diseño & Idiomas",
+      href: "/preferences",
+      icon: (active) => (
+        <svg
+          className={`w-5 h-5 transition-colors ${
+            active ? "text-white" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
+          }`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
           />
         </svg>
       ),
@@ -126,7 +205,7 @@ export function Sidebar() {
 
   return (
     <aside className="w-full md:w-64 bg-white/80 dark:bg-[#131419]/80 backdrop-blur-xl border-b md:border-b-0 md:border-r border-slate-200/80 dark:border-white/[0.08] p-5 flex flex-col justify-between shrink-0 transition-all duration-200">
-      <div className="space-y-7">
+      <div className="space-y-6">
         {/* Brand Header */}
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
@@ -140,6 +219,9 @@ export function Sidebar() {
               <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
                 OneCargo
               </span>
+              <span className="text-[10px] text-slate-400 font-medium leading-none">
+                KipinTOCH Suite
+              </span>
             </div>
           </Link>
 
@@ -149,7 +231,7 @@ export function Sidebar() {
         </div>
 
         {/* Navigation Items */}
-        <nav className="flex flex-row md:flex-col gap-1.5 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
+        <nav className="flex flex-row md:flex-col gap-1 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
           {navItems.map((item) => {
             const isActive =
               item.href === "/"
@@ -160,19 +242,19 @@ export function Sidebar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`group flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-medium transition-all duration-200 shrink-0 ${
+                className={`group flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200 shrink-0 ${
                   isActive
-                    ? "bg-slate-900 text-white shadow-md dark:bg-white/10 dark:text-white dark:border dark:border-white/10"
-                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5"
+                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/25"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-white/5"
                 }`}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2.5">
                   {item.icon(isActive)}
                   <span className="whitespace-nowrap">{item.name}</span>
                 </div>
 
                 {item.badge !== undefined && (
-                  <span className="ml-3 px-2 py-0.5 text-[11px] font-bold rounded-full bg-rose-500 text-white leading-none shadow-sm shadow-rose-500/30">
+                  <span className="ml-2 px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-rose-500 text-white leading-none shadow-sm shadow-rose-500/30">
                     {item.badge}
                   </span>
                 )}
@@ -182,20 +264,35 @@ export function Sidebar() {
         </nav>
       </div>
 
-      {/* Footer Info */}
-      <div className="hidden md:flex flex-col gap-4 pt-6 border-t border-slate-200 dark:border-white/5 text-xs text-slate-500 dark:text-slate-400">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-medium text-slate-700 dark:text-slate-300">Neon Cloud DB</span>
-          </div>
-          <span className="text-[10px] font-mono bg-slate-100 dark:bg-white/5 px-2 py-0.5 rounded text-slate-600 dark:text-slate-400">
-            v2.0
-          </span>
+      {/* Footer Controls */}
+      <div className="hidden md:flex flex-col gap-3 pt-5 border-t border-slate-200/80 dark:border-white/5 text-xs text-slate-500 dark:text-slate-400">
+        {/* 4-Language Flag Switcher Bar */}
+        <div className="flex items-center justify-between p-1 rounded-2xl bg-slate-100/80 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+          {LOCALES.map((l) => (
+            <button
+              key={l.code}
+              type="button"
+              onClick={() => setLocale(l.code)}
+              title={`${l.label} (${l.code.toUpperCase()})`}
+              className={`flex-1 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                locale === l.code
+                  ? "bg-white dark:bg-[#1f2029] text-slate-900 dark:text-white shadow-xs font-bold"
+                  : "text-slate-500 hover:text-slate-900 dark:hover:text-white"
+              }`}
+            >
+              <span>{l.flag}</span>
+              <span className="text-[10px] uppercase font-mono">{l.code}</span>
+            </button>
+          ))}
         </div>
 
+        {/* Mode Switcher and DB badge */}
         <div className="flex items-center justify-between pt-1">
-          <span className="text-[11px]">Appearance</span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-[11px] font-medium text-slate-700 dark:text-slate-300">Neon Cloud</span>
+          </div>
+
           <ThemeToggle />
         </div>
       </div>

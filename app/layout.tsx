@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { PreferencesProvider } from "@/components/PreferencesProvider";
 import { Sidebar } from "@/components/Sidebar";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://cargo-am.vercel.app"),
-  title: "OneCargo — Logistics & Freight Operating System",
-  description: "Track your daily logistics loads, expenses, container tracking, and deliveries.",
+  title: "OneCargo — Logistics & Import Operating System",
+  description: "KipinTOCH suite for import operations, quotes, container tracking, customs, and finances.",
   icons: { icon: "/icon.svg" },
 };
 
@@ -16,13 +16,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="es" className="dark" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const saved = localStorage.getItem('onecargo-theme');
+                const saved = localStorage.getItem('onecargo-mode') || localStorage.getItem('onecargo-theme');
                 if (saved === 'light') {
                   document.documentElement.classList.remove('dark');
                   document.documentElement.classList.add('light');
@@ -41,12 +41,12 @@ export default function RootLayout({
         <div className="fixed bottom-[-10%] left-[20%] w-[32rem] h-[32rem] bg-purple-500/10 dark:bg-purple-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
         <div className="fixed top-[40%] left-[-5%] w-[28rem] h-[28rem] bg-blue-500/10 dark:bg-blue-600/8 rounded-full blur-[130px] pointer-events-none -z-10" />
 
-        <ThemeProvider>
+        <PreferencesProvider>
           <Sidebar />
           <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
             {children}
           </main>
-        </ThemeProvider>
+        </PreferencesProvider>
       </body>
     </html>
   );

@@ -8,43 +8,59 @@ generator client {
 }
 
 model Shipment {
-  id              String      @id @default(cuid())
-  reference       String      @unique // e.g. SHP-2026-001
-  type            String      @default("MARITIME") // MARITIME, AIR, GROUND
-  modality        String      @default("FCL") // FCL, LCL, AIR_EXPRESS
-  blNumber        String      // Bill of Lading or AWB
-  containerNumber String?     // e.g. MSCU7654321
-  carrier         String      // e.g. MSC, Maersk, CMA CGM, LATAM Cargo
-  vessel          String?     // e.g. MSC GÜLSÜN / 042E
-  shipper         String      // Exportador
-  consignee       String      // Importador / Cliente
-  pol             String      // Port of Loading (Origen)
-  pod             String      // Port of Discharge (Destino)
-  status          String      @default("BOOKED") // BOOKED, IN_TRANSIT, AT_PORT, CUSTOMS, DELIVERED
-  currentLocation String      @default("Origen")
-  etd             DateTime    // Estimated Time of Departure
-  eta             DateTime    // Estimated Time of Arrival
-  actualArrival   DateTime?
-  buyRate         Float       @default(0) // Cost USD
-  sellRate        Float       @default(0) // Sale USD
-  localCharges    Float       @default(0) // Local THC/Docs USD
-  profit          Float       @default(0) // Net Margin USD
-  invoiceStatus   String      @default("PENDING") // PENDING, INVOICED, PAID
-  notes           String?
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
-  milestones      Milestone[]
+  id                 String      @id @default(cuid())
+  reference          String      @unique // e.g. SHP-2026-001
+  type               String      @default("MARITIME") // MARITIME, AIR, GROUND
+  modality           String      @default("FCL") // FCL, LCL, AIR_EXPRESS
+  blNumber           String      // Bill of Lading or AWB
+  containerNumber    String?     // e.g. MSCU7654321
+  carrier            String      // e.g. MSC, Maersk, CMA CGM, LATAM Cargo
+  vessel             String?     // e.g. MSC GÜLSÜN / 042E
+  shipper            String      // Exportador (Proveedor en el exterior)
+  consignee          String      // Importador / Cliente
+  pol                String      // Port of Loading (Origen)
+  pod                String      // Port of Discharge (Destino)
+  status             String      @default("BOOKED") // BOOKED, IN_TRANSIT, AT_PORT, CUSTOMS, DELIVERED
+  currentLocation    String      @default("Origen")
+  etd                DateTime    // Estimated Time of Departure
+  eta                DateTime    // Estimated Time of Arrival
+  actualArrival      DateTime?
+  buyRate            Float       @default(0) // Cost USD
+  sellRate           Float       @default(0) // Sale USD
+  localCharges       Float       @default(0) // Local THC/Docs USD
+  profit             Float       @default(0) // Net Margin USD
+  invoiceStatus      String      @default("PENDING") // PENDING, INVOICED, PAID
+  notes              String?
+
+  // Import Specifics & Customs (KipinPLUGINS)
+  invoiceNumber      String?     // Commercial Invoice (Factura comercial exterior)
+  invoiceValue       Float?      @default(0) // FOB/CIF USD
+  packagesCount      Int?        @default(0) // Bultos / Pallets
+  grossWeightKg      Float?      @default(0) // Peso bruto Kg
+  volumeCbm          Float?      @default(0) // Volumen m3 / CBM
+  customsDeclaration String?     // Despacho aduanero (ej. 26001IC0400192X)
+  customsChannel     String?     @default("PENDING") // PENDING, GREEN, ORANGE, RED
+  freeDaysCount      Int         @default(14) // Días libres de contenedor
+  demurrageDeadline  DateTime?   // Fecha límite devolución contenedor vacío
+  customsClearedDate DateTime?   // Fecha de levanto aduanero
+  docBlUrl           String?     // B/L link o archivo
+  docInvoiceUrl      String?     // Commercial Invoice link
+  docPackingListUrl  String?     // Packing List link
+
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+  milestones         Milestone[]
 }
 
 model Milestone {
-  id          String   @id @default(cuid())
-  shipmentId  String
-  title       String
-  location    String
-  date        DateTime
-  completed   Boolean  @default(false)
-  order       Int      @default(0)
-  shipment    Shipment @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  id         String   @id @default(cuid())
+  shipmentId String
+  title      String
+  location   String
+  date       DateTime
+  completed  Boolean  @default(false)
+  order      Int      @default(0)
+  shipment   Shipment @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
 }
 
 model Client {
@@ -55,4 +71,39 @@ model Client {
   phone     String?
   country   String   @default("Argentina")
   createdAt DateTime @default(now())
+}
+
+model Quote {
+  id           String   @id @default(cuid())
+  reference    String   @unique // e.g. COT-2026-001
+  type         String   @default("MARITIME") // MARITIME, AIR, GROUND
+  modality     String   @default("FCL 40' HC") // FCL 20', FCL 40' HC, LCL, AIR
+  origin       String   // e.g. Shanghai, China
+  destination  String   // e.g. Buenos Aires, Argentina
+  clientName   String   // Importador solicitante
+  clientEmail  String?
+  carrier      String   // Naviera o Aerolínea
+  validUntil   DateTime // Validez de la tarifa
+  buyRate      Float    @default(0) // Costo compra USD
+  sellRate     Float    @default(0) // Precio venta USD
+  localCharges Float    @default(0) // Gastos locales USD (THC, precintos)
+  profit       Float    @default(0) // Margen de ganancia neto
+  status       String   @default("DRAFT") // DRAFT, SENT, ACCEPTED, REJECTED, CONVERTED
+  notes        String?
+  shipmentId   String?  // Id del embarque generado al convertir
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model CustomerTransaction {
+  id          String    @id @default(cuid())
+  clientId    String?
+  clientName  String
+  shipmentRef String?
+  type        String    // INVOICE, PAYMENT, LOCAL_FEE
+  description String
+  amount      Float
+  status      String    @default("PENDING") // PENDING, PAID, OVERDUE
+  dueDate     DateTime?
+  createdAt   DateTime  @default(now())
 }
