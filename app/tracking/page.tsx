@@ -61,7 +61,7 @@ export default async function TrackingPage({
       />
 
       {/* Search Input Bar */}
-      <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 shadow-sm space-y-4">
+      <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 shadow-sm space-y-4">
         <form method="GET" action="/tracking" className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -74,7 +74,7 @@ export default async function TrackingPage({
               name="q"
               defaultValue={query}
               placeholder="Search by Container (e.g. MSCU7654321), Bill of Lading, or Reference..."
-              className="w-full pl-10 pr-4 py-2.5 text-xs md:text-sm rounded-2xl bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 outline-none focus:border-indigo-500 transition-all shadow-inner"
+              className="w-full pl-10 pr-4 py-2.5 text-xs md:text-sm rounded-2xl bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 outline-none focus:border-indigo-500 transition-all shadow-inner"
             />
           </div>
           <button
@@ -104,7 +104,7 @@ export default async function TrackingPage({
       {matchedShipment ? (
         <div className="space-y-6">
           {/* Main Card with Delivering Process Map & Live Status */}
-          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 md:p-8 space-y-6 shadow-sm">
+          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 md:p-8 space-y-6 shadow-sm">
             {/* Header with Title and ETA */}
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-slate-100 dark:border-white/5">
               <div className="space-y-1">
@@ -149,13 +149,13 @@ export default async function TrackingPage({
 
             {/* Telemetry Inset Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+              <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06]">
                 <span className="text-[10px] text-slate-400 uppercase font-semibold block">Carrier & Vessel</span>
                 <span className="text-slate-900 dark:text-white font-bold text-sm mt-1 block">{matchedShipment.carrier}</span>
                 <span className="text-slate-500">{matchedShipment.vessel || "Direct Service"}</span>
               </div>
 
-              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+              <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06]">
                 <span className="text-[10px] text-slate-400 uppercase font-semibold block">Current Location</span>
                 <span className="text-indigo-600 dark:text-indigo-400 font-bold text-sm mt-1 block flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-indigo-500 animate-ping shrink-0" />
@@ -163,7 +163,7 @@ export default async function TrackingPage({
                 </span>
               </div>
 
-              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+              <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06]">
                 <span className="text-[10px] text-slate-400 uppercase font-semibold block">Port of Loading (POL)</span>
                 <span className="text-slate-800 dark:text-slate-200 font-bold text-sm mt-1 block">{matchedShipment.pol}</span>
                 <span className="text-slate-500 font-mono text-[11px]">
@@ -171,7 +171,7 @@ export default async function TrackingPage({
                 </span>
               </div>
 
-              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+              <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06]">
                 <span className="text-[10px] text-slate-400 uppercase font-semibold block">Port of Discharge (POD)</span>
                 <span className="text-slate-800 dark:text-slate-200 font-bold text-sm mt-1 block">{matchedShipment.pod}</span>
                 <span className="text-slate-500 font-mono text-[11px]">
@@ -190,7 +190,7 @@ export default async function TrackingPage({
                 {matchedShipment.milestones.map((m) => (
                   <div key={m.id} className="relative flex items-start gap-4">
                     <span className="absolute -left-6 top-1.5 w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50" />
-                    <div className="flex-1 bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/5 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <div className="flex-1 bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200/60 dark:border-white/[0.06] rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                       <div>
                         <div className="flex items-center gap-2">
                           <h4 className="text-xs font-bold text-slate-900 dark:text-white">
@@ -221,7 +221,7 @@ export default async function TrackingPage({
           </div>
         </div>
       ) : (
-        <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-12 text-center space-y-3">
+        <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-12 text-center space-y-3">
           <p className="text-slate-500 dark:text-slate-400 text-sm">
             No shipment found matching <strong className="text-slate-900 dark:text-white">"{query}"</strong>.
           </p>

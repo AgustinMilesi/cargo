@@ -30,7 +30,7 @@ export default async function ShipmentsPage({
       {/* Filter Tabs */}
       <div className="flex flex-wrap items-center justify-between gap-4 text-xs font-semibold">
         {/* Type Filter */}
-        <div className="flex items-center gap-1.5 p-1 bg-white dark:bg-[#181920] rounded-2xl border border-slate-200 dark:border-white/5 shadow-sm">
+        <div className="flex items-center gap-1.5 p-1 bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl rounded-2xl border border-slate-200/80 dark:border-white/[0.08] shadow-sm">
           <Link
             href="/shipments"
             className={`px-3 py-1.5 rounded-xl transition cursor-pointer ${
@@ -64,7 +64,7 @@ export default async function ShipmentsPage({
         </div>
 
         {/* Status Filter */}
-        <div className="flex items-center gap-1.5 p-1 bg-white dark:bg-[#181920] rounded-2xl border border-slate-200 dark:border-white/5 shadow-sm">
+        <div className="flex items-center gap-1.5 p-1 bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl rounded-2xl border border-slate-200/80 dark:border-white/[0.08] shadow-sm">
           <Link
             href="/shipments"
             className={`px-3 py-1.5 rounded-xl transition cursor-pointer ${
@@ -109,7 +109,7 @@ export default async function ShipmentsPage({
       </div>
 
       {/* Shipments List Table */}
-      <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 shadow-sm">
+      <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 shadow-sm">
         <div className="overflow-x-auto -mx-6 px-6">
           <table className="w-full text-left text-xs md:text-sm">
             <thead>

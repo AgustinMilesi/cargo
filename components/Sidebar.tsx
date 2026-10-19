@@ -125,7 +125,7 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-full md:w-64 bg-white dark:bg-[#131419] border-b md:border-b-0 md:border-r border-slate-200 dark:border-white/5 p-5 flex flex-col justify-between shrink-0 transition-colors duration-200">
+    <aside className="w-full md:w-64 bg-white/80 dark:bg-[#131419]/80 backdrop-blur-xl border-b md:border-b-0 md:border-r border-slate-200/80 dark:border-white/[0.08] p-5 flex flex-col justify-between shrink-0 transition-all duration-200">
       <div className="space-y-7">
         {/* Brand Header */}
         <div className="flex items-center justify-between">

@@ -51,7 +51,7 @@ export default async function ClientsPage() {
               return (
                 <div
                   key={c.id}
-                  className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-5 hover:border-indigo-500/50 transition-all duration-200 space-y-3 shadow-sm"
+                  className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-5 hover:border-indigo-500/50 transition-all duration-200 space-y-3 shadow-sm"
                 >
                   <div className="flex items-center justify-between">
                     <div>
@@ -63,7 +63,7 @@ export default async function ClientsPage() {
                       </span>
                     </div>
 
-                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300">
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100/80 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300">
                       {operationsCount} {operationsCount === 1 ? "load" : "loads"}
                     </span>
                   </div>
@@ -96,7 +96,7 @@ export default async function ClientsPage() {
 
           <form
             action={handleAddClient}
-            className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 space-y-4 shadow-sm"
+            className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 space-y-4 shadow-sm"
           >
             <div>
               <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
@@ -107,7 +107,7 @@ export default async function ClientsPage() {
                 name="name"
                 placeholder="e.g. Acme Logistics Global Ltd."
                 required
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
               />
             </div>
 
@@ -120,7 +120,7 @@ export default async function ClientsPage() {
                 name="taxId"
                 placeholder="e.g. US-84930219"
                 required
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white font-mono focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white font-mono focus:border-indigo-500 outline-none transition"
               />
             </div>
 
@@ -133,7 +133,7 @@ export default async function ClientsPage() {
                 name="email"
                 placeholder="dispatch@acme.com"
                 required
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
               />
             </div>
 
@@ -145,7 +145,7 @@ export default async function ClientsPage() {
                 type="text"
                 name="phone"
                 placeholder="+1 555 019 2831"
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
               />
             </div>
 
@@ -157,7 +157,7 @@ export default async function ClientsPage() {
                 type="text"
                 name="country"
                 defaultValue="United States"
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
               />
             </div>
 

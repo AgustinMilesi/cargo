@@ -25,7 +25,7 @@ export default function NewShipmentPage() {
       {/* Form */}
       <form
         action={handleSubmit}
-        className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 md:p-8 space-y-8 shadow-sm"
+        className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 md:p-8 space-y-8 shadow-sm"
       >
         {/* Section 1: General & Routing */}
         <div className="space-y-4">
@@ -43,7 +43,7 @@ export default function NewShipmentPage() {
                 name="reference"
                 defaultValue={defaultRef}
                 required
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white font-mono focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white font-mono focus:border-indigo-500 outline-none transition"
               />
             </div>
 
@@ -53,7 +53,7 @@ export default function NewShipmentPage() {
               </label>
               <select
                 name="type"
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition cursor-pointer"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition cursor-pointer"
               >
                 <option value="MARITIME">Ocean Freight (FCL / LCL)</option>
                 <option value="AIR">Air Cargo</option>
@@ -70,7 +70,7 @@ export default function NewShipmentPage() {
                 name="modality"
                 defaultValue="FCL 40' HC"
                 placeholder="FCL 40', 20' Dry, LCL..."
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
               />
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function NewShipmentPage() {
                 name="blNumber"
                 placeholder="e.g. MEDUST829104"
                 required
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white font-mono focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white font-mono focus:border-indigo-500 outline-none transition"
               />
             </div>
 
@@ -97,7 +97,7 @@ export default function NewShipmentPage() {
                 type="text"
                 name="containerNumber"
                 placeholder="e.g. MSCU7654321"
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white font-mono uppercase focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white font-mono uppercase focus:border-indigo-500 outline-none transition"
               />
             </div>
 
@@ -110,7 +110,7 @@ export default function NewShipmentPage() {
                 name="carrier"
                 defaultValue="MSC (Mediterranean Shipping Co)"
                 required
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
               />
             </div>
           </div>
@@ -124,7 +124,7 @@ export default function NewShipmentPage() {
                 type="text"
                 name="vessel"
                 placeholder="e.g. MSC GÜLSÜN / 042E"
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
               />
             </div>
 
@@ -134,7 +134,7 @@ export default function NewShipmentPage() {
               </label>
               <select
                 name="status"
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition cursor-pointer"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition cursor-pointer"
               >
                 <option value="BOOKED">Booked (Reservation Confirmed)</option>
                 <option value="IN_TRANSIT">In Transit (International)</option>
@@ -162,7 +162,7 @@ export default function NewShipmentPage() {
                 name="shipper"
                 placeholder="e.g. Ningbo Global Exports Co."
                 required
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
               />
             </div>
 
@@ -175,7 +175,7 @@ export default function NewShipmentPage() {
                 name="consignee"
                 placeholder="e.g. TechCorp Solutions S.A."
                 required
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
               />
             </div>
           </div>
@@ -190,7 +190,7 @@ export default function NewShipmentPage() {
                 name="pol"
                 placeholder="e.g. Port of Ningbo, China"
                 required
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
               />
             </div>
 
@@ -203,7 +203,7 @@ export default function NewShipmentPage() {
                 name="pod"
                 placeholder="e.g. Port of Buenos Aires, Terminal 4"
                 required
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
               />
             </div>
           </div>
@@ -218,7 +218,7 @@ export default function NewShipmentPage() {
                 name="etd"
                 defaultValue={new Date().toISOString().split("T")[0]}
                 required
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
               />
             </div>
 
@@ -231,7 +231,7 @@ export default function NewShipmentPage() {
                 name="eta"
                 defaultValue={new Date(Date.now() + 25 * 86400000).toISOString().split("T")[0]}
                 required
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
               />
             </div>
           </div>
@@ -254,7 +254,7 @@ export default function NewShipmentPage() {
                 name="buyRate"
                 placeholder="2500.00"
                 required
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white font-mono focus:border-emerald-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white font-mono focus:border-emerald-500 outline-none transition"
               />
             </div>
 
@@ -268,7 +268,7 @@ export default function NewShipmentPage() {
                 name="sellRate"
                 placeholder="3200.00"
                 required
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white font-mono focus:border-emerald-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white font-mono focus:border-emerald-500 outline-none transition"
               />
             </div>
 
@@ -282,7 +282,7 @@ export default function NewShipmentPage() {
                 name="localCharges"
                 placeholder="350.00"
                 defaultValue="0"
-                className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white font-mono focus:border-emerald-500 outline-none transition"
+                className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white font-mono focus:border-emerald-500 outline-none transition"
               />
             </div>
           </div>
@@ -295,7 +295,7 @@ export default function NewShipmentPage() {
               name="notes"
               rows={2}
               placeholder="Special dispatch instructions, customs seal numbers, etc..."
-              className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition resize-none"
+              className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition resize-none"
             />
           </div>
         </div>

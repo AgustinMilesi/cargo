@@ -43,7 +43,7 @@ export default async function ShipmentDetailPage({
         {/* Left 2 Cols: Details & Milestones */}
         <div className="lg:col-span-2 space-y-6">
           {/* Overview Info Card */}
-          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 md:p-8 space-y-5 shadow-sm">
+          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 md:p-8 space-y-5 shadow-sm">
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
                 Transit & Cargo Routing
@@ -54,14 +54,14 @@ export default async function ShipmentDetailPage({
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+              <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06]">
                 <span className="text-[10px] text-slate-400 uppercase font-semibold block">Mode & Equipment</span>
                 <span className="text-slate-900 dark:text-white font-bold text-sm mt-1 block">
                   {shipment.type} · {shipment.modality}
                 </span>
               </div>
 
-              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+              <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06]">
                 <span className="text-[10px] text-slate-400 uppercase font-semibold block">Carrier & Vessel</span>
                 <span className="text-slate-900 dark:text-white font-bold text-sm mt-1 block">
                   {shipment.carrier}
@@ -69,17 +69,17 @@ export default async function ShipmentDetailPage({
                 <span className="text-slate-500">{shipment.vessel || "Direct Service"}</span>
               </div>
 
-              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+              <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06]">
                 <span className="text-[10px] text-slate-400 uppercase font-semibold block">Shipper (Exporter)</span>
                 <span className="text-slate-900 dark:text-white font-semibold mt-1 block">{shipment.shipper}</span>
               </div>
 
-              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+              <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06]">
                 <span className="text-[10px] text-slate-400 uppercase font-semibold block">Consignee (Client)</span>
                 <span className="text-slate-900 dark:text-white font-semibold mt-1 block">{shipment.consignee}</span>
               </div>
 
-              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+              <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06]">
                 <span className="text-[10px] text-slate-400 uppercase font-semibold block">Port of Loading (POL)</span>
                 <span className="text-slate-800 dark:text-slate-200 font-bold text-sm mt-1 block">{shipment.pol}</span>
                 <span className="text-slate-500 font-mono text-[11px]">
@@ -87,7 +87,7 @@ export default async function ShipmentDetailPage({
                 </span>
               </div>
 
-              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+              <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06]">
                 <span className="text-[10px] text-slate-400 uppercase font-semibold block">Port of Discharge (POD)</span>
                 <span className="text-slate-800 dark:text-slate-200 font-bold text-sm mt-1 block">{shipment.pod}</span>
                 <span className="text-slate-500 font-mono text-[11px]">
@@ -99,7 +99,7 @@ export default async function ShipmentDetailPage({
             {shipment.notes && (
               <div className="pt-2">
                 <span className="text-[11px] text-slate-400 uppercase font-semibold block">Notes & Seal Numbers</span>
-                <p className="text-xs text-slate-700 dark:text-slate-300 mt-1 bg-slate-50 dark:bg-[#121318] p-3 rounded-xl border border-slate-200 dark:border-white/5">
+                <p className="text-xs text-slate-700 dark:text-slate-300 mt-1 bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-3 rounded-xl border border-slate-200/60 dark:border-white/[0.06]">
                   {shipment.notes}
                 </p>
               </div>
@@ -107,7 +107,7 @@ export default async function ShipmentDetailPage({
           </div>
 
           {/* Delivering Process Map */}
-          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 md:p-8 space-y-4 shadow-sm">
+          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 md:p-8 space-y-4 shadow-sm">
             <h2 className="text-sm font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
               Live Delivering Route & Location
             </h2>
@@ -119,7 +119,7 @@ export default async function ShipmentDetailPage({
           </div>
 
           {/* Milestones Timeline */}
-          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 md:p-8 space-y-4 shadow-sm">
+          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 md:p-8 space-y-4 shadow-sm">
             <h2 className="text-sm font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
               Delivery Informations & Milestone Events
             </h2>
@@ -128,7 +128,7 @@ export default async function ShipmentDetailPage({
               {shipment.milestones.map((m) => (
                 <div key={m.id} className="relative flex items-start gap-4">
                   <span className="absolute -left-6 top-1.5 w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50" />
-                  <div className="flex-1 bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/5 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  <div className="flex-1 bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200/60 dark:border-white/[0.06] rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                     <div>
                       <div className="flex items-center gap-2">
                         <h4 className="text-xs font-bold text-slate-900 dark:text-white">
@@ -161,7 +161,7 @@ export default async function ShipmentDetailPage({
         {/* Right Col: Finance & Status Update */}
         <div className="space-y-6">
           {/* Financial Settlement Card */}
-          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 space-y-4 shadow-sm">
+          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 space-y-4 shadow-sm">
             <h2 className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
               Freight Settlement & Margins
             </h2>
@@ -195,7 +195,7 @@ export default async function ShipmentDetailPage({
           </div>
 
           {/* Quick Status Update Form */}
-          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 space-y-4 shadow-sm">
+          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 space-y-4 shadow-sm">
             <h2 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
               Update Transit Status
             </h2>
@@ -208,7 +208,7 @@ export default async function ShipmentDetailPage({
                 <select
                   name="status"
                   defaultValue={shipment.status}
-                  className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition cursor-pointer"
+                  className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition cursor-pointer"
                 >
                   <option value="BOOKED">Booked</option>
                   <option value="IN_TRANSIT">In Transit</option>
@@ -227,7 +227,7 @@ export default async function ShipmentDetailPage({
                   name="location"
                   placeholder="e.g. Lower Austria / Burgenland"
                   defaultValue={shipment.currentLocation}
-                  className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                  className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
                 />
               </div>
 

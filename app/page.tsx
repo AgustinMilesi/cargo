@@ -58,7 +58,7 @@ export default async function DashboardPage() {
         {/* ================= LEFT COLUMN ================= */}
         <div className="lg:col-span-5 space-y-6">
           {/* CARD 1: Total Expenses */}
-          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 shadow-sm transition-colors duration-200 space-y-5">
+          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-all duration-200 space-y-5">
             {/* Title & Options Icon */}
             <div className="flex items-center justify-between">
               <h2 className="text-sm md:text-base font-semibold text-slate-900 dark:text-white">
@@ -168,7 +168,7 @@ export default async function DashboardPage() {
           </div>
 
           {/* CARD 2: Monthly Travel Distance */}
-          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 shadow-sm transition-colors duration-200 space-y-5">
+          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-all duration-200 space-y-5">
             {/* Header */}
             <div className="flex items-start justify-between">
               <div>
@@ -203,7 +203,7 @@ export default async function DashboardPage() {
             </div>
 
             {/* Inner Recessed Box: Delivery Route & Distance */}
-            <div className="bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/5 rounded-2xl p-4 flex items-center justify-between">
+            <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200/60 dark:border-white/[0.06] rounded-2xl p-4 flex items-center justify-between">
               <div className="flex items-center gap-3.5">
                 <div className="w-10 h-10 rounded-xl bg-slate-200 dark:bg-white/5 flex items-center justify-center text-slate-600 dark:text-slate-300">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -246,7 +246,7 @@ export default async function DashboardPage() {
         {/* ================= RIGHT COLUMN ================= */}
         <div className="lg:col-span-7 space-y-6">
           {/* CARD 3: Delivering Process Map */}
-          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 shadow-sm transition-colors duration-200 space-y-4">
+          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-all duration-200 space-y-4">
             <div>
               <h2 className="text-sm md:text-base font-semibold text-slate-900 dark:text-white">
                 Delivering Process
@@ -265,7 +265,7 @@ export default async function DashboardPage() {
           </div>
 
           {/* CARD 4: Delivery Informations */}
-          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 shadow-sm transition-colors duration-200 space-y-4">
+          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-all duration-200 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <h2 className="text-sm md:text-base font-semibold text-slate-900 dark:text-white">

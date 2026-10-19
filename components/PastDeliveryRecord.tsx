@@ -44,7 +44,7 @@ export function PastDeliveryRecord({
   });
 
   return (
-    <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 shadow-sm transition-colors duration-200 space-y-5">
+    <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-all duration-200 space-y-5">
       {/* Header and Filter Buttons */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -57,7 +57,7 @@ export function PastDeliveryRecord({
         </div>
 
         {/* Filter Pills matching OneCargo */}
-        <div className="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-[#121318] rounded-xl border border-slate-200 dark:border-white/5 self-start sm:self-auto">
+        <div className="flex items-center gap-1.5 p-1 bg-slate-100/70 dark:bg-[#121318]/65 backdrop-blur-md rounded-xl border border-slate-200/60 dark:border-white/[0.06] self-start sm:self-auto">
           <button
             type="button"
             onClick={() => setFilter("ALL")}

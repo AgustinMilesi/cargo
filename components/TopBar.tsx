@@ -50,7 +50,7 @@ export function TopBar({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search Anything"
-            className="w-full pl-9 pr-14 py-2 text-xs md:text-sm rounded-full bg-slate-100 dark:bg-[#1a1b22] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-indigo-500 dark:focus:border-indigo-500 transition-all shadow-sm"
+            className="w-full pl-9 pr-14 py-2 text-xs md:text-sm rounded-full bg-slate-100/80 dark:bg-[#1a1b22]/70 backdrop-blur-md border border-slate-200/80 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-indigo-500 dark:focus:border-indigo-500 transition-all shadow-sm"
           />
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
             <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-slate-400 dark:text-slate-400 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-md">

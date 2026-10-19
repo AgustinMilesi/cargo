@@ -23,7 +23,7 @@ export default async function FinancesPage() {
 
       {/* Financial KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-5 shadow-sm space-y-2">
+        <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-5 shadow-sm space-y-2">
           <span className="text-[11px] font-semibold text-slate-500 dark:text-[#8c8e9b] uppercase tracking-wider block">
             Carrier Freight Cost (Buy Rate)
           </span>
@@ -33,7 +33,7 @@ export default async function FinancesPage() {
           <span className="text-[11px] text-slate-400 block">Payable to ocean & air lines</span>
         </div>
 
-        <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-5 shadow-sm space-y-2">
+        <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-5 shadow-sm space-y-2">
           <span className="text-[11px] font-semibold text-slate-500 dark:text-[#8c8e9b] uppercase tracking-wider block">
             Client Billed Rate (Sell Rate)
           </span>
@@ -43,7 +43,7 @@ export default async function FinancesPage() {
           <span className="text-[11px] text-slate-400 block">Invoiced to shippers & consignees</span>
         </div>
 
-        <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-5 shadow-sm space-y-2">
+        <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-5 shadow-sm space-y-2">
           <span className="text-[11px] font-semibold text-slate-500 dark:text-[#8c8e9b] uppercase tracking-wider block">
             Local Charges & Terminal THC
           </span>
@@ -53,7 +53,7 @@ export default async function FinancesPage() {
           <span className="text-[11px] text-slate-400 block">Handling, documentation & port fees</span>
         </div>
 
-        <div className="bg-white dark:bg-[#181920] border border-emerald-500/30 rounded-3xl p-5 shadow-sm space-y-2 bg-emerald-50/50 dark:bg-emerald-500/5">
+        <div className="bg-emerald-50/70 dark:bg-[#181920]/75 backdrop-blur-xl border border-emerald-500/30 rounded-3xl p-5 shadow-sm space-y-2 dark:bg-emerald-500/5">
           <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block">
             Net Commercial Profit
           </span>
@@ -65,7 +65,7 @@ export default async function FinancesPage() {
       </div>
 
       {/* Ledger Table */}
-      <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 shadow-sm">
+      <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 shadow-sm">
         <div className="pb-4">
           <h2 className="text-base font-bold text-slate-900 dark:text-white">
             Operations Billing Ledger
