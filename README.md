@@ -13,8 +13,9 @@ Built with a high-performance **Frosted Glassmorphism Design System** (Dark & Li
 ![Prisma](https://img.shields.io/badge/Prisma-ORM%206-2D3748?style=for-the-badge&logo=prisma)
 [![GitHub stars](https://img.shields.io/github/stars/AgustinMilesi/cargo?style=for-the-badge&logo=github&color=gold)](https://github.com/AgustinMilesi/cargo/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/AgustinMilesi/cargo?style=for-the-badge&logo=github&color=blue)](https://github.com/AgustinMilesi/cargo/network/members)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-cargo--am.vercel.app-00E599?style=for-the-badge&logo=vercel&logoColor=black)](https://cargo-am.vercel.app)
 
-🌐 **Live Production Deployment:** [cargo-am.vercel.app](https://cargo-am.vercel.app)
+🌐 **Live Demo:** [https://cargo-am.vercel.app](https://cargo-am.vercel.app)
 
 ---
 
@@ -27,7 +28,7 @@ This logistics platform represents the freight forwarding and supply chain manag
 | **Retail Engine & POS** | [AgustinMilesi/retail](https://github.com/AgustinMilesi/retail) | [milesi-erp.vercel.app](https://milesi-erp.vercel.app) | Cloud retail ERP, atomic inventory ledger, cashier shifts, and thermal ticket printing. |
 | **Customer Inbox Platform** | [AgustinMilesi/inbox](https://github.com/AgustinMilesi/inbox) | [saas-am.vercel.app](https://saas-am.vercel.app) | Multi-tenant customer inquiry inbox, embeddable contact forms, contact directory, and CRM leads bridge. |
 | **Contact Portal** | [AgustinMilesi/contact](https://github.com/AgustinMilesi/contact) | [agustinmilesi-contact.vercel.app](https://agustinmilesi-contact.vercel.app) | High-intent lead generation portal, anti-spam validation gateway, and email delivery dispatch. |
-| **Logistics & Freight OS** | [AgustinMilesi/cargo](https://github.com/AgustinMilesi/cargo) | [cargo-am.vercel.app](https://cargo-am.vercel.app) | International freight forwarding, container GPS milestones, customs dispatch, and rate settlements. *(This Repository)* |
+| **OneCargo (Freight Logistics OS)** | [AgustinMilesi/cargo](https://github.com/AgustinMilesi/cargo) | [cargo-am.vercel.app](https://cargo-am.vercel.app) | International freight forwarding, container GPS milestones, customs dispatch, and rate settlements. *(This Repository)* |
 
 ---
 
