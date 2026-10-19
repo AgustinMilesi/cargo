@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { updateShipmentStatus } from "@/app/actions";
+import { TopBar } from "@/components/TopBar";
+import { DeliveringMap } from "@/components/DeliveringMap";
 
 export default async function ShipmentDetailPage({
   params,
@@ -23,124 +25,131 @@ export default async function ShipmentDetailPage({
     await updateShipmentStatus(id, nextStatus, location);
   }
 
-  let statusBg = "bg-blue-500/10 text-blue-400 border-blue-500/20";
-  if (shipment.status === "BOOKED") statusBg = "bg-slate-500/10 text-slate-300 border-slate-500/20";
-  if (shipment.status === "CUSTOMS") statusBg = "bg-amber-500/10 text-amber-400 border-amber-500/20";
-  if (shipment.status === "DELIVERED") statusBg = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+  let statusBg = "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20";
+  if (shipment.status === "BOOKED") statusBg = "bg-slate-100 text-slate-700 dark:bg-white/5 dark:text-slate-300 border border-slate-200 dark:border-white/10";
+  if (shipment.status === "CUSTOMS") statusBg = "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20";
+  if (shipment.status === "DELIVERED") statusBg = "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20";
 
   return (
-    <div className="p-6 md:p-10 space-y-8 max-w-6xl mx-auto w-full">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-800">
-        <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight font-mono">
-              {shipment.reference}
-            </h1>
-            <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border ${statusBg}`}>
-              {shipment.status}
-            </span>
-          </div>
-          <p className="text-sm text-slate-400 mt-1">
-            B/L: <strong className="text-slate-200 font-mono">{shipment.blNumber}</strong> · Contenedor: <strong className="text-cyan-400 font-mono">{shipment.containerNumber || "N/A"}</strong>
-          </p>
-        </div>
+    <div className="p-4 sm:p-6 md:p-8 space-y-6 max-w-7xl mx-auto w-full">
+      {/* Top Header */}
+      <TopBar
+        title={`Load Manifest ${shipment.reference}`}
+        subtitle={`Bill of Lading ${shipment.blNumber} · Container ${shipment.containerNumber || "N/A"}`}
+      />
 
-        <div className="flex items-center gap-3">
-          <Link
-            href={`/tracking?q=${shipment.containerNumber || shipment.blNumber}`}
-            className="px-4 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 text-xs font-bold transition border border-cyan-500/20"
-          >
-            Ver en Live Tracking →
-          </Link>
-          <Link
-            href="/shipments"
-            className="text-xs font-semibold text-slate-400 hover:text-white transition"
-          >
-            ← Volver a lista
-          </Link>
-        </div>
-      </div>
-
-      {/* Main Grid: Details & Quick Status Update */}
+      {/* Main Grid: Details & Status Controls */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left 2 Cols: Details & Milestones */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Overview Info */}
-          <div className="bg-[#0f172a] border border-slate-800 rounded-2xl p-6 space-y-4">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-              Datos de Transporte & Ruta
-            </h2>
+          {/* Overview Info Card */}
+          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 md:p-8 space-y-5 shadow-sm">
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                Transit & Cargo Routing
+              </h2>
+              <span className={`px-3 py-0.5 rounded-full text-xs font-semibold ${statusBg}`}>
+                {shipment.status}
+              </span>
+            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-              <div>
-                <span className="text-xs text-slate-500 block">Tipo & Modalidad</span>
-                <span className="text-white font-semibold">{shipment.type} · {shipment.modality}</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+                <span className="text-[10px] text-slate-400 uppercase font-semibold block">Mode & Equipment</span>
+                <span className="text-slate-900 dark:text-white font-bold text-sm mt-1 block">
+                  {shipment.type} · {shipment.modality}
+                </span>
               </div>
-              <div>
-                <span className="text-xs text-slate-500 block">Transportista / Buque</span>
-                <span className="text-white font-semibold">{shipment.carrier}</span>
-                <span className="text-xs text-slate-400 block">{shipment.vessel || "Servicio directo"}</span>
+
+              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+                <span className="text-[10px] text-slate-400 uppercase font-semibold block">Carrier & Vessel</span>
+                <span className="text-slate-900 dark:text-white font-bold text-sm mt-1 block">
+                  {shipment.carrier}
+                </span>
+                <span className="text-slate-500">{shipment.vessel || "Direct Service"}</span>
               </div>
-              <div>
-                <span className="text-xs text-slate-500 block">Shipper (Exportador)</span>
-                <span className="text-slate-200 font-medium">{shipment.shipper}</span>
+
+              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+                <span className="text-[10px] text-slate-400 uppercase font-semibold block">Shipper (Exporter)</span>
+                <span className="text-slate-900 dark:text-white font-semibold mt-1 block">{shipment.shipper}</span>
               </div>
-              <div>
-                <span className="text-xs text-slate-500 block">Consignee (Cliente)</span>
-                <span className="text-slate-200 font-medium">{shipment.consignee}</span>
+
+              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+                <span className="text-[10px] text-slate-400 uppercase font-semibold block">Consignee (Client)</span>
+                <span className="text-slate-900 dark:text-white font-semibold mt-1 block">{shipment.consignee}</span>
               </div>
-              <div>
-                <span className="text-xs text-slate-500 block">Puerto de Origen (POL)</span>
-                <span className="text-slate-200 font-medium">{shipment.pol}</span>
-                <span className="text-xs text-slate-500 block font-mono">ETD: {new Date(shipment.etd).toLocaleDateString("es-AR")}</span>
+
+              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+                <span className="text-[10px] text-slate-400 uppercase font-semibold block">Port of Loading (POL)</span>
+                <span className="text-slate-800 dark:text-slate-200 font-bold text-sm mt-1 block">{shipment.pol}</span>
+                <span className="text-slate-500 font-mono text-[11px]">
+                  ETD: {new Date(shipment.etd).toLocaleDateString("en-US")}
+                </span>
               </div>
-              <div>
-                <span className="text-xs text-slate-500 block">Puerto de Destino (POD)</span>
-                <span className="text-slate-200 font-medium">{shipment.pod}</span>
-                <span className="text-xs text-slate-500 block font-mono">ETA: {new Date(shipment.eta).toLocaleDateString("es-AR")}</span>
+
+              <div className="bg-slate-50 dark:bg-[#121318] p-4 rounded-2xl border border-slate-200 dark:border-white/5">
+                <span className="text-[10px] text-slate-400 uppercase font-semibold block">Port of Discharge (POD)</span>
+                <span className="text-slate-800 dark:text-slate-200 font-bold text-sm mt-1 block">{shipment.pod}</span>
+                <span className="text-slate-500 font-mono text-[11px]">
+                  ETA: {new Date(shipment.eta).toLocaleDateString("en-US")}
+                </span>
               </div>
             </div>
 
             {shipment.notes && (
-              <div className="pt-3 border-t border-slate-800">
-                <span className="text-xs text-slate-500 block">Notas & Precintos</span>
-                <p className="text-xs text-slate-300 mt-1">{shipment.notes}</p>
+              <div className="pt-2">
+                <span className="text-[11px] text-slate-400 uppercase font-semibold block">Notes & Seal Numbers</span>
+                <p className="text-xs text-slate-700 dark:text-slate-300 mt-1 bg-slate-50 dark:bg-[#121318] p-3 rounded-xl border border-slate-200 dark:border-white/5">
+                  {shipment.notes}
+                </p>
               </div>
             )}
           </div>
 
+          {/* Delivering Process Map */}
+          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 md:p-8 space-y-4 shadow-sm">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+              Live Delivering Route & Location
+            </h2>
+            <DeliveringMap
+              origin={shipment.pol}
+              destination={shipment.pod}
+              currentPosition={shipment.currentLocation}
+            />
+          </div>
+
           {/* Milestones Timeline */}
-          <div className="bg-[#0f172a] border border-slate-800 rounded-2xl p-6 space-y-4">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-              Eventos Operativos del Embarque
+          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 md:p-8 space-y-4 shadow-sm">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+              Delivery Informations & Milestone Events
             </h2>
 
-            <div className="space-y-4 relative pl-4 before:absolute before:left-[23px] before:top-3 before:bottom-3 before:w-0.5 before:bg-slate-800">
+            <div className="relative pl-6 space-y-5 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:border-l before:border-dashed before:border-slate-300 dark:before:border-white/10">
               {shipment.milestones.map((m) => (
                 <div key={m.id} className="relative flex items-start gap-4">
-                  <div
-                    className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 z-10 ${
-                      m.completed
-                        ? "bg-cyan-500 border-cyan-400 text-slate-950"
-                        : "bg-slate-900 border-slate-700 text-slate-600"
-                    }`}
-                  >
-                    {m.completed ? (
-                      <svg className="w-3 h-3 stroke-[3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                    ) : (
-                      <span className="w-1.5 h-1.5 rounded-full bg-slate-600" />
-                    )}
-                  </div>
-                  <div className="flex-1 bg-slate-900/40 border border-slate-800 p-3 rounded-xl flex items-center justify-between">
+                  <span className="absolute -left-6 top-1.5 w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50" />
+                  <div className="flex-1 bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/5 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                     <div>
-                      <h4 className="text-sm font-bold text-white">{m.title}</h4>
-                      <p className="text-xs text-slate-400 mt-0.5">{m.location}</p>
+                      <div className="flex items-center gap-2">
+                        <h4 className="text-xs font-bold text-slate-900 dark:text-white">
+                          {m.title}
+                        </h4>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-500/10 text-blue-500 dark:text-blue-400 border border-blue-500/20">
+                          Good Condition
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
+                        {m.location}
+                      </p>
                     </div>
-                    <span className="text-xs font-mono text-slate-400">
-                      {new Date(m.date).toLocaleDateString("es-AR")}
+                    <span className="text-xs text-slate-400 shrink-0 font-sans">
+                      {new Date(m.date).toLocaleDateString("en-US", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
                     </span>
                   </div>
                 </div>
@@ -149,80 +158,84 @@ export default async function ShipmentDetailPage({
           </div>
         </div>
 
-        {/* Right Col: Finance & Status Advance */}
+        {/* Right Col: Finance & Status Update */}
         <div className="space-y-6">
           {/* Financial Settlement Card */}
-          <div className="bg-[#0f172a] border border-slate-800 rounded-2xl p-6 space-y-4">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-              Liquidación de Flete & Margen
+          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 space-y-4 shadow-sm">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+              Freight Settlement & Margins
             </h2>
 
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center justify-between text-slate-400">
-                <span>Costo Flete (Buy Rate):</span>
-                <span className="font-mono text-slate-200">${shipment.buyRate.toFixed(2)} USD</span>
+            <div className="space-y-3 text-xs">
+              <div className="flex items-center justify-between text-slate-500">
+                <span>Buy Rate (Cost to Carrier):</span>
+                <span className="font-mono text-slate-900 dark:text-slate-200 font-semibold">${shipment.buyRate.toFixed(2)} USD</span>
               </div>
-              <div className="flex items-center justify-between text-slate-400">
-                <span>Venta Flete (Sell Rate):</span>
-                <span className="font-mono text-slate-200">${shipment.sellRate.toFixed(2)} USD</span>
+              <div className="flex items-center justify-between text-slate-500">
+                <span>Sell Rate (Client Invoiced):</span>
+                <span className="font-mono text-slate-900 dark:text-slate-200 font-semibold">${shipment.sellRate.toFixed(2)} USD</span>
               </div>
-              <div className="flex items-center justify-between text-slate-400">
-                <span>Gastos Locales / THC:</span>
-                <span className="font-mono text-slate-200">+${shipment.localCharges.toFixed(2)} USD</span>
+              <div className="flex items-center justify-between text-slate-500">
+                <span>Local Charges / THC:</span>
+                <span className="font-mono text-slate-900 dark:text-slate-200 font-semibold">+${shipment.localCharges.toFixed(2)} USD</span>
               </div>
 
-              <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-                <span className="font-bold text-white">Profit Neto:</span>
-                <span className="font-mono font-bold text-lg text-emerald-400">
+              <div className="pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+                <span className="font-bold text-slate-900 dark:text-white">Net Profit:</span>
+                <span className="font-mono font-bold text-base text-emerald-600 dark:text-emerald-400">
                   +${shipment.profit.toFixed(2)} USD
                 </span>
               </div>
 
-              <div className="pt-2 text-xs text-slate-400 flex items-center justify-between">
-                <span>Estado de Cobro:</span>
-                <span className="font-semibold text-cyan-400 uppercase">{shipment.invoiceStatus}</span>
+              <div className="pt-2 text-[11px] text-slate-400 flex items-center justify-between">
+                <span>Invoice Collection:</span>
+                <span className="font-semibold text-indigo-600 dark:text-indigo-400 uppercase">{shipment.invoiceStatus}</span>
               </div>
             </div>
           </div>
 
-          {/* Quick Advance Status Form */}
-          <div className="bg-[#0f172a] border border-slate-800 rounded-2xl p-6 space-y-4">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-cyan-400">
-              Actualizar Estado de la Carga
+          {/* Quick Status Update Form */}
+          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 space-y-4 shadow-sm">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+              Update Transit Status
             </h2>
 
             <form action={handleAdvanceStatus} className="space-y-3">
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Nuevo Estado</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  Next Status
+                </label>
                 <select
                   name="status"
                   defaultValue={shipment.status}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:border-cyan-400 outline-none"
+                  className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition cursor-pointer"
                 >
-                  <option value="BOOKED">Reservado (Booking)</option>
-                  <option value="IN_TRANSIT">En Tránsito Internacional</option>
-                  <option value="AT_PORT">Arribado a Puerto Destino</option>
-                  <option value="CUSTOMS">En Inspección Aduanera</option>
-                  <option value="DELIVERED">Entregado a Cliente</option>
+                  <option value="BOOKED">Booked</option>
+                  <option value="IN_TRANSIT">In Transit</option>
+                  <option value="AT_PORT">At Port / Terminal</option>
+                  <option value="CUSTOMS">Customs Inspection</option>
+                  <option value="DELIVERED">Delivered to Client</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Ubicación / Novedad</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  Current Location / Port
+                </label>
                 <input
                   type="text"
                   name="location"
-                  placeholder="Ej: En navegación / Terminal TRP..."
+                  placeholder="e.g. Lower Austria / Burgenland"
                   defaultValue={shipment.currentLocation}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:border-cyan-400 outline-none"
+                  className="w-full bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs rounded-xl transition shadow-md shadow-cyan-500/20"
+                className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs rounded-2xl transition shadow-md shadow-indigo-600/20 cursor-pointer"
               >
-                Actualizar Estado & Evento
+                Update Status & Record Event
               </button>
             </form>
           </div>

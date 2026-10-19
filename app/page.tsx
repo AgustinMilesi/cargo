@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
-import { createShipment } from "@/app/actions";
+import { TopBar } from "@/components/TopBar";
+import { DeliveringMap } from "@/components/DeliveringMap";
+import { PastDeliveryRecord } from "@/components/PastDeliveryRecord";
 
 export default async function DashboardPage() {
   const [shipments, totalClients] = await Promise.all([
@@ -11,270 +13,343 @@ export default async function DashboardPage() {
     db.client.count(),
   ]);
 
+  // Aggregate active and financial stats
   const activeShipments = shipments.filter((s) => s.status !== "DELIVERED");
-  const inTransitCount = shipments.filter((s) => s.status === "IN_TRANSIT").length;
-  const customsCount = shipments.filter((s) => s.status === "CUSTOMS").length;
-  const totalProfit = shipments.reduce((acc, s) => acc + s.profit, 0);
-  const totalRevenue = shipments.reduce((acc, s) => acc + s.sellRate + s.localCharges, 0);
-  const avgMargin = totalRevenue > 0 ? ((totalProfit / totalRevenue) * 100).toFixed(1) : "0";
+  const topActive = activeShipments[0] || shipments[0];
+
+  // Expenses calculations (matching OneCargo metric or dynamic fallback)
+  const totalBuyExpenses = shipments.reduce((acc, s) => acc + s.buyRate, 0);
+  const totalDisplayExpenses = totalBuyExpenses > 0 ? totalBuyExpenses : 32855.0;
+
+  // Milestone list from top active shipment or default OneCargo demo milestones
+  const activeMilestones = topActive?.milestones?.length
+    ? topActive.milestones
+    : [
+        {
+          id: "m-1",
+          location: "Erdberg, Austria",
+          title: "Cargo Dispatched",
+          completed: true,
+          date: new Date("2025-01-09T08:30:00Z"),
+        },
+        {
+          id: "m-2",
+          location: "Schwechat, Austria",
+          title: "Customs Inspected",
+          completed: true,
+          date: new Date("2025-01-09T14:15:00Z"),
+        },
+      ];
+
+  const routeLabel = topActive
+    ? `${topActive.pol} - ${topActive.pod}`
+    : "Bratislava - Stuttgart";
 
   return (
-    <div className="p-6 md:p-10 space-y-8 max-w-7xl mx-auto w-full">
+    <div className="p-4 sm:p-6 md:p-8 space-y-6 max-w-7xl mx-auto w-full">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-800">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-            <span>Panel de Control</span>
-            <span className="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-2 py-0.5 rounded-full font-mono font-normal">
-              KipinCARGO Engine
-            </span>
-          </h1>
-          <p className="text-sm text-slate-400 mt-1">
-            Gestión de operaciones de carga internacional, tracking de contenedores y liquidaciones.
-          </p>
-        </div>
+      <TopBar
+        title="Dashboard"
+        subtitle="Track your daily logistics loads and deliveries"
+      />
 
-        <div className="flex items-center gap-3">
-          <Link
-            href="/tracking"
-            className="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-white text-sm font-semibold transition border border-slate-700 flex items-center gap-2"
-          >
-            <svg className="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            <span>Buscar Contenedor</span>
-          </Link>
+      {/* Main Grid: Left Column (~42%) + Right Column (~58%) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* ================= LEFT COLUMN ================= */}
+        <div className="lg:col-span-5 space-y-6">
+          {/* CARD 1: Total Expenses */}
+          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 shadow-sm transition-colors duration-200 space-y-5">
+            {/* Title & Options Icon */}
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm md:text-base font-semibold text-slate-900 dark:text-white">
+                Total Expenses
+              </h2>
+              <button
+                type="button"
+                className="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition"
+                title="Options"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="1.5" />
+                  <circle cx="6" cy="12" r="1.5" />
+                  <circle cx="18" cy="12" r="1.5" />
+                </svg>
+              </button>
+            </div>
 
-          <Link
-            href="/shipments/new"
-            className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-sm font-bold transition shadow-lg shadow-cyan-500/20 flex items-center gap-2"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
-            </svg>
-            <span>Nuevo Embarque</span>
-          </Link>
-        </div>
-      </div>
+            {/* Big Stat Value */}
+            <div>
+              <div className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans">
+                ${totalDisplayExpenses.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </div>
+            </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
-        {/* KPI 1 */}
-        <div className="bg-[#0f172a]/80 border border-slate-800/80 rounded-2xl p-5 relative overflow-hidden group hover:border-slate-700 transition">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-              Operaciones Activas
-            </span>
-            <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-              </svg>
+            {/* Allocation Label */}
+            <div className="space-y-2.5">
+              <span className="text-xs font-medium text-slate-500 dark:text-[#8c8e9b]">
+                Expenses Allocation
+              </span>
+
+              {/* 4-Segment Colored Progress Bar */}
+              <div className="flex items-center gap-1.5 h-3 w-full">
+                {/* Fuel (Purple) */}
+                <div
+                  className="h-full rounded-full bg-[#6366f1] transition-all duration-300"
+                  style={{ width: "37%" }}
+                  title="Fuel: 37%"
+                />
+                {/* Highway (Blue) */}
+                <div
+                  className="h-full rounded-full bg-[#3b82f6] transition-all duration-300"
+                  style={{ width: "30%" }}
+                  title="Highway: 30%"
+                />
+                {/* Logistics (Green) */}
+                <div
+                  className="h-full rounded-full bg-[#10b981] transition-all duration-300"
+                  style={{ width: "16%" }}
+                  title="Logistics: 16%"
+                />
+                {/* Resting (Yellow/Amber) */}
+                <div
+                  className="h-full rounded-full bg-[#f59e0b] transition-all duration-300"
+                  style={{ width: "17%" }}
+                  title="Resting: 17%"
+                />
+              </div>
+
+              {/* 4 Columns Legend with Dots */}
+              <div className="grid grid-cols-4 gap-2 pt-2">
+                {/* Fuel */}
+                <div>
+                  <div className="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-[#8c8e9b]">
+                    <span className="w-2 h-2 rounded-full bg-[#6366f1] shrink-0" />
+                    <span>Fuel</span>
+                  </div>
+                  <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-1 font-sans">
+                    $12,121
+                  </div>
+                </div>
+
+                {/* Highway */}
+                <div>
+                  <div className="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-[#8c8e9b]">
+                    <span className="w-2 h-2 rounded-full bg-[#3b82f6] shrink-0" />
+                    <span>Highway</span>
+                  </div>
+                  <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-1 font-sans">
+                    $9,931
+                  </div>
+                </div>
+
+                {/* Logistics */}
+                <div>
+                  <div className="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-[#8c8e9b]">
+                    <span className="w-2 h-2 rounded-full bg-[#10b981] shrink-0" />
+                    <span>Logistics</span>
+                  </div>
+                  <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-1 font-sans">
+                    $5,388
+                  </div>
+                </div>
+
+                {/* Resting */}
+                <div>
+                  <div className="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-[#8c8e9b]">
+                    <span className="w-2 h-2 rounded-full bg-[#f59e0b] shrink-0" />
+                    <span>Resting</span>
+                  </div>
+                  <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-1 font-sans">
+                    $5,415
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-white">{activeShipments.length}</span>
-            <span className="text-xs text-slate-400">embarques en curso</span>
-          </div>
-          <p className="text-xs text-slate-500 mt-2">
-            {shipments.filter(s => s.type === "MARITIME").length} marítimos · {shipments.filter(s => s.type === "AIR").length} aéreos
-          </p>
-        </div>
 
-        {/* KPI 2 */}
-        <div className="bg-[#0f172a]/80 border border-slate-800/80 rounded-2xl p-5 relative overflow-hidden group hover:border-slate-700 transition">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-              En Tránsito
-            </span>
-            <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
+          {/* CARD 2: Monthly Travel Distance */}
+          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 shadow-sm transition-colors duration-200 space-y-5">
+            {/* Header */}
+            <div className="flex items-start justify-between">
+              <div>
+                <h2 className="text-sm md:text-base font-semibold text-slate-900 dark:text-white">
+                  Monthly Travel Distance
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-[#8c8e9b] mt-0.5">
+                  Track your distance and expected salary
+                </p>
+              </div>
+              <button
+                type="button"
+                className="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition"
+                title="Options"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="1.5" />
+                  <circle cx="6" cy="12" r="1.5" />
+                  <circle cx="18" cy="12" r="1.5" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Big Stat */}
+            <div>
+              <div className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans">
+                6,792.88 Km
+              </div>
+              <div className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+                10th, January 2025
+              </div>
+            </div>
+
+            {/* Inner Recessed Box: Delivery Route & Distance */}
+            <div className="bg-slate-50 dark:bg-[#121318] border border-slate-200 dark:border-white/5 rounded-2xl p-4 flex items-center justify-between">
+              <div className="flex items-center gap-3.5">
+                <div className="w-10 h-10 rounded-xl bg-slate-200 dark:bg-white/5 flex items-center justify-center text-slate-600 dark:text-slate-300">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <span className="text-[11px] text-slate-400 block font-normal">
+                    Delivery Route
+                  </span>
+                  <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+                    {routeLabel}
+                  </span>
+                </div>
+              </div>
+
+              <div className="text-right">
+                <span className="text-[11px] text-slate-400 block font-normal">
+                  Distance
+                </span>
+                <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+                  705Km
+                </span>
+              </div>
             </div>
           </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-cyan-400">{inTransitCount}</span>
-            <span className="text-xs text-slate-400">en navegación / vuelo</span>
-          </div>
-          <p className="text-xs text-slate-500 mt-2">
-            Actualización de posición GPS en tiempo real
-          </p>
         </div>
 
-        {/* KPI 3 */}
-        <div className="bg-[#0f172a]/80 border border-slate-800/80 rounded-2xl p-5 relative overflow-hidden group hover:border-slate-700 transition">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-              Aduana & Terminal
-            </span>
-            <div className="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
+        {/* ================= RIGHT COLUMN ================= */}
+        <div className="lg:col-span-7 space-y-6">
+          {/* CARD 3: Delivering Process Map */}
+          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 shadow-sm transition-colors duration-200 space-y-4">
+            <div>
+              <h2 className="text-sm md:text-base font-semibold text-slate-900 dark:text-white">
+                Delivering Process
+              </h2>
+              <p className="text-xs text-slate-500 dark:text-[#8c8e9b] mt-0.5">
+                Real-time tracking of your goods shipment
+              </p>
             </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-amber-400">{customsCount}</span>
-            <span className="text-xs text-slate-400">en verificación</span>
-          </div>
-          <p className="text-xs text-slate-500 mt-2">
-            Canal aduanero y liberación de terminal
-          </p>
-        </div>
 
-        {/* KPI 4 */}
-        <div className="bg-[#0f172a]/80 border border-slate-800/80 rounded-2xl p-5 relative overflow-hidden group hover:border-slate-700 transition">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-              Profit / Margen Total
-            </span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+            {/* Live Map */}
+            <DeliveringMap
+              origin={topActive?.pol || "Bratislava"}
+              destination={topActive?.pod || "Stuttgart"}
+              currentPosition={topActive?.currentLocation || "Lower Austria / Burgenland"}
+            />
+          </div>
+
+          {/* CARD 4: Delivery Informations */}
+          <div className="bg-white dark:bg-[#181920] border border-slate-200 dark:border-white/5 rounded-3xl p-6 shadow-sm transition-colors duration-200 space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <h2 className="text-sm md:text-base font-semibold text-slate-900 dark:text-white">
+                  Delivery Informations
+                </h2>
+                <button
+                  type="button"
+                  title="Shipment tracking milestones"
+                  className="text-slate-400 hover:text-slate-600 dark:hover:text-white transition"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <Link
+                href="/shipments/new"
+                className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-sm transition flex items-center gap-1.5"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+                <span>Add Info</span>
+              </Link>
             </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-emerald-400">
-              ${totalProfit.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-            </span>
-            <span className="text-xs text-slate-400">USD</span>
-          </div>
-          <p className="text-xs text-slate-500 mt-2">
-            Margen promedio sobre flete: <strong className="text-slate-300 font-semibold">{avgMargin}%</strong>
-          </p>
-        </div>
-      </div>
 
-      {/* Quick Search & Tracking Bar */}
-      <div className="bg-gradient-to-r from-slate-900 to-[#111a33] border border-cyan-500/30 rounded-2xl p-6 shadow-xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 blur-3xl pointer-events-none rounded-full" />
-        <div className="relative max-w-3xl space-y-3">
-          <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-            <span>KipinTRACK · Consulta Rápida de Embarques</span>
-          </div>
-          <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight">
-            Rastreá un contenedor o Bill of Lading en vivo
-          </h2>
-          <form action="/tracking" method="GET" className="flex flex-col sm:flex-row gap-3 pt-2">
-            <div className="relative flex-1">
-              <input
-                type="text"
-                name="q"
-                placeholder="Ingresá N° de Contenedor (ej: MSCU7654321) o B/L..."
-                className="w-full bg-slate-950/80 border border-slate-700/80 focus:border-cyan-400 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition"
-              />
-            </div>
-            <button
-              type="submit"
-              className="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm rounded-xl transition shadow-lg shadow-cyan-500/20 shrink-0"
-            >
-              Consultar Tracking
-            </button>
-          </form>
-        </div>
-      </div>
+            {/* Milestones Timeline */}
+            <div className="space-y-4 pt-1">
+              {/* Header row */}
+              <div className="grid grid-cols-12 text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 pb-1 border-b border-slate-100 dark:border-white/5">
+                <div className="col-span-5 pl-7">Locations</div>
+                <div className="col-span-4">Conditions</div>
+                <div className="col-span-3 text-right">Arrival Date</div>
+              </div>
 
-      {/* Recent Shipments Table */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-white">Últimas Operaciones de Carga</h2>
-          <Link href="/shipments" className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition">
-            Ver todos los embarques ({shipments.length}) →
-          </Link>
-        </div>
+              {/* Milestones list */}
+              <div className="relative space-y-5">
+                {activeMilestones.map((m, idx) => (
+                  <div key={m.id} className="relative grid grid-cols-12 items-center text-xs">
+                    {/* Glowing green dot and vertical dashed line */}
+                    <div className="absolute left-1 top-2.5 -bottom-6 w-0.5 border-l border-dashed border-slate-300 dark:border-white/10" />
 
-        <div className="border border-slate-800/80 rounded-2xl bg-[#0f172a]/60 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-slate-900/60 border-b border-slate-800 text-slate-400 text-xs font-semibold uppercase tracking-wider">
-                <tr>
-                  <th className="py-3.5 px-4">Referencia</th>
-                  <th className="py-3.5 px-4">Tipo / Contenedor</th>
-                  <th className="py-3.5 px-4">Transportista / Buque</th>
-                  <th className="py-3.5 px-4">Ruta (Origen → Destino)</th>
-                  <th className="py-3.5 px-4">Estado</th>
-                  <th className="py-3.5 px-4 text-right">Profit (USD)</th>
-                  <th className="py-3.5 px-4 text-center">Acción</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800/60">
-                {shipments.map((s) => {
-                  let statusBg = "bg-blue-500/10 text-blue-400 border-blue-500/20";
-                  let statusLabel = "En Tránsito";
-                  if (s.status === "BOOKED") {
-                    statusBg = "bg-slate-500/10 text-slate-300 border-slate-500/20";
-                    statusLabel = "Reservado";
-                  } else if (s.status === "CUSTOMS") {
-                    statusBg = "bg-amber-500/10 text-amber-400 border-amber-500/20";
-                    statusLabel = "Aduana";
-                  } else if (s.status === "DELIVERED") {
-                    statusBg = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-                    statusLabel = "Entregado";
-                  }
-
-                  return (
-                    <tr key={s.id} className="hover:bg-slate-800/30 transition">
-                      <td className="py-3.5 px-4">
-                        <Link href={`/shipments/${s.id}`} className="font-bold text-white hover:text-cyan-400 transition font-mono">
-                          {s.reference}
-                        </Link>
-                        <span className="block text-xs text-slate-500 font-mono">B/L: {s.blNumber}</span>
-                      </td>
-
-                      <td className="py-3.5 px-4">
-                        <span className="text-slate-200 font-medium block">
-                          {s.type === "MARITIME" ? "🚢 Marítimo" : "✈️ Aéreo"} · {s.modality}
+                    <div className="col-span-5 flex items-center gap-3">
+                      <span className="relative z-10 w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50" />
+                      <div>
+                        <span className="font-semibold text-slate-900 dark:text-white block">
+                          {m.location}
                         </span>
-                        <span className="text-xs text-cyan-400 font-mono">
-                          {s.containerNumber || "Sin contenedor asignado"}
+                        <span className="text-[11px] text-slate-400">
+                          {m.title}
                         </span>
-                      </td>
+                      </div>
+                    </div>
 
-                      <td className="py-3.5 px-4">
-                        <span className="text-slate-200 block font-medium">{s.carrier}</span>
-                        <span className="text-xs text-slate-400">{s.vessel || "Direct Flight"}</span>
-                      </td>
+                    <div className="col-span-4">
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-500/10 text-blue-500 dark:text-blue-400 border border-blue-500/20">
+                        Good Condition
+                      </span>
+                    </div>
 
-                      <td className="py-3.5 px-4">
-                        <div className="text-xs space-y-0.5">
-                          <p className="text-slate-300">
-                            <span className="text-slate-500">POL:</span> {s.pol}
-                          </p>
-                          <p className="text-slate-300">
-                            <span className="text-slate-500">POD:</span> {s.pod}
-                          </p>
-                        </div>
-                      </td>
-
-                      <td className="py-3.5 px-4">
-                        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${statusBg}`}>
-                          {statusLabel}
-                        </span>
-                      </td>
-
-                      <td className="py-3.5 px-4 text-right font-mono font-bold text-emerald-400">
-                        +${s.profit.toFixed(2)}
-                      </td>
-
-                      <td className="py-3.5 px-4 text-center">
-                        <Link
-                          href={`/tracking?q=${s.containerNumber || s.blNumber}`}
-                          className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 font-semibold transition border border-slate-700 inline-flex items-center gap-1.5"
-                        >
-                          <span>Track</span>
-                          <span className="text-cyan-400">→</span>
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                    <div className="col-span-3 text-right text-slate-500 dark:text-slate-400 text-xs">
+                      {new Date(m.date).toLocaleDateString("en-US", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* ================= BOTTOM FULL-WIDTH ================= */}
+      {/* CARD 5: Past Delivery Record */}
+      <PastDeliveryRecord shipments={shipments} />
     </div>
   );
 }
