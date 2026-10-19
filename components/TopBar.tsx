@@ -30,9 +30,15 @@ export function TopBar({
     <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6">
       {/* Title & Subtitle */}
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
-          {title}
-        </h1>
+        <div className="flex flex-wrap items-center gap-2.5">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+            {title}
+          </h1>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20">
+            <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Acceso Invitado / Demo
+          </span>
+        </div>
         <p className="text-xs md:text-sm text-slate-500 dark:text-[#8c8e9b] mt-1 font-normal">
           {subtitle}
         </p>
