@@ -82,4 +82,5 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ### 🔗 Other Projects
 - [💳 Retail Engine & POS](https://github.com/AgustinMilesi/retail) — Point of sale, atomic stock control, and cash drawer audits.
 - [📥 Customer Inbox SaaS](https://github.com/AgustinMilesi/inbox) — Multi-tenant customer inquiry inbox and embeddable forms.
+- [📱 PocketExpenses](https://github.com/AgustinMilesi/expenses) — Mobile cost and subscription tracker with React Native & NativeWind.
 - [📬 Contact Portal](https://github.com/AgustinMilesi/contact) — Minimalist contact form and lead gateway with Zod validation.
