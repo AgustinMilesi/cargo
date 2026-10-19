@@ -14,13 +14,19 @@ export function DeliveringMap({
   const hasActiveShipment = Boolean(origin && destination && origin !== "—");
 
   return (
-    <div className="relative w-full h-[260px] md:h-[300px] rounded-2xl overflow-hidden bg-[#0d0e14] dark:bg-[#0b0c10] border border-slate-200/80 dark:border-white/10 shadow-inner">
+    <div
+      role="region"
+      aria-label="Visualizador de ruta marítima y posición GPS en tiempo real"
+      className="relative w-full h-[260px] md:h-[300px] rounded-2xl overflow-hidden bg-[#0d0e14] dark:bg-[#0b0c10] border border-slate-200/80 dark:border-white/10 shadow-inner"
+    >
       {/* SVG Map Graphic */}
       <svg
         className="w-full h-full object-cover select-none pointer-events-none"
         viewBox="0 0 600 320"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        focusable="false"
       >
         <defs>
           {/* Subtle grid pattern for map texture */}
@@ -134,7 +140,11 @@ export function DeliveringMap({
       </svg>
 
       {/* Floating Status Tag on Map */}
-      <div className="absolute bottom-3 left-3 bg-[#13141d]/90 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-xl flex items-center gap-2 text-xs text-white shadow-lg">
+      <div
+        role="status"
+        aria-live="polite"
+        className="absolute bottom-3 left-3 bg-[#13141d]/90 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-xl flex items-center gap-2 text-xs text-white shadow-lg"
+      >
         {hasActiveShipment ? (
           <>
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />

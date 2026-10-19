@@ -58,10 +58,15 @@ export default function RootLayout({
         <div className="fixed top-[35%] left-[-8%] w-[36rem] h-[36rem] bg-emerald-500/16 dark:bg-emerald-500/18 rounded-full blur-[130px] pointer-events-none z-0" />
         <div className="fixed bottom-[15%] right-[-5%] w-[34rem] h-[34rem] bg-purple-500/14 dark:bg-purple-500/16 rounded-full blur-[130px] pointer-events-none z-0" />
 
+        {/* Skip to Content for Keyboard Users (WCAG 2.2 SC 2.4.1) */}
+        <a href="#main-content" className="sr-only skip-link">
+          Saltar al contenido principal / Skip to main content
+        </a>
+
         <PreferencesProvider>
           <div className="relative z-10 flex flex-col md:flex-row min-h-screen w-full">
             <Sidebar />
-            <main className="flex-1 flex flex-col min-w-0">
+            <main id="main-content" role="main" tabIndex={-1} className="flex-1 flex flex-col min-w-0 outline-none">
               {children}
             </main>
           </div>

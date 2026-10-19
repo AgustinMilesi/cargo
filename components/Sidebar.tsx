@@ -231,7 +231,7 @@ export function Sidebar() {
         </div>
 
         {/* Navigation Items */}
-        <nav className="flex flex-row md:flex-col gap-1 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
+        <nav aria-label="Navegación principal" className="flex flex-row md:flex-col gap-1 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
           {navItems.map((item) => {
             const isActive =
               item.href === "/"
@@ -242,6 +242,7 @@ export function Sidebar() {
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={isActive ? "page" : undefined}
                 className={`group flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200 shrink-0 ${
                   isActive
                     ? "bg-accent text-white shadow-md"
@@ -249,12 +250,15 @@ export function Sidebar() {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  {item.icon(isActive)}
+                  <span aria-hidden="true">{item.icon(isActive)}</span>
                   <span className="whitespace-nowrap">{item.name}</span>
                 </div>
 
                 {item.badge !== undefined && (
-                  <span className="ml-2 px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-rose-500 text-white leading-none shadow-sm shadow-rose-500/30">
+                  <span
+                    aria-label={`${item.badge} pendientes`}
+                    className="ml-2 px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-rose-500 text-white leading-none shadow-sm shadow-rose-500/30"
+                  >
                     {item.badge}
                   </span>
                 )}

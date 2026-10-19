@@ -42,15 +42,19 @@ export default async function TrackingPage({
 
       {/* Search Input Bar */}
       <div className="glass-card rounded-3xl p-6 shadow-sm space-y-4">
-        <form method="GET" action="/tracking" className="flex flex-col sm:flex-row gap-3">
+        <form role="search" method="GET" action="/tracking" className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <label htmlFor="tracking-search-input" className="sr-only">
+              Buscar carga por contenedor, Bill of Lading o referencia
+            </label>
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400" aria-hidden="true">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
             <input
-              type="text"
+              id="tracking-search-input"
+              type="search"
               name="q"
               defaultValue={query}
               placeholder="Buscar por Contenedor (ej. MSCU7654321), Bill of Lading, o Referencia..."
@@ -59,6 +63,7 @@ export default async function TrackingPage({
           </div>
           <button
             type="submit"
+            aria-label="Rastrear carga satelital"
             className="px-6 py-2.5 rounded-2xl bg-accent hover:opacity-90 text-white font-semibold text-xs transition shadow-md shrink-0 cursor-pointer"
           >
             Rastrear Carga

@@ -42,7 +42,7 @@ export function PastDeliveryRecord({
   });
 
   return (
-    <div className="glass-card rounded-3xl p-6 transition-all duration-200 space-y-5">
+    <section aria-label="Registro de entregas anteriores" className="glass-card rounded-3xl p-6 transition-all duration-200 space-y-5">
       {/* Header and Filter Buttons */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -55,10 +55,11 @@ export function PastDeliveryRecord({
         </div>
 
         {/* Filter Pills matching OneCargo */}
-        <div className="flex items-center gap-1.5 p-1 glass-card-sub rounded-xl self-start sm:self-auto">
+        <div role="group" aria-label="Filtrar entregas por peso o modalidad" className="flex items-center gap-1.5 p-1 glass-card-sub rounded-xl self-start sm:self-auto">
           <button
             type="button"
             onClick={() => setFilter("ALL")}
+            aria-pressed={filter === "ALL"}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               filter === "ALL"
                 ? "bg-accent text-white shadow-sm"
@@ -70,6 +71,7 @@ export function PastDeliveryRecord({
           <button
             type="button"
             onClick={() => setFilter("HEAVY")}
+            aria-pressed={filter === "HEAVY"}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               filter === "HEAVY"
                 ? "bg-accent text-white shadow-sm"
@@ -81,6 +83,7 @@ export function PastDeliveryRecord({
           <button
             type="button"
             onClick={() => setFilter("MEDIUM")}
+            aria-pressed={filter === "MEDIUM"}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               filter === "MEDIUM"
                 ? "bg-accent text-white shadow-sm"
@@ -94,7 +97,7 @@ export function PastDeliveryRecord({
 
       {/* Shipment Table */}
       <div className="overflow-x-auto -mx-6 px-6">
-        <table className="w-full text-left text-xs md:text-sm">
+        <table aria-label="Historial de despachos y entregas completadas" className="w-full text-left text-xs md:text-sm">
           <thead>
             <tr className="border-b border-slate-100 dark:border-white/5 text-slate-400 dark:text-slate-500 text-[11px] font-semibold uppercase tracking-wider">
               <th className="pb-3 pr-4">Reference</th>
@@ -198,10 +201,11 @@ export function PastDeliveryRecord({
                     <td className="py-3.5 pl-4 text-center">
                       <Link
                         href={`/tracking?q=${s.containerNumber || s.blNumber}`}
+                        aria-label={`Rastrear despacho ${s.reference}`}
                         className="px-3 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 text-xs font-semibold text-slate-700 dark:text-slate-300 transition inline-flex items-center gap-1 cursor-pointer"
                       >
                         <span>Track</span>
-                        <span className="text-accent">→</span>
+                        <span className="text-accent" aria-hidden="true">→</span>
                       </Link>
                     </td>
                   </tr>
@@ -211,6 +215,6 @@ export function PastDeliveryRecord({
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
   );
 }
