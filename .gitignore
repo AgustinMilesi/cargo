@@ -44,6 +44,9 @@ id_rsa*
 # vercel
 .vercel
 
+.agents/
+skills-lock.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
