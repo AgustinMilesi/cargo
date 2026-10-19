@@ -59,9 +59,14 @@ export default async function ClientsPage() {
               </div>
             ) : (
               clients.map((c) => {
-                const operationsCount = shipments.filter(
-                  (s) => s.consignee.includes(c.name) || s.shipper.includes(c.name)
-                ).length;
+                const clientName = c.name.trim().toLowerCase();
+                const operationsCount = clientName
+                  ? shipments.filter(
+                      (s) =>
+                        s.consignee.toLowerCase().includes(clientName) ||
+                        s.shipper.toLowerCase().includes(clientName)
+                    ).length
+                  : 0;
 
                 return (
                   <div

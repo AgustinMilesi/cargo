@@ -1,7 +1,12 @@
 import Link from "next/link";
+import type { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { TopBar } from "@/components/TopBar";
 import { DeliveringMap } from "@/components/DeliveringMap";
+
+type ShipmentWithMilestones = Prisma.ShipmentGetPayload<{
+  include: { milestones: { orderBy: { order: "asc" } } };
+}>;
 
 export default async function TrackingPage({
   searchParams,
@@ -11,8 +16,8 @@ export default async function TrackingPage({
   const { q } = await searchParams;
   const query = q?.trim() || "";
 
-  let matchedShipment = null;
-  if (query) {
+  let matchedShipment: ShipmentWithMilestones | null = null;
+  if (query && query.length >= 2) {
     matchedShipment = await db.shipment.findFirst({
       where: {
         OR: [
@@ -26,32 +31,6 @@ export default async function TrackingPage({
       },
     });
   }
-
-  // If no search query, show default first active shipment
-  if (!matchedShipment) {
-    matchedShipment = await db.shipment.findFirst({
-      where: { status: "IN_TRANSIT" },
-      include: {
-        milestones: { orderBy: { order: "asc" } },
-      },
-    });
-  }
-
-  // Fallback to latest shipment if none in transit
-  if (!matchedShipment) {
-    matchedShipment = await db.shipment.findFirst({
-      orderBy: { createdAt: "desc" },
-      include: {
-        milestones: { orderBy: { order: "asc" } },
-      },
-    });
-  }
-
-  const allShipments = await db.shipment.findMany({
-    select: { containerNumber: true, blNumber: true, reference: true, status: true, carrier: true },
-    orderBy: { createdAt: "desc" },
-    take: 6,
-  });
 
   return (
     <div className="p-4 sm:p-6 md:p-8 space-y-6 max-w-7xl mx-auto w-full">
@@ -86,21 +65,10 @@ export default async function TrackingPage({
           </button>
         </form>
 
-        {/* Quick Suggestion Chips */}
-        {allShipments.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-            <span className="text-slate-400 dark:text-slate-500 font-medium text-[11px]">Cargas Recientes:</span>
-            {allShipments.map((s) => (
-              <Link
-                key={s.reference}
-                href={`/tracking?q=${s.containerNumber || s.blNumber}`}
-                className="px-2.5 py-1 rounded-xl glass-card-sub text-slate-700 dark:text-slate-300 font-mono text-[11px] hover:border-accent/60 transition"
-              >
-                {s.containerNumber || s.blNumber} ({s.carrier.split(" ")[0]})
-              </Link>
-            ))}
-          </div>
-        )}
+        <div className="flex items-center gap-2 text-xs text-slate-400">
+          <span className="w-2 h-2 rounded-full bg-emerald-500" />
+          <span>Telemetría satelital encriptada con actualización automática AIS / GPS.</span>
+        </div>
       </div>
 
       {/* Matched Shipment Display */}
@@ -174,9 +142,9 @@ export default async function TrackingPage({
               </div>
 
               <div className="glass-card-sub p-4 rounded-2xl">
-                <span className="text-[10px] text-slate-400 uppercase font-semibold block">Importador (Consignee)</span>
+                <span className="text-[10px] text-slate-400 uppercase font-semibold block">Importador</span>
                 <span className="text-slate-900 dark:text-white font-bold text-sm mt-1 block">{matchedShipment.consignee}</span>
-                <span className="text-slate-500">Shipper: {matchedShipment.shipper}</span>
+                <span className="text-slate-500">Origen: {matchedShipment.pol}</span>
               </div>
             </div>
 
@@ -226,30 +194,36 @@ export default async function TrackingPage({
         </div>
       ) : (
         <div className="glass-card rounded-3xl p-12 text-center space-y-3">
-          <p className="text-slate-500 dark:text-slate-400 text-sm">
+          <div className="w-12 h-12 mx-auto rounded-2xl bg-accent/10 text-accent flex items-center justify-center">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <p className="text-slate-700 dark:text-slate-300 text-sm font-semibold">
             {query ? (
-              <>No se encontró ningún despacho correspondiente a <strong className="text-slate-900 dark:text-white">"{query}"</strong>.</>
+              <>No se encontró ningún despacho correspondiente a "{query}"</>
             ) : (
-              <>No hay despachos registrados todavía en el sistema.</>
+              <>Rastreo Satelital y Registro de Eventos</>
             )}
           </p>
-          <div className="pt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto">
             {query ? (
+              <>Por favor revisá el identificador ingresado (número de contenedor o B/L) e intentalo nuevamente.</>
+            ) : (
+              <>Ingresá un número de Contenedor (ej. MSCU7654321), Bill of Lading (B/L) o número de Referencia para ver el mapa de telemetría y tiempos de arribo.</>
+            )}
+          </p>
+          {query && (
+            <div className="pt-2">
               <Link
                 href="/tracking"
                 className="text-xs text-accent hover:underline font-semibold inline-block"
               >
-                Limpiar búsqueda y volver al mapa
+                Limpiar búsqueda y volver
               </Link>
-            ) : (
-              <Link
-                href="/shipments/new"
-                className="text-xs text-accent hover:underline font-semibold inline-block"
-              >
-                + Crear primer despacho
-              </Link>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       )}
     </div>

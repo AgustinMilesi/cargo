@@ -3,67 +3,141 @@
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 
+export type ShipmentStatus = "BOOKED" | "IN_TRANSIT" | "AT_PORT" | "CUSTOMS" | "DELIVERED";
+export type InvoiceStatus = "PENDING" | "INVOICED" | "PAID";
+export type CustomsChannel = "PENDING" | "GREEN" | "ORANGE" | "RED";
+
+const VALID_SHIPMENT_STATUSES: readonly ShipmentStatus[] = [
+  "BOOKED",
+  "IN_TRANSIT",
+  "AT_PORT",
+  "CUSTOMS",
+  "DELIVERED",
+];
+
+const VALID_INVOICE_STATUSES: readonly InvoiceStatus[] = [
+  "PENDING",
+  "INVOICED",
+  "PAID",
+];
+
+const VALID_CUSTOMS_CHANNELS: readonly CustomsChannel[] = [
+  "PENDING",
+  "GREEN",
+  "ORANGE",
+  "RED",
+];
+
+function getFormString(formData: FormData, key: string, fallback = ""): string {
+  const val = formData.get(key);
+  return typeof val === "string" ? val.trim() : fallback;
+}
+
+function getFormOptionalString(formData: FormData, key: string): string | null {
+  const val = formData.get(key);
+  if (typeof val === "string") {
+    const trimmed = val.trim();
+    return trimmed.length > 0 ? trimmed : null;
+  }
+  return null;
+}
+
+function parseSafeFloat(val: unknown, fallback = 0): number {
+  if (typeof val === "number" && !isNaN(val)) return val;
+  if (typeof val === "string") {
+    const parsed = parseFloat(val);
+    return isNaN(parsed) ? fallback : parsed;
+  }
+  return fallback;
+}
+
+function parseSafeInt(val: unknown, fallback = 0): number {
+  if (typeof val === "number" && !isNaN(val)) return Math.floor(val);
+  if (typeof val === "string") {
+    const parsed = parseInt(val, 10);
+    return isNaN(parsed) ? fallback : parsed;
+  }
+  return fallback;
+}
+
+function parseSafeDate(val: unknown, fallback: Date | null = null): Date | null {
+  if (!val || typeof val !== "string") return fallback;
+  const trimmed = val.trim();
+  if (trimmed.length === 0) return fallback;
+  const d = new Date(trimmed);
+  return isNaN(d.getTime()) ? fallback : d;
+}
+
 export async function createShipment(formData: FormData) {
-  const reference = (formData.get("reference") as string) || `SHP-${new Date().getFullYear()}-${Math.floor(100 + Math.random() * 900)}`;
-  const type = (formData.get("type") as string) || "MARITIME";
-  const modality = (formData.get("modality") as string) || "FCL 40'";
-  const blNumber = (formData.get("blNumber") as string) || `BL-${Date.now().toString().slice(-6)}`;
-  const containerNumber = (formData.get("containerNumber") as string) || null;
-  const carrier = (formData.get("carrier") as string) || "MSC";
-  const vessel = (formData.get("vessel") as string) || null;
-  const shipper = (formData.get("shipper") as string) || "Proveedor Internacional";
-  const consignee = (formData.get("consignee") as string) || "Cliente Local S.A.";
-  const pol = (formData.get("pol") as string) || "Puerto de Origen";
-  const pod = (formData.get("pod") as string) || "Puerto de Buenos Aires";
-  const status = (formData.get("status") as string) || "BOOKED";
-  const currentLocation = (formData.get("currentLocation") as string) || pol;
+  const reference =
+    getFormString(formData, "reference") ||
+    `SHP-${new Date().getFullYear()}-${Math.floor(100 + Math.random() * 900)}`;
+  const type = getFormString(formData, "type", "MARITIME");
+  const modality = getFormString(formData, "modality", "FCL 40'");
+  const blNumber =
+    getFormString(formData, "blNumber") ||
+    `BL-${Date.now().toString().slice(-6)}`;
+  const containerNumber = getFormOptionalString(formData, "containerNumber");
+  const carrier = getFormString(formData, "carrier", "MSC");
+  const vessel = getFormOptionalString(formData, "vessel");
+  const shipper = getFormString(formData, "shipper", "Proveedor Internacional");
+  const consignee = getFormString(formData, "consignee", "Cliente Local S.A.");
+  const pol = getFormString(formData, "pol", "Puerto de Origen");
+  const pod = getFormString(formData, "pod", "Puerto de Buenos Aires");
 
-  const etdStr = formData.get("etd") as string;
-  const etaStr = formData.get("eta") as string;
-  const etd = etdStr ? new Date(etdStr) : new Date();
-  const eta = etaStr ? new Date(etaStr) : new Date(Date.now() + 20 * 86400000);
+  const rawStatus = getFormString(formData, "status", "BOOKED") as ShipmentStatus;
+  const status = VALID_SHIPMENT_STATUSES.includes(rawStatus) ? rawStatus : "BOOKED";
+  const currentLocation = getFormString(formData, "currentLocation") || pol;
 
-  const buyRate = parseFloat(formData.get("buyRate") as string) || 0;
-  const sellRate = parseFloat(formData.get("sellRate") as string) || 0;
-  const localCharges = parseFloat(formData.get("localCharges") as string) || 0;
+  const now = new Date();
+  const etd = parseSafeDate(formData.get("etd"), now) ?? now;
+  const eta = parseSafeDate(formData.get("eta"), new Date(now.getTime() + 20 * 86400000)) ?? new Date(now.getTime() + 20 * 86400000);
+
+  const buyRate = parseSafeFloat(formData.get("buyRate"), 0);
+  const sellRate = parseSafeFloat(formData.get("sellRate"), 0);
+  const localCharges = parseSafeFloat(formData.get("localCharges"), 0);
   const profit = sellRate + localCharges - buyRate;
-  const notes = (formData.get("notes") as string) || null;
+  const notes = getFormOptionalString(formData, "notes");
 
-  const shipment = await db.shipment.create({
-    data: {
-      reference,
-      type,
-      modality,
-      blNumber,
-      containerNumber,
-      carrier,
-      vessel,
-      shipper,
-      consignee,
-      pol,
-      pod,
-      status,
-      currentLocation,
-      etd,
-      eta,
-      buyRate,
-      sellRate,
-      localCharges,
-      profit,
-      notes,
-    },
-  });
+  const shipment = await db.$transaction(async (tx) => {
+    const created = await tx.shipment.create({
+      data: {
+        reference,
+        type,
+        modality,
+        blNumber,
+        containerNumber,
+        carrier,
+        vessel,
+        shipper,
+        consignee,
+        pol,
+        pod,
+        status,
+        currentLocation,
+        etd,
+        eta,
+        buyRate,
+        sellRate,
+        localCharges,
+        profit,
+        notes,
+      },
+    });
 
-  // Create initial booking milestone
-  await db.milestone.create({
-    data: {
-      shipmentId: shipment.id,
-      title: "Booking confirmado con transportista",
-      location: pol,
-      date: new Date(),
-      completed: true,
-      order: 1,
-    },
+    // Create initial booking milestone
+    await tx.milestone.create({
+      data: {
+        shipmentId: created.id,
+        title: "Booking confirmado con transportista",
+        location: pol,
+        date: new Date(),
+        completed: true,
+        order: 1,
+      },
+    });
+
+    return created;
   });
 
   revalidatePath("/");
@@ -73,38 +147,50 @@ export async function createShipment(formData: FormData) {
   return { success: true, id: shipment.id };
 }
 
-export async function updateShipmentStatus(id: string, status: string, location?: string) {
-  const current = await db.shipment.findUnique({ where: { id } });
-  if (!current) throw new Error("Shipment not found");
+export async function updateShipmentStatus(
+  id: string,
+  rawStatus: string,
+  location?: string
+) {
+  const status = (
+    VALID_SHIPMENT_STATUSES.includes(rawStatus as ShipmentStatus)
+      ? rawStatus
+      : "IN_TRANSIT"
+  ) as ShipmentStatus;
 
-  const newLocation = location || current.currentLocation;
+  await db.$transaction(async (tx) => {
+    const current = await tx.shipment.findUnique({ where: { id } });
+    if (!current) throw new Error("Shipment not found");
 
-  await db.shipment.update({
-    where: { id },
-    data: {
-      status,
-      currentLocation: newLocation,
-      actualArrival: status === "DELIVERED" ? new Date() : current.actualArrival,
-    },
-  });
+    const newLocation = (location && location.trim()) || current.currentLocation;
 
-  // Add auto milestone
-  const count = await db.milestone.count({ where: { shipmentId: id } });
-  let title = `Estado actualizado a ${status}`;
-  if (status === "IN_TRANSIT") title = "En tránsito internacional";
-  if (status === "AT_PORT") title = "Arribo a terminal portuaria de destino";
-  if (status === "CUSTOMS") title = "En proceso de verificación aduanera";
-  if (status === "DELIVERED") title = "Carga entregada en destino final";
+    await tx.shipment.update({
+      where: { id },
+      data: {
+        status,
+        currentLocation: newLocation,
+        actualArrival: status === "DELIVERED" ? new Date() : current.actualArrival,
+      },
+    });
 
-  await db.milestone.create({
-    data: {
-      shipmentId: id,
-      title,
-      location: newLocation,
-      date: new Date(),
-      completed: true,
-      order: count + 1,
-    },
+    // Add milestone atomically
+    const count = await tx.milestone.count({ where: { shipmentId: id } });
+    let title = `Estado actualizado a ${status}`;
+    if (status === "IN_TRANSIT") title = "En tránsito internacional";
+    if (status === "AT_PORT") title = "Arribo a terminal portuaria de destino";
+    if (status === "CUSTOMS") title = "En proceso de verificación aduanera";
+    if (status === "DELIVERED") title = "Carga entregada en destino final";
+
+    await tx.milestone.create({
+      data: {
+        shipmentId: id,
+        title,
+        location: newLocation,
+        date: new Date(),
+        completed: true,
+        order: count + 1,
+      },
+    });
   });
 
   revalidatePath("/");
@@ -114,7 +200,13 @@ export async function updateShipmentStatus(id: string, status: string, location?
   return { success: true };
 }
 
-export async function updateInvoiceStatus(id: string, invoiceStatus: string) {
+export async function updateInvoiceStatus(id: string, rawInvoiceStatus: string) {
+  const invoiceStatus = (
+    VALID_INVOICE_STATUSES.includes(rawInvoiceStatus as InvoiceStatus)
+      ? rawInvoiceStatus
+      : "PENDING"
+  ) as InvoiceStatus;
+
   await db.shipment.update({
     where: { id },
     data: { invoiceStatus },
@@ -126,23 +218,27 @@ export async function updateInvoiceStatus(id: string, invoiceStatus: string) {
 }
 
 export async function createQuote(formData: FormData) {
-  const reference = (formData.get("reference") as string) || `COT-${new Date().getFullYear()}-${Math.floor(100 + Math.random() * 900)}`;
-  const type = (formData.get("type") as string) || "MARITIME";
-  const modality = (formData.get("modality") as string) || "FCL 40' HC";
-  const origin = (formData.get("origin") as string) || "Shanghai, China";
-  const destination = (formData.get("destination") as string) || "Buenos Aires, Argentina";
-  const clientName = (formData.get("clientName") as string) || "Importador S.A.";
-  const clientEmail = (formData.get("clientEmail") as string) || null;
-  const carrier = (formData.get("carrier") as string) || "MSC (Mediterranean Shipping)";
+  const reference =
+    getFormString(formData, "reference") ||
+    `COT-${new Date().getFullYear()}-${Math.floor(100 + Math.random() * 900)}`;
+  const type = getFormString(formData, "type", "MARITIME");
+  const modality = getFormString(formData, "modality", "FCL 40' HC");
+  const origin = getFormString(formData, "origin", "Shanghai, China");
+  const destination = getFormString(formData, "destination", "Buenos Aires, Argentina");
+  const clientName = getFormString(formData, "clientName", "Importador S.A.");
+  const clientEmail = getFormOptionalString(formData, "clientEmail");
+  const carrier = getFormString(formData, "carrier", "MSC (Mediterranean Shipping)");
 
-  const validUntilStr = formData.get("validUntil") as string;
-  const validUntil = validUntilStr ? new Date(validUntilStr) : new Date(Date.now() + 15 * 86400000);
+  const now = new Date();
+  const validUntil =
+    parseSafeDate(formData.get("validUntil"), new Date(now.getTime() + 15 * 86400000)) ??
+    new Date(now.getTime() + 15 * 86400000);
 
-  const buyRate = parseFloat(formData.get("buyRate") as string) || 0;
-  const sellRate = parseFloat(formData.get("sellRate") as string) || 0;
-  const localCharges = parseFloat(formData.get("localCharges") as string) || 0;
+  const buyRate = parseSafeFloat(formData.get("buyRate"), 0);
+  const sellRate = parseSafeFloat(formData.get("sellRate"), 0);
+  const localCharges = parseSafeFloat(formData.get("localCharges"), 0);
   const profit = sellRate + localCharges - buyRate;
-  const notes = (formData.get("notes") as string) || null;
+  const notes = getFormOptionalString(formData, "notes");
 
   const quote = await db.quote.create({
     data: {
@@ -169,79 +265,81 @@ export async function createQuote(formData: FormData) {
 }
 
 export async function convertQuoteToShipment(quoteId: string) {
-  const quote = await db.quote.findUnique({ where: { id: quoteId } });
-  if (!quote) throw new Error("Quote not found");
+  return await db.$transaction(async (tx) => {
+    const quote = await tx.quote.findUnique({ where: { id: quoteId } });
+    if (!quote) throw new Error("Quote not found");
 
-  const newRef = `SHP-${new Date().getFullYear()}-${Math.floor(100 + Math.random() * 900)}`;
-  const etd = new Date(Date.now() + 5 * 86400000);
-  const eta = new Date(Date.now() + 30 * 86400000);
+    if (quote.status === "CONVERTED") {
+      throw new Error("Esta cotización ya fue convertida a un embarque previamente.");
+    }
 
-  const shipment = await db.shipment.create({
-    data: {
-      reference: newRef,
-      type: quote.type,
-      modality: quote.modality,
-      blNumber: `BL-${Date.now().toString().slice(-7)}`,
-      carrier: quote.carrier,
-      shipper: `Proveedor Exterior (${quote.origin})`,
-      consignee: quote.clientName,
-      pol: quote.origin,
-      pod: quote.destination,
-      status: "BOOKED",
-      currentLocation: quote.origin,
-      etd,
-      eta,
-      buyRate: quote.buyRate,
-      sellRate: quote.sellRate,
-      localCharges: quote.localCharges,
-      profit: quote.profit,
-      notes: `Generado automáticamente desde Cotización ${quote.reference}. ${quote.notes || ""}`,
-    },
+    const newRef = `SHP-${new Date().getFullYear()}-${Math.floor(100 + Math.random() * 900)}`;
+    const now = new Date();
+    const etd = new Date(now.getTime() + 5 * 86400000);
+    const eta = new Date(now.getTime() + 30 * 86400000);
+
+    const shipment = await tx.shipment.create({
+      data: {
+        reference: newRef,
+        type: quote.type,
+        modality: quote.modality,
+        blNumber: `BL-${Date.now().toString().slice(-7)}`,
+        carrier: quote.carrier,
+        shipper: `Proveedor Exterior (${quote.origin})`,
+        consignee: quote.clientName,
+        pol: quote.origin,
+        pod: quote.destination,
+        status: "BOOKED",
+        currentLocation: quote.origin,
+        etd,
+        eta,
+        buyRate: quote.buyRate,
+        sellRate: quote.sellRate,
+        localCharges: quote.localCharges,
+        profit: quote.profit,
+        notes: `Generado automáticamente desde Cotización ${quote.reference}. ${quote.notes || ""}`.trim(),
+      },
+    });
+
+    await tx.quote.update({
+      where: { id: quoteId },
+      data: {
+        status: "CONVERTED",
+        shipmentId: shipment.id,
+      },
+    });
+
+    await tx.milestone.create({
+      data: {
+        shipmentId: shipment.id,
+        title: `Cotización ${quote.reference} Aprobada. Booking confirmado con ${quote.carrier}`,
+        location: quote.origin,
+        date: new Date(),
+        completed: true,
+        order: 1,
+      },
+    });
+
+    return { success: true, shipmentId: shipment.id };
   });
-
-  await db.quote.update({
-    where: { id: quoteId },
-    data: {
-      status: "CONVERTED",
-      shipmentId: shipment.id,
-    },
-  });
-
-  await db.milestone.create({
-    data: {
-      shipmentId: shipment.id,
-      title: `Cotización ${quote.reference} Aprobada. Booking confirmado con ${quote.carrier}`,
-      location: quote.origin,
-      date: new Date(),
-      completed: true,
-      order: 1,
-    },
-  });
-
-  revalidatePath("/quotes");
-  revalidatePath("/shipments");
-  revalidatePath("/");
-  revalidatePath("/tracking");
-  revalidatePath("/finances");
-  return { success: true, shipmentId: shipment.id };
 }
 
 export async function updateCustomsDetails(id: string, formData: FormData) {
-  const customsDeclaration = (formData.get("customsDeclaration") as string) || null;
-  const customsChannel = (formData.get("customsChannel") as string) || "PENDING";
-  const invoiceNumber = (formData.get("invoiceNumber") as string) || null;
-  const invoiceValue = parseFloat(formData.get("invoiceValue") as string) || 0;
-  const packagesCount = parseInt(formData.get("packagesCount") as string) || 0;
-  const grossWeightKg = parseFloat(formData.get("grossWeightKg") as string) || 0;
-  const volumeCbm = parseFloat(formData.get("volumeCbm") as string) || 0;
-  const freeDaysCount = parseInt(formData.get("freeDaysCount") as string) || 14;
+  const customsDeclaration = getFormOptionalString(formData, "customsDeclaration");
+  const rawChannel = getFormString(formData, "customsChannel", "PENDING") as CustomsChannel;
+  const customsChannel = VALID_CUSTOMS_CHANNELS.includes(rawChannel) ? rawChannel : "PENDING";
+  const invoiceNumber = getFormOptionalString(formData, "invoiceNumber");
+  const invoiceValue = parseSafeFloat(formData.get("invoiceValue"), 0);
+  const packagesCount = parseSafeInt(formData.get("packagesCount"), 0);
+  const grossWeightKg = parseSafeFloat(formData.get("grossWeightKg"), 0);
+  const volumeCbm = parseSafeFloat(formData.get("volumeCbm"), 0);
+  const freeDaysCount = parseSafeInt(formData.get("freeDaysCount"), 14);
 
-  const demurrageStr = formData.get("demurrageDeadline") as string;
-  const demurrageDeadline = demurrageStr ? new Date(demurrageStr) : null;
+  const demurrageDeadline = parseSafeDate(formData.get("demurrageDeadline"), null);
 
-  const docBlUrl = (formData.get("docBlUrl") as string) || null;
-  const docInvoiceUrl = (formData.get("docInvoiceUrl") as string) || null;
-  const docPackingListUrl = (formData.get("docPackingListUrl") as string) || null;
+  const docBlUrl = getFormOptionalString(formData, "docBlUrl");
+  const docInvoiceUrl = getFormOptionalString(formData, "docInvoiceUrl");
+  const docPackingListUrl = getFormOptionalString(formData, "docPackingListUrl");
 
   await db.shipment.update({
     where: { id },
@@ -266,4 +364,3 @@ export async function updateCustomsDetails(id: string, formData: FormData) {
   revalidatePath("/portal");
   return { success: true };
 }
-

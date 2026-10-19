@@ -53,15 +53,15 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-[#f4f6fa] dark:bg-[#08090d] text-slate-900 dark:text-white antialiased selection:bg-amber-500 selection:text-white transition-colors duration-200 relative overflow-x-hidden">
         {/* Colorful ambient orbs positioned in z-0 to shine directly behind frosted glass cards */}
-        <div className="fixed top-[-5%] right-[15%] w-[42rem] h-[42rem] bg-amber-500/15 dark:bg-amber-500/18 rounded-full blur-[140px] pointer-events-none z-0" />
-        <div className="fixed bottom-[-10%] left-[20%] w-[38rem] h-[38rem] bg-indigo-600/15 dark:bg-indigo-600/15 rounded-full blur-[150px] pointer-events-none z-0" />
-        <div className="fixed top-[35%] left-[-8%] w-[32rem] h-[32rem] bg-emerald-500/12 dark:bg-emerald-500/12 rounded-full blur-[140px] pointer-events-none z-0" />
-        <div className="fixed bottom-[15%] right-[-5%] w-[30rem] h-[30rem] bg-rose-500/10 dark:bg-rose-500/10 rounded-full blur-[140px] pointer-events-none z-0" />
+        <div className="fixed top-[-5%] right-[15%] w-[48rem] h-[48rem] bg-amber-500/22 dark:bg-amber-500/25 rounded-full blur-[130px] pointer-events-none z-0" />
+        <div className="fixed bottom-[-10%] left-[20%] w-[44rem] h-[44rem] bg-indigo-600/20 dark:bg-indigo-600/22 rounded-full blur-[140px] pointer-events-none z-0" />
+        <div className="fixed top-[35%] left-[-8%] w-[36rem] h-[36rem] bg-emerald-500/16 dark:bg-emerald-500/18 rounded-full blur-[130px] pointer-events-none z-0" />
+        <div className="fixed bottom-[15%] right-[-5%] w-[34rem] h-[34rem] bg-purple-500/14 dark:bg-purple-500/16 rounded-full blur-[130px] pointer-events-none z-0" />
 
         <PreferencesProvider>
           <div className="relative z-10 flex flex-col md:flex-row min-h-screen w-full">
             <Sidebar />
-            <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+            <main className="flex-1 flex flex-col min-w-0">
               {children}
             </main>
           </div>

@@ -5,21 +5,23 @@
 :root {
   --primary-accent: #f59e0b;
   --primary-accent-rgb: 245, 158, 11;
-  --bg-page: #f4f6fa;
-  --bg-sidebar: rgba(255, 255, 255, 0.72);
-  --bg-card: rgba(255, 255, 255, 0.65);
-  --bg-card-sub: rgba(248, 250, 252, 0.60);
-  --border-card: rgba(255, 255, 255, 0.85);
+  --bg-page: #eef1f8;
+  --bg-sidebar: rgba(255, 255, 255, 0.35);
+  --bg-card: rgba(255, 255, 255, 0.30);
+  --bg-card-sub: rgba(255, 255, 255, 0.22);
+  --border-card: rgba(255, 255, 255, 0.92);
+  --border-card-sub: rgba(255, 255, 255, 0.65);
   --text-main: #0f172a;
   --text-muted: #64748b;
 }
 
 .dark {
-  --bg-page: #08090d;
-  --bg-sidebar: rgba(16, 17, 24, 0.68);
-  --bg-card: rgba(19, 21, 30, 0.60);
-  --bg-card-sub: rgba(14, 15, 22, 0.55);
-  --border-card: rgba(255, 255, 255, 0.12);
+  --bg-page: #07080c;
+  --bg-sidebar: rgba(14, 17, 28, 0.38);
+  --bg-card: rgba(17, 21, 35, 0.25);
+  --bg-card-sub: rgba(14, 18, 30, 0.18);
+  --border-card: rgba(255, 255, 255, 0.18);
+  --border-card-sub: rgba(255, 255, 255, 0.10);
   --text-main: #ffffff;
   --text-muted: #9496a1;
 }
@@ -64,30 +66,30 @@
   }
 }
 
-/* Authentic, noticeable frosted glass styles */
+/* Authentic, highly noticeable frosted glass styles */
 .glass-card {
-  background-color: var(--bg-card) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  background: var(--bg-card) !important;
+  backdrop-filter: blur(28px) saturate(210%) contrast(106%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(210%) contrast(106%) !important;
   border: 1px solid var(--border-card) !important;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08), inset 0 1px 0 0 rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 12px 36px 0 rgba(31, 38, 135, 0.08), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.95), inset 0 0 24px 0 rgba(255, 255, 255, 0.08) !important;
 }
 
 .dark .glass-card {
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 18px 46px -10px rgba(0, 0, 0, 0.6), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.22), inset 0 0 24px 0 rgba(255, 255, 255, 0.03) !important;
 }
 
 .glass-card-sub {
-  background-color: var(--bg-card-sub) !important;
-  backdrop-filter: blur(16px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
-  border: 1px solid var(--border-card) !important;
+  background: var(--bg-card-sub) !important;
+  backdrop-filter: blur(22px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(190%) !important;
+  border: 1px solid var(--border-card-sub) !important;
 }
 
 .glass-sidebar {
-  background-color: var(--bg-sidebar) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  background: var(--bg-sidebar) !important;
+  backdrop-filter: blur(28px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
   border-color: var(--border-card) !important;
 }
 

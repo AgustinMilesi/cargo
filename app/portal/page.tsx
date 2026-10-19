@@ -1,7 +1,12 @@
 import Link from "next/link";
+import type { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { TopBar } from "@/components/TopBar";
 import { DeliveringMap } from "@/components/DeliveringMap";
+
+type ShipmentWithMilestones = Prisma.ShipmentGetPayload<{
+  include: { milestones: { orderBy: { order: "asc" } } };
+}>;
 
 export default async function CustomerPortalPage({
   searchParams,
@@ -11,8 +16,8 @@ export default async function CustomerPortalPage({
   const { q } = await searchParams;
   const query = q?.trim() || "";
 
-  let matchedShipments: any[] = [];
-  if (query) {
+  let matchedShipments: ShipmentWithMilestones[] = [];
+  if (query && query.length >= 2) {
     matchedShipments = await db.shipment.findMany({
       where: {
         OR: [
@@ -22,13 +27,6 @@ export default async function CustomerPortalPage({
           { reference: { contains: query, mode: "insensitive" } },
         ],
       },
-      include: { milestones: { orderBy: { order: "asc" } } },
-      orderBy: { createdAt: "desc" },
-    });
-  } else {
-    // If no search query, show the 3 most recent active shipments for demonstration
-    matchedShipments = await db.shipment.findMany({
-      take: 4,
       include: { milestones: { orderBy: { order: "asc" } } },
       orderBy: { createdAt: "desc" },
     });
@@ -138,36 +136,40 @@ export default async function CustomerPortalPage({
                 </div>
 
                 <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06]">
-                  <span className="text-[10px] text-slate-400 uppercase font-semibold block">Días Libres de Contenedor</span>
-                  <span className="text-indigo-600 dark:text-indigo-400 font-bold text-sm mt-1 block">
-                    {s.freeDaysCount || 14} días libres
+                  <span className="text-[10px] text-slate-400 uppercase font-semibold block">Días Libres de Demora</span>
+                  <span className="text-slate-900 dark:text-white font-mono font-bold text-sm mt-1 block">
+                    {s.freeDaysCount ?? 14} días libres
                   </span>
-                  <span className="text-slate-500">Devolución vacío a naviera</span>
+                  <span className="text-slate-500 font-sans">
+                    {s.demurrageDeadline
+                      ? `Límite: ${new Date(s.demurrageDeadline).toLocaleDateString("es-ES")}`
+                      : "Sin fecha límite asignada"}
+                  </span>
                 </div>
 
                 <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06]">
-                  <span className="text-[10px] text-slate-400 uppercase font-semibold block">Ruta & Naviera</span>
-                  <span className="text-slate-800 dark:text-slate-200 font-bold text-sm mt-1 block">
-                    {s.carrier.split(" ")[0]} · {s.modality}
+                  <span className="text-[10px] text-slate-400 uppercase font-semibold block">Bultos & Cubicaje</span>
+                  <span className="text-slate-900 dark:text-white font-mono font-bold text-sm mt-1 block">
+                    {s.packagesCount != null ? `${s.packagesCount} bultos` : s.modality}
                   </span>
-                  <span className="text-slate-500 text-[11px]">{s.pol} ➔ {s.pod}</span>
+                  <span className="text-slate-500 font-sans">
+                    {s.volumeCbm ? `${s.volumeCbm} m³ / ${s.grossWeightKg || 0} kg` : s.carrier}
+                  </span>
                 </div>
 
                 <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06]">
-                  <span className="text-[10px] text-slate-400 uppercase font-semibold block">Factura & Bultos</span>
-                  <span className="text-slate-800 dark:text-slate-200 font-bold text-sm mt-1 block">
-                    {s.packagesCount ? `${s.packagesCount} bultos / ${s.volumeCbm || 0} m³` : `${s.modality}`}
+                  <span className="text-[10px] text-slate-400 uppercase font-semibold block">Ubicación Actual</span>
+                  <span className="text-slate-900 dark:text-white font-semibold text-sm mt-1 block truncate">
+                    {s.currentLocation}
                   </span>
-                  <span className="text-slate-500 font-mono text-[11px]">
-                    {s.invoiceNumber ? `Inv: ${s.invoiceNumber}` : `Ref: ${s.reference}`}
-                  </span>
+                  <span className="text-slate-500 font-sans">Transportista: {s.carrier}</span>
                 </div>
               </div>
 
-              {/* Map */}
+              {/* Live Tracking Map View */}
               <div className="space-y-2">
-                <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">
-                  Telemetría GPS en Tiempo Real
+                <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider block">
+                  Telemetría y Ruta en Tiempo Real
                 </span>
                 <DeliveringMap
                   origin={s.pol}
@@ -176,12 +178,44 @@ export default async function CustomerPortalPage({
                 />
               </div>
 
-              {/* Documentation Hub (Download links) */}
-              <div className="pt-2 border-t border-slate-100 dark:border-white/5 space-y-3">
-                <span className="text-xs font-bold text-slate-900 dark:text-white block uppercase tracking-wider">
-                  Documentación del Embarque para Descarga
+              {/* Status Timeline */}
+              <div className="space-y-3">
+                <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider block">
+                  Hitos de Transporte y Despacho
                 </span>
+                <div className="space-y-2">
+                  {s.milestones.map((m) => (
+                    <div
+                      key={m.id}
+                      className="p-3.5 rounded-2xl bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200/60 dark:border-white/[0.06] flex items-center justify-between gap-4"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={`w-2.5 h-2.5 rounded-full shrink-0 ${
+                            m.completed ? "bg-emerald-500 shadow-sm shadow-emerald-500/50" : "bg-slate-300 dark:bg-white/20"
+                          }`}
+                        />
+                        <div>
+                          <p className="text-xs font-semibold text-slate-900 dark:text-white">{m.title}</p>
+                          <p className="text-[11px] text-slate-400 font-mono">{m.location}</p>
+                        </div>
+                      </div>
+                      <span className="text-[11px] font-mono text-slate-500 shrink-0">
+                        {new Date(m.date).toLocaleDateString("es-ES", {
+                          day: "numeric",
+                          month: "short",
+                        })}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
+              {/* Attached Official Documentation */}
+              <div className="space-y-3">
+                <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider block">
+                  Documentación del Embarque
+                </span>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                   <div className="p-3 rounded-2xl bg-slate-50/70 dark:bg-[#121318]/65 border border-slate-200/60 dark:border-white/[0.06] flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
@@ -189,12 +223,12 @@ export default async function CustomerPortalPage({
                         BL
                       </div>
                       <div>
-                        <span className="font-bold text-slate-900 dark:text-white block">Conocimiento de Embarque</span>
-                        <span className="text-slate-400 text-[10px]">Bill of Lading ({s.blNumber})</span>
+                        <span className="font-bold text-slate-900 dark:text-white block">Bill of Lading</span>
+                        <span className="text-slate-400 text-[10px]">Documento de transporte</span>
                       </div>
                     </div>
                     <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
-                      Emitido
+                      {s.blNumber}
                     </span>
                   </div>
 
@@ -235,21 +269,25 @@ export default async function CustomerPortalPage({
 
         {matchedShipments.length === 0 && (
           <div className="glass-card rounded-3xl p-12 text-center space-y-3">
-            <p className="text-slate-500 dark:text-slate-400 text-sm">
+            <div className="w-12 h-12 mx-auto rounded-2xl bg-accent/10 text-accent flex items-center justify-center">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <p className="text-slate-700 dark:text-slate-300 text-sm font-semibold">
               {query ? (
-                <>No se encontraron cargas activas para <strong className="text-slate-900 dark:text-white">"{query}"</strong>.</>
+                <>No se encontraron operaciones activas para "{query}"</>
               ) : (
-                <>No hay cargas registradas en el sistema todavía.</>
+                <>Consultá el estado de tu carga o despacho</>
               )}
             </p>
-            {query && (
-              <Link
-                href="/portal"
-                className="text-xs text-accent hover:underline font-semibold inline-block"
-              >
-                Restablecer búsqueda y ver cargas recientes
-              </Link>
-            )}
+            <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+              {query ? (
+                <>Verificá haber ingresado correctamente tu número de contenedor (ej. MSCU1234567), número de B/L o la razón social de tu empresa.</>
+              ) : (
+                <>Ingresá el número de Contenedor, Bill of Lading (B/L) o Razón Social registrada en el buscador para visualizar la telemetría satelital y el estado de despacho aduanero.</>
+              )}
+            </p>
           </div>
         )}
       </div>

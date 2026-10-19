@@ -199,7 +199,7 @@ export default async function ShipmentDetailPage({
                   <input
                     type="number"
                     name="freeDaysCount"
-                    defaultValue={shipment.freeDaysCount || 14}
+                    defaultValue={shipment.freeDaysCount ?? 14}
                     className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-mono focus:border-indigo-500 outline-none transition"
                   />
                 </div>
