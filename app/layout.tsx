@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { Sidebar } from "@/components/Sidebar";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://cargo-am.vercel.app"),
   title: "OneCargo — Logistics & Freight Operating System",
   description: "Track your daily logistics loads, expenses, container tracking, and deliveries.",
   icons: { icon: "/icon.svg" },
