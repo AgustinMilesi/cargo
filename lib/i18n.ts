@@ -51,7 +51,7 @@ export const translations = {
     container: "Contenedor",
     blNumber: "Bill of Lading (B/L)",
 
-    // KipinPLUGINS - Customs & Import
+    // Customs & Import
     customsTitle: "Gestión Aduanera & Control de Contenedores",
     customsDeclaration: "Despacho de Aduana",
     customsChannel: "Canal Aduanero",
@@ -73,7 +73,7 @@ export const translations = {
     docPackingList: "Lista de Empaque (Packing List)",
     docCustoms: "Certificado de Origen / Despacho",
 
-    // KipinCARGO - Quoting
+    // Quoting & Pricing
     quotesTitle: "Tarifarios & Cotizador de Importación",
     quotesSubtitle: "Cálculo de tarifas internacionales, recargos BAF/THC y presupuestos",
     quoteBuyRate: "Costo Naviera (Buy)",
@@ -87,14 +87,14 @@ export const translations = {
     quoteStatusRejected: "Rechazada",
     quoteStatusConverted: "Convertida en Embarque",
 
-    // KipinTRACK - Customer Portal
+    // Customer Portal
     portalTitle: "Portal de Autogestión para Clientes",
     portalSubtitle: "Seguimiento transparente de embarques, estado aduanero y documentos",
     portalSearchPrompt: "Ingresá tu CUIT, Razón Social o Número de Contenedor",
     portalSearchBtn: "Acceder a mis Cargas",
     portalNoLoads: "No se encontraron cargas activas para este criterio.",
 
-    // KipinCARGO - Finances & Ledger
+    // Finances & Ledger
     financeTitle: "Reporte Financiero & Cuentas Corrientes",
     financeSubtitle: "Liquidación de carpetas de importación, cobranzas y márgenes operativos",
     totalBuy: "Costo Total Navieras",
@@ -157,7 +157,7 @@ export const translations = {
     container: "Container",
     blNumber: "Bill of Lading (B/L)",
 
-    // KipinPLUGINS - Customs & Import
+    // Customs & Import
     customsTitle: "Customs Clearance & Container Demurrage",
     customsDeclaration: "Customs Entry / Declaration",
     customsChannel: "Customs Channel",
@@ -179,7 +179,7 @@ export const translations = {
     docPackingList: "Packing List",
     docCustoms: "Certificate of Origin / Release",
 
-    // KipinCARGO - Quoting
+    // Quoting & Pricing
     quotesTitle: "Rate Schedules & Import Quoting",
     quotesSubtitle: "Global freight pricing, BAF/THC surcharges, and customer proposals",
     quoteBuyRate: "Carrier Buy Rate",
@@ -193,14 +193,14 @@ export const translations = {
     quoteStatusRejected: "Rejected",
     quoteStatusConverted: "Converted to Shipment",
 
-    // KipinTRACK - Customer Portal
+    // Customer Portal
     portalTitle: "Self-Service Client Portal",
     portalSubtitle: "Transparent tracking of your import shipments, customs status, and files",
     portalSearchPrompt: "Enter your Tax ID, Company Name, or Container Number",
     portalSearchBtn: "Access My Cargo",
     portalNoLoads: "No active shipments found for this inquiry.",
 
-    // KipinCARGO - Finances & Ledger
+    // Finances & Ledger
     financeTitle: "Financial Report & Accounts Receivable",
     financeSubtitle: "Import operations settlement, freight collections, and operational margins",
     totalBuy: "Total Carrier Freight Cost",
@@ -263,7 +263,7 @@ export const translations = {
     container: "Contêiner",
     blNumber: "Conhecimento de Embarque (B/L)",
 
-    // KipinPLUGINS - Customs & Import
+    // Customs & Import
     customsTitle: "Desembaraço Aduaneiro e Controle de Demurrage",
     customsDeclaration: "Declaração de Importação (DI/DUIMP)",
     customsChannel: "Canal Aduaneiro",
@@ -285,7 +285,7 @@ export const translations = {
     docPackingList: "Romaneio de Carga (Packing List)",
     docCustoms: "Comprovante de Importação / CI",
 
-    // KipinCARGO - Quoting
+    // Quoting & Pricing
     quotesTitle: "Tarifários & Cotações de Importação",
     quotesSubtitle: "Fretes internacionais, taxas locais THC e propostas personalizadas",
     quoteBuyRate: "Custo Armador (Compra)",
@@ -299,14 +299,14 @@ export const translations = {
     quoteStatusRejected: "Recusada",
     quoteStatusConverted: "Convertida em Embarque",
 
-    // KipinTRACK - Customer Portal
+    // Customer Portal
     portalTitle: "Portal de Autoatendimento do Cliente",
     portalSubtitle: "Acompanhamento transparente dos seus embarques, status aduaneiro e arquivos",
     portalSearchPrompt: "Informe seu CNPJ, Razão Social ou Número do Contêiner",
     portalSearchBtn: "Acessar Minhas Cargas",
     portalNoLoads: "Nenhuma carga em andamento encontrada para esta busca.",
 
-    // KipinCARGO - Finances & Ledger
+    // Finances & Ledger
     financeTitle: "Relatório Financeiro & Extrato de Operações",
     financeSubtitle: "Fechamento de processos de importação, faturamento e margem operacional",
     totalBuy: "Custo Total de Fretes",
@@ -369,7 +369,7 @@ export const translations = {
     container: "集装箱号",
     blNumber: "提单号 (B/L)",
 
-    // KipinPLUGINS - Customs & Import
+    // Customs & Import
     customsTitle: "通关申报与滞箱费管理",
     customsDeclaration: "报关单号",
     customsChannel: "查验通道",
@@ -391,7 +391,7 @@ export const translations = {
     docPackingList: "装箱单 (Packing List)",
     docCustoms: "原产地证 / 海关放行单",
 
-    // KipinCARGO - Quoting
+    // Quoting & Pricing
     quotesTitle: "进口运价与报价生成器",
     quotesSubtitle: "国际海运与空运成本核算、附加费 (BAF/THC) 与客户报价单",
     quoteBuyRate: "承运人成本价 (买价)",
@@ -405,14 +405,14 @@ export const translations = {
     quoteStatusRejected: "已拒绝",
     quoteStatusConverted: "已转化为进口单",
 
-    // KipinTRACK - Customer Portal
+    // Customer Portal
     portalTitle: "客户自助查件平台",
     portalSubtitle: "随时随地掌控进口货物动态、清关进程与下载单证",
     portalSearchPrompt: "输入税号、公司名称或集装箱编号",
     portalSearchBtn: "进入我的货运",
     portalNoLoads: "未找到符合条件的在途货物。",
 
-    // KipinCARGO - Finances & Ledger
+    // Finances & Ledger
     financeTitle: "财务报告与账款往来",
     financeSubtitle: "进口清关核算、应收应付款项及利润报表",
     totalBuy: "承运人总采购成本",

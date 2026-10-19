@@ -32,7 +32,7 @@ model Shipment {
   invoiceStatus      String      @default("PENDING") // PENDING, INVOICED, PAID
   notes              String?
 
-  // Import Specifics & Customs (KipinPLUGINS)
+  // Import Specifics & Customs
   invoiceNumber      String?     // Commercial Invoice (Factura comercial exterior)
   invoiceValue       Float?      @default(0) // FOB/CIF USD
   packagesCount      Int?        @default(0) // Bultos / Pallets

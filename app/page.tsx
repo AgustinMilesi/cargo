@@ -18,33 +18,22 @@ export default async function DashboardPage() {
   const activeShipments = shipments.filter((s) => s.status !== "DELIVERED");
   const topActive = activeShipments[0] || shipments[0];
 
-  // Expenses calculations (matching OneCargo metric or dynamic fallback)
+  // Expenses calculations
   const totalBuyExpenses = shipments.reduce((acc, s) => acc + s.buyRate, 0);
-  const totalDisplayExpenses = totalBuyExpenses > 0 ? totalBuyExpenses : 32855.0;
+  const totalDisplayExpenses = totalBuyExpenses;
 
-  // Milestone list from top active shipment or default OneCargo demo milestones
-  const activeMilestones = topActive?.milestones?.length
-    ? topActive.milestones
-    : [
-        {
-          id: "m-1",
-          location: "Erdberg, Austria",
-          title: "Cargo Dispatched",
-          completed: true,
-          date: new Date("2025-01-09T08:30:00Z"),
-        },
-        {
-          id: "m-2",
-          location: "Schwechat, Austria",
-          title: "Customs Inspected",
-          completed: true,
-          date: new Date("2025-01-09T14:15:00Z"),
-        },
-      ];
+  // Real milestone list from top active shipment (or clean empty state)
+  const activeMilestones = topActive?.milestones || [];
 
   const routeLabel = topActive
     ? `${topActive.pol} - ${topActive.pod}`
-    : "Bratislava - Stuttgart";
+    : "Sin cargas activas";
+
+  const hasShipments = shipments.length > 0;
+  const fuelExpense = hasShipments ? Math.round(totalBuyExpenses * 0.37) : 0;
+  const highwayExpense = hasShipments ? Math.round(totalBuyExpenses * 0.30) : 0;
+  const logisticsExpense = hasShipments ? Math.round(totalBuyExpenses * 0.16) : 0;
+  const restingExpense = hasShipments ? Math.round(totalBuyExpenses * 0.17) : 0;
 
   return (
     <div className="p-4 sm:p-6 md:p-8 space-y-6 max-w-7xl mx-auto w-full">
@@ -54,45 +43,45 @@ export default async function DashboardPage() {
         subtitle="Track your daily logistics loads, import folders, and quotes"
       />
 
-      {/* KipinTOCH Solutions Quick Access Bar */}
+      {/* Solutions Quick Access Bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <Link
           href="/quotes"
-          className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] hover:border-indigo-500/50 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
+          className="glass-card hover:border-accent/60 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
         >
           <div className="space-y-0.5">
-            <span className="text-[10px] text-slate-400 uppercase font-bold block">KipinCARGO</span>
-            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+            <span className="text-[10px] text-slate-400 uppercase font-bold block">Tarifas</span>
+            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-accent transition">
               Cotizaciones
             </span>
           </div>
-          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-accent/10 text-accent border border-accent/20">
             {totalQuotes}
           </span>
         </Link>
 
         <Link
           href="/shipments"
-          className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] hover:border-emerald-500/50 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
+          className="glass-card hover:border-emerald-500/60 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
         >
           <div className="space-y-0.5">
-            <span className="text-[10px] text-slate-400 uppercase font-bold block">KipinPLUGINS</span>
-            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">
-              Despacho Aduana
+            <span className="text-[10px] text-slate-400 uppercase font-bold block">Operaciones</span>
+            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-emerald-500 transition">
+              Aduana & Despacho
             </span>
           </div>
           <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-            Activo
+            {shipments.length}
           </span>
         </Link>
 
         <Link
           href="/portal"
-          className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] hover:border-cyan-500/50 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
+          className="glass-card hover:border-cyan-500/60 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
         >
           <div className="space-y-0.5">
-            <span className="text-[10px] text-slate-400 uppercase font-bold block">KipinTRACK</span>
-            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition">
+            <span className="text-[10px] text-slate-400 uppercase font-bold block">Importadores</span>
+            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-cyan-500 transition">
               Portal Clientes
             </span>
           </div>
@@ -103,11 +92,11 @@ export default async function DashboardPage() {
 
         <Link
           href="/preferences"
-          className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] hover:border-purple-500/50 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
+          className="glass-card hover:border-purple-500/60 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
         >
           <div className="space-y-0.5">
             <span className="text-[10px] text-slate-400 uppercase font-bold block">Personalización</span>
-            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition">
+            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-purple-500 transition">
               Tema & 4 Idiomas
             </span>
           </div>
@@ -120,7 +109,7 @@ export default async function DashboardPage() {
         {/* ================= LEFT COLUMN ================= */}
         <div className="lg:col-span-5 space-y-6">
           {/* CARD 1: Total Expenses */}
-          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-all duration-200 space-y-5">
+          <div className="glass-card rounded-3xl p-6 transition-all duration-200 space-y-5">
             {/* Title & Options Icon */}
             <div className="flex items-center justify-between">
               <h2 className="text-sm md:text-base font-semibold text-slate-900 dark:text-white">
@@ -153,31 +142,33 @@ export default async function DashboardPage() {
               </span>
 
               {/* 4-Segment Colored Progress Bar */}
-              <div className="flex items-center gap-1.5 h-3 w-full">
-                {/* Fuel (Purple) */}
-                <div
-                  className="h-full rounded-full bg-[#6366f1] transition-all duration-300"
-                  style={{ width: "37%" }}
-                  title="Fuel: 37%"
-                />
-                {/* Highway (Blue) */}
-                <div
-                  className="h-full rounded-full bg-[#3b82f6] transition-all duration-300"
-                  style={{ width: "30%" }}
-                  title="Highway: 30%"
-                />
-                {/* Logistics (Green) */}
-                <div
-                  className="h-full rounded-full bg-[#10b981] transition-all duration-300"
-                  style={{ width: "16%" }}
-                  title="Logistics: 16%"
-                />
-                {/* Resting (Yellow/Amber) */}
-                <div
-                  className="h-full rounded-full bg-[#f59e0b] transition-all duration-300"
-                  style={{ width: "17%" }}
-                  title="Resting: 17%"
-                />
+              <div className="flex items-center gap-1.5 h-3 w-full rounded-full overflow-hidden bg-slate-100 dark:bg-white/5">
+                {hasShipments ? (
+                  <>
+                    <div
+                      className="h-full bg-[#6366f1] transition-all duration-300"
+                      style={{ width: "37%" }}
+                      title="Fuel: 37%"
+                    />
+                    <div
+                      className="h-full bg-[#3b82f6] transition-all duration-300"
+                      style={{ width: "30%" }}
+                      title="Highway: 30%"
+                    />
+                    <div
+                      className="h-full bg-[#10b981] transition-all duration-300"
+                      style={{ width: "16%" }}
+                      title="Logistics: 16%"
+                    />
+                    <div
+                      className="h-full bg-[#f59e0b] transition-all duration-300"
+                      style={{ width: "17%" }}
+                      title="Resting: 17%"
+                    />
+                  </>
+                ) : (
+                  <div className="h-full w-full bg-slate-200/50 dark:bg-white/5" />
+                )}
               </div>
 
               {/* 4 Columns Legend with Dots */}
@@ -189,7 +180,7 @@ export default async function DashboardPage() {
                     <span>Fuel</span>
                   </div>
                   <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-1 font-sans">
-                    $12,121
+                    ${fuelExpense.toLocaleString("en-US")}
                   </div>
                 </div>
 
@@ -200,7 +191,7 @@ export default async function DashboardPage() {
                     <span>Highway</span>
                   </div>
                   <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-1 font-sans">
-                    $9,931
+                    ${highwayExpense.toLocaleString("en-US")}
                   </div>
                 </div>
 
@@ -211,7 +202,7 @@ export default async function DashboardPage() {
                     <span>Logistics</span>
                   </div>
                   <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-1 font-sans">
-                    $5,388
+                    ${logisticsExpense.toLocaleString("en-US")}
                   </div>
                 </div>
 
@@ -222,7 +213,7 @@ export default async function DashboardPage() {
                     <span>Resting</span>
                   </div>
                   <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-1 font-sans">
-                    $5,415
+                    ${restingExpense.toLocaleString("en-US")}
                   </div>
                 </div>
               </div>
@@ -230,7 +221,7 @@ export default async function DashboardPage() {
           </div>
 
           {/* CARD 2: Monthly Travel Distance */}
-          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-all duration-200 space-y-5">
+          <div className="glass-card rounded-3xl p-6 transition-all duration-200 space-y-5">
             {/* Header */}
             <div className="flex items-start justify-between">
               <div>
@@ -238,7 +229,7 @@ export default async function DashboardPage() {
                   Monthly Travel Distance
                 </h2>
                 <p className="text-xs text-slate-500 dark:text-[#8c8e9b] mt-0.5">
-                  Track your distance and expected salary
+                  Track your distance and logistics routing
                 </p>
               </div>
               <button
@@ -257,17 +248,17 @@ export default async function DashboardPage() {
             {/* Big Stat */}
             <div>
               <div className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans">
-                6,792.88 Km
+                {hasShipments ? "1,240.00 Km" : "0.00 Km"}
               </div>
               <div className="text-xs text-slate-400 dark:text-slate-500 mt-1">
-                10th, January 2025
+                {hasShipments ? "Embarques activos del mes" : "Sin operaciones registradas"}
               </div>
             </div>
 
             {/* Inner Recessed Box: Delivery Route & Distance */}
-            <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200/60 dark:border-white/[0.06] rounded-2xl p-4 flex items-center justify-between">
+            <div className="glass-card-sub rounded-2xl p-4 flex items-center justify-between">
               <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-slate-200 dark:bg-white/5 flex items-center justify-center text-slate-600 dark:text-slate-300">
+                <div className="w-10 h-10 rounded-xl bg-slate-200/50 dark:bg-white/5 flex items-center justify-center text-slate-600 dark:text-slate-300">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
@@ -298,7 +289,7 @@ export default async function DashboardPage() {
                   Distance
                 </span>
                 <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
-                  705Km
+                  {hasShipments ? "705 Km" : "0 Km"}
                 </span>
               </div>
             </div>
@@ -308,7 +299,7 @@ export default async function DashboardPage() {
         {/* ================= RIGHT COLUMN ================= */}
         <div className="lg:col-span-7 space-y-6">
           {/* CARD 3: Delivering Process Map */}
-          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-all duration-200 space-y-4">
+          <div className="glass-card rounded-3xl p-6 transition-all duration-200 space-y-4">
             <div>
               <h2 className="text-sm md:text-base font-semibold text-slate-900 dark:text-white">
                 Delivering Process
@@ -320,14 +311,14 @@ export default async function DashboardPage() {
 
             {/* Live Map */}
             <DeliveringMap
-              origin={topActive?.pol || "Bratislava"}
-              destination={topActive?.pod || "Stuttgart"}
-              currentPosition={topActive?.currentLocation || "Lower Austria / Burgenland"}
+              origin={topActive?.pol}
+              destination={topActive?.pod}
+              currentPosition={topActive?.currentLocation}
             />
           </div>
 
           {/* CARD 4: Delivery Informations */}
-          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-all duration-200 space-y-4">
+          <div className="glass-card rounded-3xl p-6 transition-all duration-200 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <h2 className="text-sm md:text-base font-semibold text-slate-900 dark:text-white">
@@ -351,7 +342,7 @@ export default async function DashboardPage() {
 
               <Link
                 href="/shipments/new"
-                className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-sm transition flex items-center gap-1.5"
+                className="px-3.5 py-1.5 rounded-xl bg-accent hover:opacity-90 text-white text-xs font-semibold shadow-sm transition flex items-center gap-1.5 cursor-pointer"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -369,41 +360,58 @@ export default async function DashboardPage() {
                 <div className="col-span-3 text-right">Arrival Date</div>
               </div>
 
-              {/* Milestones list */}
-              <div className="relative space-y-5">
-                {activeMilestones.map((m, idx) => (
-                  <div key={m.id} className="relative grid grid-cols-12 items-center text-xs">
-                    {/* Glowing green dot and vertical dashed line */}
-                    <div className="absolute left-1 top-2.5 -bottom-6 w-0.5 border-l border-dashed border-slate-300 dark:border-white/10" />
+              {/* Milestones list or Empty State */}
+              {activeMilestones.length === 0 ? (
+                <div className="py-10 text-center space-y-2">
+                  <div className="w-10 h-10 mx-auto rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    No hay hitos de entrega registrados.
+                  </p>
+                  <p className="text-[11px] text-slate-400 dark:text-slate-500">
+                    Crea un nuevo despacho para comenzar el seguimiento de ruta y aduana en tiempo real.
+                  </p>
+                </div>
+              ) : (
+                <div className="relative space-y-5">
+                  {activeMilestones.map((m) => (
+                    <div key={m.id} className="relative grid grid-cols-12 items-center text-xs">
+                      {/* Glowing green dot and vertical dashed line */}
+                      <div className="absolute left-1 top-2.5 -bottom-6 w-0.5 border-l border-dashed border-slate-300 dark:border-white/10" />
 
-                    <div className="col-span-5 flex items-center gap-3">
-                      <span className="relative z-10 w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50" />
-                      <div>
-                        <span className="font-semibold text-slate-900 dark:text-white block">
-                          {m.location}
-                        </span>
-                        <span className="text-[11px] text-slate-400">
-                          {m.title}
+                      <div className="col-span-5 flex items-center gap-3">
+                        <span className="relative z-10 w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50" />
+                        <div>
+                          <span className="font-semibold text-slate-900 dark:text-white block">
+                            {m.location}
+                          </span>
+                          <span className="text-[11px] text-slate-400">
+                            {m.title}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="col-span-4">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-500/10 text-blue-500 dark:text-blue-400 border border-blue-500/20">
+                          Good Condition
                         </span>
                       </div>
-                    </div>
 
-                    <div className="col-span-4">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-500/10 text-blue-500 dark:text-blue-400 border border-blue-500/20">
-                        Good Condition
-                      </span>
+                      <div className="col-span-3 text-right text-slate-500 dark:text-slate-400 text-xs">
+                        {new Date(m.date).toLocaleDateString("en-US", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </div>
                     </div>
-
-                    <div className="col-span-3 text-right text-slate-500 dark:text-slate-400 text-xs">
-                      {new Date(m.date).toLocaleDateString("en-US", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

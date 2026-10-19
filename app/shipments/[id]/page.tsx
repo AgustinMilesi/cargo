@@ -118,15 +118,15 @@ export default async function ShipmentDetailPage({
             />
           </div>
 
-          {/* KipinPLUGINS: Customs Clearance, Demurrage & Import Folder */}
-          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 md:p-8 space-y-5 shadow-sm">
+          {/* Customs Clearance, Demurrage & Import Folder */}
+          <div className="glass-card rounded-3xl p-6 md:p-8 space-y-5 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-4">
               <div>
                 <h2 className="text-sm font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                   Despacho Aduanero & Control de Sobrestadía (Demurrage)
                 </h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  KipinPLUGINS: Gestión de canales aduaneros, factura exterior y plazos de devolución de contenedor
+                  Gestión de canales aduaneros, factura exterior y plazos de devolución de contenedor
                 </p>
               </div>
 
@@ -417,15 +417,15 @@ export default async function ShipmentDetailPage({
                 <input
                   type="text"
                   name="location"
-                  placeholder="e.g. Lower Austria / Burgenland"
+                  placeholder="e.g. Terminal Puerto / En Tránsito"
                   defaultValue={shipment.currentLocation}
-                  className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:border-indigo-500 outline-none transition"
+                  className="w-full bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:border-accent outline-none transition"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs rounded-2xl transition shadow-md shadow-indigo-600/20 cursor-pointer"
+                className="w-full py-2.5 bg-accent hover:opacity-90 text-white font-semibold text-xs rounded-2xl transition shadow-md cursor-pointer"
               >
                 Update Status & Record Event
               </button>

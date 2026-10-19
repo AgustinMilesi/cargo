@@ -25,11 +25,11 @@ export default function NewShipmentPage() {
       {/* Form */}
       <form
         action={handleSubmit}
-        className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 md:p-8 space-y-8 shadow-sm"
+        className="glass-card rounded-3xl p-6 md:p-8 space-y-8 shadow-sm"
       >
         {/* Section 1: General & Routing */}
         <div className="space-y-4">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+          <h2 className="text-xs font-bold uppercase tracking-wider text-accent">
             1. Operation Details & Cargo Mode
           </h2>
 
@@ -310,7 +310,7 @@ export default function NewShipmentPage() {
           </Link>
           <button
             type="submit"
-            className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs rounded-2xl transition shadow-md shadow-indigo-600/20 cursor-pointer"
+            className="px-6 py-2.5 bg-accent hover:opacity-90 text-white font-semibold text-xs rounded-2xl transition shadow-md cursor-pointer"
           >
             Create & Confirm Load
           </button>

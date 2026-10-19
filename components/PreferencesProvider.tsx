@@ -5,23 +5,30 @@ import type { Locale, TranslationDict } from "@/lib/i18n";
 import { translations, LOCALES } from "@/lib/i18n";
 
 export type Mode = "dark" | "light";
-export type AccentTheme = "indigo" | "violet" | "emerald" | "amber" | "rose" | "cyan";
+export type AccentTheme = "bronze" | "indigo" | "crimson" | "emerald" | "amber" | "cyan";
 
 export interface AccentOption {
   id: AccentTheme;
   name: string;
-  colorClass: string;
   hex: string;
 }
 
+// Exactly matching the 6 swatches in the user's uploaded photo:
 export const ACCENT_THEMES: AccentOption[] = [
-  { id: "indigo", name: "Electric Indigo", colorClass: "bg-[#6366f1]", hex: "#6366f1" },
-  { id: "violet", name: "Deep Violet", colorClass: "bg-[#8b5cf6]", hex: "#8b5cf6" },
-  { id: "emerald", name: "Cargo Emerald", colorClass: "bg-[#10b981]", hex: "#10b981" },
-  { id: "amber", name: "Warm Amber", colorClass: "bg-[#f59e0b]", hex: "#f59e0b" },
-  { id: "rose", name: "Neon Rose", colorClass: "bg-[#f43f5e]", hex: "#f43f5e" },
-  { id: "cyan", name: "Ocean Cyan", colorClass: "bg-[#06b6d4]", hex: "#06b6d4" },
+  { id: "bronze", name: "Bronze Gold", hex: "#a16207" },
+  { id: "indigo", name: "Deep Indigo", hex: "#4f46e5" },
+  { id: "crimson", name: "Crimson Berry", hex: "#9f1239" },
+  { id: "emerald", name: "Forest Emerald", hex: "#059669" },
+  { id: "amber", name: "Vibrant Amber", hex: "#f59e0b" },
+  { id: "cyan", name: "Ocean Teal", hex: "#0e7490" },
 ];
+
+function hexToRgb(hex: string): string {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`
+    : "245, 158, 11";
+}
 
 interface PreferencesContextType {
   mode: Mode;
@@ -38,7 +45,7 @@ const PreferencesContext = createContext<PreferencesContextType>({
   mode: "dark",
   setMode: () => {},
   toggleMode: () => {},
-  accent: "indigo",
+  accent: "amber",
   setAccent: () => {},
   locale: "es",
   setLocale: () => {},
@@ -47,24 +54,24 @@ const PreferencesContext = createContext<PreferencesContextType>({
 
 export function PreferencesProvider({ children }: { children: React.ReactNode }) {
   const [mode, setModeState] = useState<Mode>("dark");
-  const [accent, setAccentState] = useState<AccentTheme>("indigo");
+  const [accent, setAccentState] = useState<AccentTheme>("amber");
   const [locale, setLocaleState] = useState<Locale>("es");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+
     // Load mode
     const savedMode = localStorage.getItem("onecargo-mode") as Mode | null;
     const initialMode = savedMode === "light" || savedMode === "dark" ? savedMode : "dark";
     setModeState(initialMode);
     applyMode(initialMode);
 
-    // Load accent
+    // Load accent (default to amber as shown in user photo)
     const savedAccent = localStorage.getItem("onecargo-accent") as AccentTheme | null;
-    if (savedAccent && ACCENT_THEMES.some((a) => a.id === savedAccent)) {
-      setAccentState(savedAccent);
-      document.documentElement.setAttribute("data-accent", savedAccent);
-    }
+    const initialAccent = savedAccent && ACCENT_THEMES.some((a) => a.id === savedAccent) ? savedAccent : "amber";
+    setAccentState(initialAccent);
+    applyAccent(initialAccent);
 
     // Load locale
     const savedLocale = localStorage.getItem("onecargo-locale") as Locale | null;
@@ -85,6 +92,14 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     }
   };
 
+  const applyAccent = (a: AccentTheme) => {
+    const root = document.documentElement;
+    root.setAttribute("data-accent", a);
+    const found = ACCENT_THEMES.find((item) => item.id === a) || ACCENT_THEMES[4];
+    root.style.setProperty("--primary-accent", found.hex);
+    root.style.setProperty("--primary-accent-rgb", hexToRgb(found.hex));
+  };
+
   const setMode = (newMode: Mode) => {
     setModeState(newMode);
     localStorage.setItem("onecargo-mode", newMode);
@@ -99,7 +114,7 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
   const setAccent = (newAccent: AccentTheme) => {
     setAccentState(newAccent);
     localStorage.setItem("onecargo-accent", newAccent);
-    document.documentElement.setAttribute("data-accent", newAccent);
+    applyAccent(newAccent);
   };
 
   const setLocale = (newLocale: Locale) => {
@@ -143,7 +158,8 @@ export function useTheme() {
 }
 
 export function ThemeToggle({ className = "" }: { className?: string }) {
-  const { mode, toggleMode } = usePreferences();
+  const { mode, toggleMode, accent } = usePreferences();
+  const currentAccent = ACCENT_THEMES.find((a) => a.id === accent) || ACCENT_THEMES[4];
 
   return (
     <button
@@ -158,16 +174,12 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
     >
       {mode === "dark" ? (
         <span className="flex items-center gap-1.5 text-xs font-medium text-slate-200">
-          <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
+          <span style={{ color: currentAccent.hex }}>☀️</span>
           <span className="hidden sm:inline">Light</span>
         </span>
       ) : (
         <span className="flex items-center gap-1.5 text-xs font-medium text-slate-700">
-          <svg className="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-          </svg>
+          <span style={{ color: currentAccent.hex }}>🌙</span>
           <span className="hidden sm:inline">Dark</span>
         </span>
       )}

@@ -38,12 +38,12 @@ export default async function CustomerPortalPage({
     <div className="p-4 sm:p-6 md:p-8 space-y-6 max-w-7xl mx-auto w-full">
       {/* Top Header */}
       <TopBar
-        title="Portal de Autogestión del Cliente (KipinTRACK)"
+        title="Portal de Autogestión del Cliente"
         subtitle="Acceso exclusivo para importadores: seguimiento de embarques, estado aduanero y documentos"
       />
 
       {/* Customer Lookup Search Box */}
-      <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 shadow-sm space-y-4">
+      <div className="glass-card rounded-3xl p-6 shadow-sm space-y-4">
         <form method="GET" action="/portal" className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -56,12 +56,12 @@ export default async function CustomerPortalPage({
               name="q"
               defaultValue={query}
               placeholder="Ingresá tu Razón Social, CUIT, Contenedor (MSCU...) o Bill of Lading..."
-              className="w-full pl-10 pr-4 py-2.5 text-xs md:text-sm rounded-2xl bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 outline-none focus:border-indigo-500 transition-all shadow-inner"
+              className="w-full pl-10 pr-4 py-2.5 text-xs md:text-sm rounded-2xl bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 outline-none focus:border-accent transition-all shadow-inner"
             />
           </div>
           <button
             type="submit"
-            className="px-6 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition shadow-md shadow-indigo-600/20 shrink-0 cursor-pointer"
+            className="px-6 py-2.5 rounded-2xl bg-accent hover:opacity-90 text-white font-semibold text-xs transition shadow-md shrink-0 cursor-pointer"
           >
             Consultar Mis Cargas
           </button>
@@ -92,7 +92,7 @@ export default async function CustomerPortalPage({
           return (
             <div
               key={s.id}
-              className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 md:p-8 space-y-6 shadow-sm"
+              className="glass-card rounded-3xl p-6 md:p-8 space-y-6 shadow-sm"
             >
               {/* Header */}
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-slate-100 dark:border-white/5">
@@ -234,16 +234,22 @@ export default async function CustomerPortalPage({
         })}
 
         {matchedShipments.length === 0 && (
-          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-12 text-center space-y-3">
+          <div className="glass-card rounded-3xl p-12 text-center space-y-3">
             <p className="text-slate-500 dark:text-slate-400 text-sm">
-              No se encontraron cargas activas para <strong className="text-slate-900 dark:text-white">"{query}"</strong>.
+              {query ? (
+                <>No se encontraron cargas activas para <strong className="text-slate-900 dark:text-white">"{query}"</strong>.</>
+              ) : (
+                <>No hay cargas registradas en el sistema todavía.</>
+              )}
             </p>
-            <Link
-              href="/portal"
-              className="text-xs text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 font-semibold inline-block"
-            >
-              Restablecer búsqueda y ver cargas recientes
-            </Link>
+            {query && (
+              <Link
+                href="/portal"
+                className="text-xs text-accent hover:underline font-semibold inline-block"
+              >
+                Restablecer búsqueda y ver cargas recientes
+              </Link>
+            )}
           </div>
         )}
       </div>

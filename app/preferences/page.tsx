@@ -12,49 +12,49 @@ export default function PreferencesPage() {
       <PreferencesBlock />
 
       {/* Architecture & Documentation Card */}
-      <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 sm:p-8 space-y-4 shadow-sm">
-        <h3 className="text-sm font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-          KipinTOCH Solutions Suite Architecture & Documentation
+      <div className="glass-card rounded-3xl p-6 sm:p-8 space-y-4 shadow-sm">
+        <h3 className="text-sm font-bold uppercase tracking-wider text-accent">
+          OneCargo Logistics Suite Architecture & Documentation
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-600 dark:text-slate-300">
-          <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06] space-y-1.5">
+          <div className="glass-card-sub p-4 rounded-2xl space-y-1.5">
             <h4 className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-blue-500" />
-              KipinCARGO & Quoting
+              Tarifas & Cotizaciones
             </h4>
             <p className="text-slate-500 dark:text-slate-400">
-              Centralized ocean & air freight pricing, BAF/THC terminal charge calculations, and 1-click conversion from accepted quotes into live import operational folders.
+              Centralización de fletes internacionales marítimos y aéreos, recargos BAF/THC y conversión en 1 clic a carpetas de importación operativas.
             </p>
           </div>
 
-          <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06] space-y-1.5">
+          <div className="glass-card-sub p-4 rounded-2xl space-y-1.5">
             <h4 className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              KipinPLUGINS & Customs Clearance
+              Aduana & Sobrestadía (Demurrage)
             </h4>
             <p className="text-slate-500 dark:text-slate-400">
-              Full import folder management with customs declaration numbers, inspection channels (Green, Orange, Red), and container demurrage free days countdown.
+              Gestión integral de carpetas de importación con canales aduaneros (Verde, Naranja, Rojo), despacho y control de días libres de contenedor.
             </p>
           </div>
 
-          <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06] space-y-1.5">
+          <div className="glass-card-sub p-4 rounded-2xl space-y-1.5">
             <h4 className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-cyan-500" />
-              KipinTRACK & Client Portal
+              Portal de Clientes & Tracking
             </h4>
             <p className="text-slate-500 dark:text-slate-400">
-              Self-service customer portal where importers look up their shipments by Tax ID or container, view live milestones, and download B/L and invoices without exposing internal margins.
+              Autogestión para importadores con búsqueda por CUIT o contenedor, seguimiento de hitos en tiempo real y descarga de documentos sin exponer márgenes.
             </p>
           </div>
 
-          <div className="bg-slate-50/70 dark:bg-[#121318]/65 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 dark:border-white/[0.06] space-y-1.5">
+          <div className="glass-card-sub p-4 rounded-2xl space-y-1.5">
             <h4 className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-purple-500" />
-              KipinAPI & Data Sync
+              REST API & Sincronización
             </h4>
             <p className="text-slate-500 dark:text-slate-400">
-              Open RESTful API endpoints (<code className="text-indigo-500">/api/v1/shipments</code>, <code className="text-indigo-500">/api/v1/tracking</code>, <code className="text-indigo-500">/api/v1/quotes</code>) for automated external integrations.
+              Endpoints RESTful abiertos (<code className="text-accent">/api/v1/shipments</code>, <code className="text-accent">/api/v1/tracking</code>, <code className="text-accent">/api/v1/quotes</code>) para integraciones externas y ERP.
             </p>
           </div>
         </div>

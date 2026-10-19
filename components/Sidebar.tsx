@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { usePreferences, ThemeToggle } from "./PreferencesProvider";
+import { usePreferences } from "./PreferencesProvider";
+import { PreferencesDropdown } from "./PreferencesDropdown";
 import { LOCALES } from "@/lib/i18n";
 
 interface NavItem {
@@ -66,7 +67,6 @@ export function Sidebar() {
       key: "shipments",
       name: t.navShipments || "Carpetas de Importación",
       href: "/shipments",
-      badge: 12,
       icon: (active) => (
         <svg
           className={`w-5 h-5 transition-colors ${
@@ -204,13 +204,13 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-full md:w-64 bg-white/80 dark:bg-[#131419]/80 backdrop-blur-xl border-b md:border-b-0 md:border-r border-slate-200/80 dark:border-white/[0.08] p-5 flex flex-col justify-between shrink-0 transition-all duration-200">
+    <aside className="w-full md:w-64 glass-sidebar border-b md:border-b-0 md:border-r border-slate-200/80 dark:border-white/[0.08] p-5 flex flex-col justify-between shrink-0 transition-all duration-200">
       <div className="space-y-6">
         {/* Brand Header */}
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
             {/* Logo Icon */}
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform duration-200">
+            <div className="w-10 h-10 rounded-2xl bg-accent flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform duration-200">
               <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2a10 10 0 00-7.07 17.07 10 10 0 1014.14-14.14A9.93 9.93 0 0012 2zm0 18a8 8 0 118-8 8.009 8.009 0 01-8 8zm3.5-9.5A2.5 2.5 0 0013 8h-2a2.5 2.5 0 000 5h2a2.5 2.5 0 010 5h-2a2.5 2.5 0 01-2.5-2.5v-.5h2v.5a.5.5 0 00.5.5h2a.5.5 0 000-1h-2a2.5 2.5 0 010-5h2a2.5 2.5 0 012.5 2.5v.5h-2v-.5a.5.5 0 00-.5-.5z" />
               </svg>
@@ -220,13 +220,13 @@ export function Sidebar() {
                 OneCargo
               </span>
               <span className="text-[10px] text-slate-400 font-medium leading-none">
-                KipinTOCH Suite
+                Global Logistics OS
               </span>
             </div>
           </Link>
 
           <div className="md:hidden">
-            <ThemeToggle />
+            <PreferencesDropdown />
           </div>
         </div>
 
@@ -244,7 +244,7 @@ export function Sidebar() {
                 href={item.href}
                 className={`group flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200 shrink-0 ${
                   isActive
-                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/25"
+                    ? "bg-accent text-white shadow-md"
                     : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-white/5"
                 }`}
               >
@@ -266,34 +266,13 @@ export function Sidebar() {
 
       {/* Footer Controls */}
       <div className="hidden md:flex flex-col gap-3 pt-5 border-t border-slate-200/80 dark:border-white/5 text-xs text-slate-500 dark:text-slate-400">
-        {/* 4-Language Flag Switcher Bar */}
-        <div className="flex items-center justify-between p-1 rounded-2xl bg-slate-100/80 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-          {LOCALES.map((l) => (
-            <button
-              key={l.code}
-              type="button"
-              onClick={() => setLocale(l.code)}
-              title={`${l.label} (${l.code.toUpperCase()})`}
-              className={`flex-1 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center justify-center gap-1 ${
-                locale === l.code
-                  ? "bg-white dark:bg-[#1f2029] text-slate-900 dark:text-white shadow-xs font-bold"
-                  : "text-slate-500 hover:text-slate-900 dark:hover:text-white"
-              }`}
-            >
-              <span>{l.flag}</span>
-              <span className="text-[10px] uppercase font-mono">{l.code}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Mode Switcher and DB badge */}
         <div className="flex items-center justify-between pt-1">
           <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-[11px] font-medium text-slate-700 dark:text-slate-300">Neon Cloud</span>
           </div>
 
-          <ThemeToggle />
+          <PreferencesDropdown />
         </div>
       </div>
     </aside>

@@ -3,31 +3,56 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --bg-page: #f5f6fa;
-  --bg-sidebar: rgba(255, 255, 255, 0.85);
-  --bg-card: rgba(255, 255, 255, 0.78);
-  --bg-card-sub: rgba(248, 250, 252, 0.65);
-  --border-card: rgba(226, 232, 240, 0.85);
+  --primary-accent: #f59e0b;
+  --primary-accent-rgb: 245, 158, 11;
+  --bg-page: #f4f6fa;
+  --bg-sidebar: rgba(255, 255, 255, 0.72);
+  --bg-card: rgba(255, 255, 255, 0.65);
+  --bg-card-sub: rgba(248, 250, 252, 0.60);
+  --border-card: rgba(255, 255, 255, 0.85);
   --text-main: #0f172a;
   --text-muted: #64748b;
-  --accent-purple: #6366f1;
-  --accent-blue: #3b82f6;
-  --accent-green: #10b981;
-  --accent-amber: #f59e0b;
 }
 
 .dark {
-  --bg-page: #0c0d12;
-  --bg-sidebar: rgba(19, 20, 25, 0.82);
-  --bg-card: rgba(24, 25, 32, 0.72);
-  --bg-card-sub: rgba(18, 19, 24, 0.65);
-  --border-card: rgba(255, 255, 255, 0.08);
+  --bg-page: #08090d;
+  --bg-sidebar: rgba(16, 17, 24, 0.68);
+  --bg-card: rgba(19, 21, 30, 0.60);
+  --bg-card-sub: rgba(14, 15, 22, 0.55);
+  --border-card: rgba(255, 255, 255, 0.12);
   --text-main: #ffffff;
   --text-muted: #9496a1;
-  --accent-purple: #6366f1;
-  --accent-blue: #3b82f6;
-  --accent-green: #10b981;
-  --accent-amber: #f59e0b;
+}
+
+/* 6 Palette Accents matching user selection */
+[data-accent="bronze"] {
+  --primary-accent: #a16207;
+  --primary-accent-rgb: 161, 98, 7;
+}
+
+[data-accent="indigo"] {
+  --primary-accent: #4f46e5;
+  --primary-accent-rgb: 79, 70, 229;
+}
+
+[data-accent="crimson"] {
+  --primary-accent: #9f1239;
+  --primary-accent-rgb: 159, 18, 57;
+}
+
+[data-accent="emerald"] {
+  --primary-accent: #059669;
+  --primary-accent-rgb: 5, 150, 105;
+}
+
+[data-accent="amber"] {
+  --primary-accent: #f59e0b;
+  --primary-accent-rgb: 245, 158, 11;
+}
+
+[data-accent="cyan"] {
+  --primary-accent: #0e7490;
+  --primary-accent-rgb: 14, 116, 144;
 }
 
 @layer base {
@@ -39,30 +64,44 @@
   }
 }
 
-/* Subtle frosted glass card styles */
+/* Authentic, noticeable frosted glass styles */
 .glass-card {
-  background-color: var(--bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-card);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.03);
+  background-color: var(--bg-card) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid var(--border-card) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08), inset 0 1px 0 0 rgba(255, 255, 255, 0.9) !important;
 }
+
 .dark .glass-card {
-  box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.1) !important;
 }
 
 .glass-card-sub {
-  background-color: var(--bg-card-sub);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-card);
+  background-color: var(--bg-card-sub) !important;
+  backdrop-filter: blur(16px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+  border: 1px solid var(--border-card) !important;
 }
 
 .glass-sidebar {
-  background-color: var(--bg-sidebar);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-color: var(--border-card);
+  background-color: var(--bg-sidebar) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border-color: var(--border-card) !important;
+}
+
+/* Dynamic Accent Helpers */
+.bg-accent {
+  background-color: var(--primary-accent) !important;
+}
+
+.text-accent {
+  color: var(--primary-accent) !important;
+}
+
+.border-accent {
+  border-color: var(--primary-accent) !important;
 }
 
 /* Custom scrollbars */

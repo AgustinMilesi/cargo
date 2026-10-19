@@ -29,12 +29,12 @@ export default async function QuotesPage({
       {/* Top Header */}
       <TopBar
         title="Tarifarios & Cotizador de Importación"
-        subtitle="KipinCARGO: Centralización de fletes internacionales, cálculo de BAF/THC y presupuestos"
+        subtitle="Centralización de fletes internacionales, cálculo de BAF/THC y presupuestos comerciales"
       />
 
       {/* KPI Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-5 shadow-sm space-y-2">
+        <div className="glass-card rounded-3xl p-5 shadow-sm space-y-2">
           <span className="text-[11px] font-semibold text-slate-500 dark:text-[#8c8e9b] uppercase tracking-wider block">
             Cotizaciones Activas
           </span>
@@ -44,17 +44,17 @@ export default async function QuotesPage({
           <span className="text-[11px] text-slate-400 block">Total histórico: {quotes.length} presupuestos</span>
         </div>
 
-        <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-5 shadow-sm space-y-2">
+        <div className="glass-card rounded-3xl p-5 shadow-sm space-y-2">
           <span className="text-[11px] font-semibold text-slate-500 dark:text-[#8c8e9b] uppercase tracking-wider block">
             Volumen Billed Estimado
           </span>
-          <span className="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 block font-sans">
+          <span className="text-2xl font-extrabold text-accent block font-sans">
             ${totalSell.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </span>
           <span className="text-[11px] text-slate-400 block">Venta presupuestada a clientes</span>
         </div>
 
-        <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-5 shadow-sm space-y-2">
+        <div className="glass-card rounded-3xl p-5 shadow-sm space-y-2">
           <span className="text-[11px] font-semibold text-slate-500 dark:text-[#8c8e9b] uppercase tracking-wider block">
             Margen Neto Proyectado
           </span>
@@ -64,7 +64,7 @@ export default async function QuotesPage({
           <span className="text-[11px] text-slate-400 block">Spread comercial venta vs compra</span>
         </div>
 
-        <div className="bg-emerald-50/70 dark:bg-[#181920]/75 backdrop-blur-xl border border-emerald-500/30 rounded-3xl p-5 shadow-sm space-y-2 dark:bg-emerald-500/5">
+        <div className="glass-card border border-emerald-500/30 rounded-3xl p-5 shadow-sm space-y-2">
           <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block">
             Embarques Concretados
           </span>
@@ -76,10 +76,10 @@ export default async function QuotesPage({
       </div>
 
       {/* New Quote Quick Generator */}
-      <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 md:p-8 space-y-5 shadow-sm">
+      <div className="glass-card rounded-3xl p-6 md:p-8 space-y-5 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-100 dark:border-white/5 pb-4">
           <div>
-            <h2 className="text-sm font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-accent">
               Generar Nueva Cotización de Importación
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -251,7 +251,7 @@ export default async function QuotesPage({
             <div className="flex items-end">
               <button
                 type="submit"
-                className="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs rounded-2xl transition shadow-md shadow-indigo-600/20 cursor-pointer flex items-center justify-center gap-1.5"
+                className="w-full py-2.5 px-4 bg-accent hover:opacity-90 text-white font-semibold text-xs rounded-2xl transition shadow-md cursor-pointer flex items-center justify-center gap-1.5"
               >
                 <span>Emitir Cotización</span>
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -264,7 +264,7 @@ export default async function QuotesPage({
       </div>
 
       {/* Filter Tabs & Quotes Table */}
-      <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-3xl p-6 shadow-sm space-y-4">
+      <div className="glass-card rounded-3xl p-6 shadow-sm space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-4">
           <div>
             <h3 className="text-base font-bold text-slate-900 dark:text-white">
@@ -275,12 +275,12 @@ export default async function QuotesPage({
             </p>
           </div>
 
-          <div className="flex items-center gap-1.5 p-1 bg-slate-100/80 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10 text-xs font-semibold">
+          <div className="flex items-center gap-1.5 p-1 glass-card-sub rounded-2xl text-xs font-semibold">
             <Link
               href="/quotes"
               className={`px-3 py-1.5 rounded-xl transition cursor-pointer ${
                 !status || status === "ALL"
-                  ? "bg-indigo-600 text-white shadow-sm"
+                  ? "bg-accent text-white shadow-sm"
                   : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
@@ -290,7 +290,7 @@ export default async function QuotesPage({
               href="/quotes?status=SENT"
               className={`px-3 py-1.5 rounded-xl transition cursor-pointer ${
                 status === "SENT"
-                  ? "bg-indigo-600 text-white shadow-sm"
+                  ? "bg-accent text-white shadow-sm"
                   : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
@@ -321,7 +321,7 @@ export default async function QuotesPage({
                 <th className="pb-3 px-4 text-right">Venta (Sell)</th>
                 <th className="pb-3 px-4 text-right">Margen Neto</th>
                 <th className="pb-3 px-4 text-center">Estado</th>
-                <th className="pb-3 pl-4 text-right">Acción KipinTOCH</th>
+                <th className="pb-3 pl-4 text-right">Acción</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-white/5">
@@ -387,7 +387,7 @@ export default async function QuotesPage({
                         >
                           <button
                             type="submit"
-                            className="inline-flex items-center gap-1 px-3 py-1 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition shadow-sm cursor-pointer"
+                            className="inline-flex items-center gap-1 px-3 py-1 rounded-xl bg-accent hover:opacity-90 text-white text-xs font-semibold transition shadow-sm cursor-pointer"
                           >
                             <span>Convertir</span>
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

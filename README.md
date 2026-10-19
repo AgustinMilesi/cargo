@@ -31,7 +31,7 @@ Featuring a native **Dark & Light Mode design system**, cloud persistence powere
    - Real-time dark transit route vector map with transit lines, regional boundaries, highway telemetry, speed sensors, and pulsating GPS location waypoints.
 
 4. **📍 Monthly Travel Distance & Route Cards:**
-   - Distance odometer tracking monthly mileage (e.g. `6,792.88 Km`), delivery route segments (e.g. `Bratislava - Stuttgart`), and salary metrics.
+   - Distance odometer tracking monthly mileage, delivery route segments, and metrics.
 
 5. **🕒 Delivery Informations & Milestones Timeline:**
    - Chronological vertical timeline with glowing green checkpoint pins, arrival timestamps, and "Good Condition" verification badges.
