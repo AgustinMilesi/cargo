@@ -62,41 +62,41 @@ export default async function DashboardPage() {
 
         <Link
           href="/shipments"
-          className="glass-card hover:border-emerald-500/60 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
+          className="glass-card hover:border-accent/60 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
         >
           <div className="space-y-0.5">
             <span className="text-[10px] text-slate-400 uppercase font-bold block">Operaciones</span>
-            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-emerald-500 transition">
+            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-accent transition">
               Aduana & Despacho
             </span>
           </div>
-          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-accent/10 text-accent border border-accent/20">
             {shipments.length}
           </span>
         </Link>
 
         <Link
           href="/portal"
-          className="glass-card hover:border-cyan-500/60 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
+          className="glass-card hover:border-accent/60 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
         >
           <div className="space-y-0.5">
             <span className="text-[10px] text-slate-400 uppercase font-bold block">Importadores</span>
-            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-cyan-500 transition">
+            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-accent transition">
               Portal Clientes
             </span>
           </div>
-          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-accent/10 text-accent border border-accent/20">
             {totalClients}
           </span>
         </Link>
 
         <Link
           href="/preferences"
-          className="glass-card hover:border-purple-500/60 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
+          className="glass-card hover:border-accent/60 p-3.5 rounded-2xl flex items-center justify-between group transition shadow-sm"
         >
           <div className="space-y-0.5">
             <span className="text-[10px] text-slate-400 uppercase font-bold block">Personalización</span>
-            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-purple-500 transition">
+            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-accent transition">
               Tema & 4 Idiomas
             </span>
           </div>
@@ -342,7 +342,7 @@ export default async function DashboardPage() {
 
               <Link
                 href="/shipments/new"
-                className="px-3.5 py-1.5 rounded-xl bg-accent hover:opacity-90 text-white text-xs font-semibold shadow-sm transition flex items-center gap-1.5 cursor-pointer"
+                className="px-3.5 py-1.5 rounded-xl bg-accent hover:opacity-90 text-[var(--primary-accent-text)] text-xs font-bold shadow-sm transition flex items-center gap-1.5 cursor-pointer"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
