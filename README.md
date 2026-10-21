@@ -1,4 +1,4 @@
-# 🌐 OneCargo — Logistics & Freight Operating System
+# 🌐 VOUT Cargo — Logistics & Freight Operating System
 
 An international freight forwarding, customs clearance, and real-time cargo tracking platform. Engineered for freight forwarders, cargo dispatchers, and customs brokers to manage multimodal shipments, GPS container tracking, customs clearance channels (SIM/SEDI), demurrage deadlines, and financial settlements.
 
@@ -79,8 +79,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-### 🔗 Other Projects
-- [💳 Retail Engine & POS](https://github.com/AgustinMilesi/retail) — Point of sale, atomic stock control, and cash drawer audits.
-- [📥 Customer Inbox SaaS](https://github.com/AgustinMilesi/inbox) — Multi-tenant customer inquiry inbox and embeddable forms.
-- [📱 PocketExpenses](https://github.com/AgustinMilesi/expenses) — Mobile cost and subscription tracker with React Native & NativeWind.
-- [📬 Contact Portal](https://github.com/AgustinMilesi/contact) — Minimalist contact form and lead gateway with Zod validation.
+### ⚡ The VOUT Software Ecosystem
+- [📱 VOUT Pocket](https://github.com/AgustinMilesi/expenses) — Mobile cost, subscription, and micro-spending tracker with React Native.
+- [💳 VOUT Retail](https://github.com/AgustinMilesi/retail) — Cloud point of sale, atomic stock control, and cash drawer audits.
+- [📥 VOUT Inbox](https://github.com/AgustinMilesi/inbox) — Multi-tenant customer inquiry inbox and embeddable forms.
+- [📬 VOUT Connect](https://github.com/AgustinMilesi/contact) — Minimalist contact form and lead gateway with Zod validation.
