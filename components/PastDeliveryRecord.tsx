@@ -54,15 +54,15 @@ export function PastDeliveryRecord({
           </p>
         </div>
 
-        {/* Filter Pills matching OneCargo */}
+        {/* Filter Pills matching VOUT Cargo */}
         <div role="group" aria-label="Filtrar entregas por peso o modalidad" className="flex items-center gap-1.5 p-1 glass-card-sub rounded-xl self-start sm:self-auto">
           <button
             type="button"
             onClick={() => setFilter("ALL")}
             aria-pressed={filter === "ALL"}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
               filter === "ALL"
-                ? "bg-accent text-white shadow-sm"
+                ? "bg-accent text-[var(--primary-accent-text)] shadow-sm"
                 : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >
@@ -72,9 +72,9 @@ export function PastDeliveryRecord({
             type="button"
             onClick={() => setFilter("HEAVY")}
             aria-pressed={filter === "HEAVY"}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
               filter === "HEAVY"
-                ? "bg-accent text-white shadow-sm"
+                ? "bg-accent text-[var(--primary-accent-text)] shadow-sm"
                 : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >
@@ -84,9 +84,9 @@ export function PastDeliveryRecord({
             type="button"
             onClick={() => setFilter("MEDIUM")}
             aria-pressed={filter === "MEDIUM"}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
               filter === "MEDIUM"
-                ? "bg-accent text-white shadow-sm"
+                ? "bg-accent text-[var(--primary-accent-text)] shadow-sm"
                 : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >

@@ -64,7 +64,7 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     setMounted(true);
 
     // Load mode
-    const savedMode = localStorage.getItem("onecargo-mode") as Mode | null;
+    const savedMode = (localStorage.getItem("vout-cargo-mode") || localStorage.getItem("onecargo-mode")) as Mode | null;
     const initialMode = savedMode === "light" || savedMode === "dark" ? savedMode : "dark";
     setModeState(initialMode);
     applyMode(initialMode);
@@ -76,7 +76,7 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     applyAccent(initialAccent);
 
     // Load locale
-    const savedLocale = localStorage.getItem("onecargo-locale") as Locale | null;
+    const savedLocale = (localStorage.getItem("vout-cargo-locale") || localStorage.getItem("onecargo-locale")) as Locale | null;
     if (savedLocale && (["es", "en", "pt", "zh"] as const).includes(savedLocale)) {
       setLocaleState(savedLocale);
     }
@@ -126,8 +126,9 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
 
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale);
+    localStorage.setItem("vout-cargo-locale", newLocale);
     localStorage.setItem("onecargo-locale", newLocale);
-    document.cookie = `onecargo-locale=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+    document.cookie = `vout-cargo-locale=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
   };
 
   const currentTranslations = translations[locale] || translations.es;

@@ -51,7 +51,7 @@ export function PreferencesBlock({ compact = false }: { compact?: boolean }) {
               onClick={() => setMode("light")}
               className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 mode === "light"
-                  ? "bg-accent text-white shadow-sm"
+                  ? "bg-accent text-[var(--primary-accent-text)] shadow-sm"
                   : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
@@ -64,7 +64,7 @@ export function PreferencesBlock({ compact = false }: { compact?: boolean }) {
               onClick={() => setMode("dark")}
               className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 mode === "dark"
-                  ? "bg-accent text-white shadow-sm"
+                  ? "bg-accent text-[var(--primary-accent-text)] shadow-sm"
                   : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
@@ -110,7 +110,7 @@ export function PreferencesBlock({ compact = false }: { compact?: boolean }) {
                 onClick={() => setLocale(l.code)}
                 className={`flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer font-medium ${
                   locale === l.code
-                    ? "bg-accent text-white font-bold shadow-sm"
+                    ? "bg-accent text-[var(--primary-accent-text)] font-bold shadow-sm"
                     : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/5"
                 }`}
               >
@@ -124,7 +124,7 @@ export function PreferencesBlock({ compact = false }: { compact?: boolean }) {
 
       <div className="pt-2 text-[11px] text-slate-400 dark:text-slate-500 flex items-center justify-between border-t border-slate-100 dark:border-white/5">
         <span>{t.frostedGlassNote}</span>
-        <span className="font-mono text-[10px]">OneCargo v2.2 · Enterprise Logistics Suite</span>
+        <span className="font-mono text-[10px]">VOUT Cargo v3.0 · Enterprise Logistics Suite</span>
       </div>
     </div>
   );

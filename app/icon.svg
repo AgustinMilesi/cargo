@@ -1,13 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
   <defs>
-    <linearGradient id="oneCargoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#6366f1"/>
-      <stop offset="100%" stop-color="#9333ea"/>
+    <linearGradient id="voutCargoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#121824"/>
+      <stop offset="100%" stop-color="#0A0E14"/>
     </linearGradient>
   </defs>
   <!-- Background rounded rectangle -->
-  <rect width="32" height="32" rx="9" fill="url(#oneCargoGrad)"/>
+  <rect width="32" height="32" rx="9" fill="url(#voutCargoGrad)" stroke="#1E293B" stroke-width="1"/>
 
-  <!-- OneCargo curved dynamic cargo shape -->
-  <path d="M16 6a10 10 0 00-7.07 17.07A10 10 0 1023.07 8.93 9.93 9.93 0 0016 6zm0 17.5a7.5 7.5 0 117.5-7.5 7.508 7.508 0 01-7.5 7.5zm3.5-9a2.5 2.5 0 00-2.5-2.5h-2a2.5 2.5 0 000 5h2a2.5 2.5 0 010 5h-2a2.5 2.5 0 01-2.5-2.5v-.5h2v.5a.5.5 0 00.5.5h2a.5.5 0 000-1h-2a2.5 2.5 0 010-5h2a2.5 2.5 0 012.5 2.5v.5h-2v-.5a.5.5 0 00-.5-.5z" fill="#ffffff"/>
+  <!-- VOUT Monogram & Freight Mark -->
+  <path d="M7 9L13.5 23H18.5L25 9H20.2L16 18.2L11.8 9H7Z" fill="#C6F827"/>
+  <rect x="14" y="9" width="4" height="3" rx="1.5" fill="#C6F827" opacity="0.6"/>
 </svg>

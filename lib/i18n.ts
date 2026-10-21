@@ -10,7 +10,7 @@ export const LOCALES: { code: Locale; label: string; flag: string }[] = [
 export const translations = {
   es: {
     // Brand & Taglines
-    appName: "OneCargo",
+    appName: "VOUT Cargo",
     appSubtitle: "Suite Integral de Importaciones y Cargas Internacionales",
 
     // Navigation Items
@@ -105,7 +105,7 @@ export const translations = {
 
     // Preferences & Theme
     preferencesTitle: "Preferencias Visuales & Personalización",
-    preferencesSubtitle: "Configurá el modo de pantalla (Claro / Oscuro), paleta de acento e idioma de OneCargo.",
+    preferencesSubtitle: "Configurá el modo de pantalla (Claro / Oscuro), paleta de acento e idioma de VOUT Cargo.",
     appearanceMode: "Modo de Pantalla",
     lightMode: "Modo Claro",
     darkMode: "Modo Oscuro",
@@ -116,7 +116,7 @@ export const translations = {
 
   en: {
     // Brand & Taglines
-    appName: "OneCargo",
+    appName: "VOUT Cargo",
     appSubtitle: "Comprehensive Suite for Import Operations & Global Freight",
 
     // Navigation Items
@@ -222,7 +222,7 @@ export const translations = {
 
   pt: {
     // Brand & Taglines
-    appName: "OneCargo",
+    appName: "VOUT Cargo",
     appSubtitle: "Suite Completa para Operações de Importação e Cargas Globais",
 
     // Navigation Items
@@ -317,7 +317,7 @@ export const translations = {
 
     // Preferences & Theme
     preferencesTitle: "Preferências Visuais & Personalização",
-    preferencesSubtitle: "Configure o modo de exibição (Claro / Escuro), paleta de cores e idioma do OneCargo.",
+    preferencesSubtitle: "Configure o modo de exibição (Claro / Escuro), paleta de cores e idioma do VOUT Cargo.",
     appearanceMode: "Modo de Exibição",
     lightMode: "Modo Claro",
     darkMode: "Modo Escuro",
@@ -328,7 +328,7 @@ export const translations = {
 
   zh: {
     // Brand & Taglines
-    appName: "OneCargo",
+    appName: "VOUT Cargo",
     appSubtitle: "进口货运与国际物流综合管理系统",
 
     // Navigation Items

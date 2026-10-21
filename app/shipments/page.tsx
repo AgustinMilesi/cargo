@@ -77,9 +77,9 @@ export default async function ShipmentsPage({
           </Link>
           <Link
             href="/shipments?status=IN_TRANSIT"
-            className={`px-3 py-1.5 rounded-xl transition cursor-pointer ${
+            className={`px-3 py-1.5 rounded-xl transition cursor-pointer font-bold ${
               status === "IN_TRANSIT"
-                ? "bg-blue-600 text-white"
+                ? "bg-accent text-[var(--primary-accent-text)] shadow-xs"
                 : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >
@@ -87,9 +87,9 @@ export default async function ShipmentsPage({
           </Link>
           <Link
             href="/shipments?status=CUSTOMS"
-            className={`px-3 py-1.5 rounded-xl transition cursor-pointer ${
+            className={`px-3 py-1.5 rounded-xl transition cursor-pointer font-bold ${
               status === "CUSTOMS"
-                ? "bg-amber-600 text-white"
+                ? "bg-accent text-[var(--primary-accent-text)] shadow-xs"
                 : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >
@@ -97,9 +97,9 @@ export default async function ShipmentsPage({
           </Link>
           <Link
             href="/shipments?status=DELIVERED"
-            className={`px-3 py-1.5 rounded-xl transition cursor-pointer ${
+            className={`px-3 py-1.5 rounded-xl transition cursor-pointer font-bold ${
               status === "DELIVERED"
-                ? "bg-emerald-600 text-white"
+                ? "bg-accent text-[var(--primary-accent-text)] shadow-xs"
                 : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >

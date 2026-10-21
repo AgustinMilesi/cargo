@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { PreferencesProvider } from "@/components/PreferencesProvider";
 import { Sidebar } from "@/components/Sidebar";
+import { CookieBanner } from "@/components/CookieBanner";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://cargo-am.vercel.app"),
-  title: "OneCargo — Logistics & Import Operating System",
-  description: "OneCargo suite for import operations, quotes, container tracking, customs, and finances.",
+  title: "VOUT Cargo — Global Logistics & Import Operating System",
+  description: "VOUT Cargo enterprise suite for container tracking, customs, import quotes, and global freight operations.",
   icons: { icon: "/icon.svg" },
 };
 
@@ -16,13 +17,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className="dark" data-accent="amber" suppressHydrationWarning>
+    <html lang="es" className="dark" data-accent="lime" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const savedMode = localStorage.getItem('onecargo-mode') || localStorage.getItem('onecargo-theme');
+                const savedMode = localStorage.getItem('vout-cargo-mode') || localStorage.getItem('onecargo-mode') || 'dark';
                 if (savedMode === 'light') {
                   document.documentElement.classList.remove('dark');
                   document.documentElement.classList.add('light');
@@ -33,15 +34,16 @@ export default function RootLayout({
                   document.documentElement.setAttribute('data-mode', 'dark');
                 }
 
-                const savedAccent = localStorage.getItem('onecargo-accent') || 'amber';
+                const savedAccent = localStorage.getItem('vout-cargo-accent') || localStorage.getItem('onecargo-accent') || 'lime';
                 document.documentElement.setAttribute('data-accent', savedAccent);
                 const accentColors = {
-                  bronze: '#a16207',
-                  indigo: '#4f46e5',
-                  crimson: '#9f1239',
-                  emerald: '#059669',
-                  amber: '#f59e0b',
-                  cyan: '#0e7490'
+                  lime: '#C6F827',
+                  emerald: '#10B981',
+                  indigo: '#6366F1',
+                  rose: '#F43F5E',
+                  amber: '#F59E0B',
+                  cyan: '#06B6D4',
+                  violet: '#8B5CF6'
                 };
                 if (accentColors[savedAccent]) {
                   document.documentElement.style.setProperty('--primary-accent', accentColors[savedAccent]);
@@ -51,12 +53,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-[#f4f6fa] dark:bg-[#08090d] text-slate-900 dark:text-white antialiased selection:bg-amber-500 selection:text-white transition-colors duration-200 relative overflow-x-hidden">
-        {/* Colorful ambient orbs positioned in z-0 to shine directly behind frosted glass cards */}
-        <div className="fixed top-[-5%] right-[15%] w-[48rem] h-[48rem] bg-amber-500/22 dark:bg-amber-500/25 rounded-full blur-[130px] pointer-events-none z-0" />
-        <div className="fixed bottom-[-10%] left-[20%] w-[44rem] h-[44rem] bg-indigo-600/20 dark:bg-indigo-600/22 rounded-full blur-[140px] pointer-events-none z-0" />
-        <div className="fixed top-[35%] left-[-8%] w-[36rem] h-[36rem] bg-emerald-500/16 dark:bg-emerald-500/18 rounded-full blur-[130px] pointer-events-none z-0" />
-        <div className="fixed bottom-[15%] right-[-5%] w-[34rem] h-[34rem] bg-purple-500/14 dark:bg-purple-500/16 rounded-full blur-[130px] pointer-events-none z-0" />
+      <body className="min-h-screen bg-[#0A0E14] text-slate-100 antialiased selection:bg-[var(--primary-accent)] selection:text-[var(--primary-accent-text)] transition-colors duration-200 relative overflow-x-hidden">
+        {/* Subtle obsidian ambient depth */}
+        <div className="fixed top-[-10%] right-[10%] w-[42rem] h-[42rem] bg-[var(--primary-accent)]/5 rounded-full blur-[140px] pointer-events-none z-0" />
 
         {/* Skip to Content for Keyboard Users (WCAG 2.2 SC 2.4.1) */}
         <a href="#main-content" className="sr-only skip-link">
@@ -70,6 +69,7 @@ export default function RootLayout({
               {children}
             </main>
           </div>
+          <CookieBanner />
         </PreferencesProvider>
       </body>
     </html>

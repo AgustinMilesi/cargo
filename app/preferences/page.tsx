@@ -14,7 +14,7 @@ export default function PreferencesPage() {
       {/* Architecture & Documentation Card */}
       <div className="glass-card rounded-3xl p-6 sm:p-8 space-y-4 shadow-sm">
         <h3 className="text-sm font-bold uppercase tracking-wider text-accent">
-          OneCargo Logistics Suite Architecture & Documentation
+          VOUT Cargo · Enterprise Freight & Logistics Architecture
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-600 dark:text-slate-300">
