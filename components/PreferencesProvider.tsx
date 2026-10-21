@@ -5,7 +5,7 @@ import type { Locale, TranslationDict } from "@/lib/i18n";
 import { translations, LOCALES } from "@/lib/i18n";
 
 export type Mode = "dark" | "light";
-export type AccentTheme = "bronze" | "indigo" | "crimson" | "emerald" | "amber" | "cyan";
+export type AccentTheme = "lime" | "bronze" | "indigo" | "crimson" | "emerald" | "amber" | "cyan";
 
 export interface AccentOption {
   id: AccentTheme;
@@ -13,8 +13,9 @@ export interface AccentOption {
   hex: string;
 }
 
-// Exactly matching the 6 swatches in the user's uploaded photo:
+// VOUT Flagship Cyber-Lime + Palette Accents:
 export const ACCENT_THEMES: AccentOption[] = [
+  { id: "lime", name: "VOUT Cyber-Lime", hex: "#c6f827" },
   { id: "bronze", name: "Bronze Gold", hex: "#a16207" },
   { id: "indigo", name: "Deep Indigo", hex: "#4f46e5" },
   { id: "crimson", name: "Crimson Berry", hex: "#9f1239" },
@@ -45,7 +46,7 @@ const PreferencesContext = createContext<PreferencesContextType>({
   mode: "dark",
   setMode: () => {},
   toggleMode: () => {},
-  accent: "amber",
+  accent: "lime",
   setAccent: () => {},
   locale: "es",
   setLocale: () => {},
@@ -54,7 +55,7 @@ const PreferencesContext = createContext<PreferencesContextType>({
 
 export function PreferencesProvider({ children }: { children: React.ReactNode }) {
   const [mode, setModeState] = useState<Mode>("dark");
-  const [accent, setAccentState] = useState<AccentTheme>("amber");
+  const [accent, setAccentState] = useState<AccentTheme>("lime");
   const [locale, setLocaleState] = useState<Locale>("es");
   const [mounted, setMounted] = useState(false);
 

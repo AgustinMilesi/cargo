@@ -36,9 +36,27 @@ export default async function CustomerPortalPage({
     <div className="p-4 sm:p-6 md:p-8 space-y-6 max-w-7xl mx-auto w-full">
       {/* Top Header */}
       <TopBar
-        title="Portal de Autogestión del Cliente"
-        subtitle="Acceso exclusivo para importadores: seguimiento de embarques, estado aduanero y documentos"
+        title="Portal de Autogestión VOUT Cargo"
+        subtitle="Acceso para importadores: seguimiento de embarques, estado aduanero y documentos con Cuenta VOUT"
       />
+
+      {/* VOUT ID Banner */}
+      <div className="p-4 rounded-2xl bg-[#0A0E14] border border-[#C6F827]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg">
+        <div className="flex items-center gap-3">
+          <div className="size-8 rounded-xl bg-[#C6F827] flex items-center justify-center text-[#0A0E14] font-black text-sm">
+            ⚡
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-black uppercase tracking-wider text-white">Cuenta VOUT Unificada</span>
+              <span className="text-[10px] font-bold bg-[#C6F827]/20 text-[#C6F827] px-2 py-0.5 rounded-full border border-[#C6F827]/30">ECOSYSTEM PASS</span>
+            </div>
+            <p className="text-xs text-[#94A3B8]">
+              Ingresá tu CUIT o identificador de carga para sincronizar tus despachos automáticamente con tu app móvil VOUT Pocket.
+            </p>
+          </div>
+        </div>
+      </div>
 
       {/* Customer Lookup Search Box */}
       <div className="glass-card rounded-3xl p-6 shadow-sm space-y-4">

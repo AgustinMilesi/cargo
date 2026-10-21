@@ -1,86 +1,63 @@
-# 🌐 VOUT Cargo — Logistics & Freight Operating System
+<div align="center">
 
-An international freight forwarding, customs clearance, and real-time cargo tracking platform. Engineered for freight forwarders, cargo dispatchers, and customs brokers to manage multimodal shipments, GPS container tracking, customs clearance channels (SIM/SEDI), demurrage deadlines, and financial settlements.
+# 🚢 VOUT Cargo
+### International Freight Forwarding, Customs Clearance & Vessel Tracking OS
 
-<p align="left">
-  <a href="https://cargo-am.vercel.app"><img src="https://img.shields.io/badge/Live%20Demo-cargo--am.vercel.app-00E599?style=for-the-badge&logo=vercel&logoColor=black" alt="Live Demo" /></a>
-  <a href="https://cargo-am.vercel.app/demo"><img src="https://img.shields.io/badge/1--Click%20Demo%20Access-Guest%20Mode-10b981?style=for-the-badge&logo=shield" alt="1-Click Demo" /></a>
-  <img src="https://img.shields.io/badge/Next.js-16.4-black?style=for-the-badge&logo=next.js" alt="Next.js" />
-  <img src="https://img.shields.io/badge/React-19.3-20232a?style=for-the-badge&logo=react" alt="React 19" />
-  <img src="https://img.shields.io/badge/TypeScript-5.0-3178c6?style=for-the-badge&logo=typescript" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/PostgreSQL-Neon-00E599?style=for-the-badge&logo=postgresql" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/Prisma-ORM-2D3748?style=for-the-badge&logo=prisma" alt="Prisma" />
-</p>
+[![VOUT Ecosystem](https://img.shields.io/badge/VOUT-Ecosystem-C6F827?style=for-the-badge&logoColor=black&labelColor=0A0E14)](https://github.com/AgustinMilesi)
+[![VOUT ID](https://img.shields.io/badge/VOUT_ID-Unified_Pass-C6F827?style=for-the-badge&logo=shield&logoColor=black&labelColor=0A0E14)](https://cargo-am.vercel.app/portal)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-cargo--am.vercel.app-C6F827?style=for-the-badge&logo=vercel&logoColor=black&labelColor=0A0E14)](https://cargo-am.vercel.app)
+[![1-Click Demo](https://img.shields.io/badge/1--Click_Demo-Guest_Access-10b981?style=for-the-badge&logoColor=white&labelColor=0A0E14)](https://cargo-am.vercel.app/demo)
+
+</div>
 
 ---
 
-## 🎯 What is it for?
+## 🎯 Overview
 
-- **End-to-end shipment control**: Manage ocean Bill of Lading (B/L), Air Waybills (AWB), container numbers, carriers, vessels, ports of loading/discharge, and document vaults.
-- **Customs & demurrage deadlines**: Color-coded customs channels (Green, Orange, Red) and free-day counters (*Demurrage & Detention*) to prevent costly port storage fees.
-- **Live satellite GPS tracking**: Visual international route map with real-time location, speed telemetry, and milestone timelines (*Booking*, *Departure*, *Customs*, *Final Delivery*).
-- **Multimodal freight quotes**: Fast quotes for FCL, LCL, and Air freight with automatic profit margin calculations and 1-click conversion into an active shipment.
-- **Protected customer portal**: Importers track containers by Tax ID or B/L number without exposing the agency's internal carrier buy rates.
+**VOUT Cargo** is a full-scale logistics operating system built for freight forwarders, customs brokers, and cargo dispatchers managing international import/export operations.
+- 🚢 **Multimodal Tracking:** Full shipment lifecycles for ocean Bill of Lading (B/L), Air Waybills (AWB), and container telemetry.
+- 🚦 **Customs & Demurrage Alerts:** Color-coded customs channels (Green/Orange/Red) and free-day counters to avoid port demurrage penalties.
+- 🗺️ **Visual Route Maps:** Real-time interactive international route tracking with coordinates and milestone progress.
+- 📑 **Multimodal Rate Calculator:** Fast quotes for FCL, LCL, and Air freight with profit margins and 1-click active shipment creation.
+- 🔑 **Cuenta VOUT (VOUT ID):** Importer portal lookup integrated with VOUT Pocket for expense and shipment cost tracking.
 
 ---
 
-## ✨ Core Modules
+## ⚡ Core Modules
 
 | Module | Route | Capabilities |
 |---|---|---|
-| **Shipments & Imports** | `/shipments` | Comprehensive cargo files, container tracking, shipping lines, and document vault. |
-| **Multimodal Quotes** | `/quotes` | Rate generator, buy/sell breakdown, profit margins, and 1-click shipment conversion. |
-| **Live Satellite Tracker** | `/tracking` | Secure public tracking by container or B/L with route maps and milestone events. |
-| **Customer Portal** | `/portal` | Client self-service lookup protected against data leaks. |
-| **Freight Finances** | `/finances` | Shipment billing statuses (`PENDING`, `INVOICED`, `PAID`) and net profitability balances. |
-| **Client Directory** | `/clients` | Directory of importing companies, tax IDs, and historical cargo volume. |
+| **Shipments** | `/shipments` | Comprehensive cargo files, container tracking, shipping lines & document vault. |
+| **Quotes** | `/quotes` | Multimodal rate generator, buy/sell breakdown & 1-click shipment conversion. |
+| **Satellite Tracker** | `/tracking` | Public tracking by container or B/L with interactive map and milestones. |
+| **Client Portal** | `/portal` | Importer self-service lookup authenticated via Cuenta VOUT. |
+| **Finances** | `/finances` | Freight billing statuses (`PENDING`, `INVOICED`, `PAID`) & net profit balances. |
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Stack
 
-- **Frontend & Backend**: Next.js 16 (App Router, Server Actions) + React 19
-- **Language**: TypeScript (strict mode throughout)
-- **Styling**: Tailwind CSS 4 with a **Frosted Glassmorphism** design system
-- **Database**: PostgreSQL Serverless (Neon, AWS São Paulo region)
-- **ORM**: Prisma ORM with safe atomic transactions
-- **Security**: Strict OWASP headers and data isolation
-- **Customization**: Dark / Light mode, 6 accent themes, and 4 languages (EN, ES, PT, ZH)
+`Next.js 16` • `React 19` • `TypeScript` • `PostgreSQL Serverless (Neon)` • `Prisma ORM` • `Tailwind CSS v4` • `Multi-language (EN/ES/PT/ZH)`
 
 ---
 
-## ⚡ Quick Test (No Registration Needed)
-
-Explore the full logistics dashboard in live demo mode:
-- **[1-Click Demo Access](https://cargo-am.vercel.app/demo)** (enters the dashboard with preloaded shipments).
-- Or click the demo badge in the top bar of the application.
-
----
-
-## 🚀 Local Setup
+## 🚀 Quickstart
 
 ```bash
-# 1. Clone the repository
+# Clone and enter directory
 git clone https://github.com/AgustinMilesi/cargo.git
 cd cargo
 
-# 2. Install dependencies
+# Install dependencies & start
 npm install
-
-# 3. Configure environment variables
-cp .env.example .env
-
-# 4. Generate Prisma client & start development server
 npx prisma generate
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
 ---
 
 ### ⚡ The VOUT Software Ecosystem
-- [📱 VOUT Pocket](https://github.com/AgustinMilesi/expenses) — Mobile cost, subscription, and micro-spending tracker with React Native.
+- [📱 VOUT Pocket](https://github.com/AgustinMilesi/expenses) — Mobile cost, subscription & micro-spending tracker.
 - [💳 VOUT Retail](https://github.com/AgustinMilesi/retail) — Cloud point of sale, atomic stock control, and cash drawer audits.
-- [📥 VOUT Inbox](https://github.com/AgustinMilesi/inbox) — Multi-tenant customer inquiry inbox and embeddable forms.
-- [📬 VOUT Connect](https://github.com/AgustinMilesi/contact) — Minimalist contact form and lead gateway with Zod validation.
+- [📥 VOUT Inbox](https://github.com/AgustinMilesi/inbox) — Multi-tenant customer feedback & embeddable forms.
+- [📬 VOUT Connect](https://github.com/AgustinMilesi/contact) — High-conversion contact portal with anti-spam protection.

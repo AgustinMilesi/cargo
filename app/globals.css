@@ -3,30 +3,34 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --primary-accent: #f59e0b;
-  --primary-accent-rgb: 245, 158, 11;
-  --bg-page: #eef1f8;
-  --bg-sidebar: rgba(255, 255, 255, 0.35);
-  --bg-card: rgba(255, 255, 255, 0.30);
-  --bg-card-sub: rgba(255, 255, 255, 0.22);
-  --border-card: rgba(255, 255, 255, 0.92);
-  --border-card-sub: rgba(255, 255, 255, 0.65);
-  --text-main: #0f172a;
-  --text-muted: #64748b;
+  --primary-accent: #c6f827;
+  --primary-accent-rgb: 198, 248, 39;
+  --bg-page: #0a0e14;
+  --bg-sidebar: rgba(14, 18, 28, 0.65);
+  --bg-card: rgba(18, 24, 36, 0.75);
+  --bg-card-sub: rgba(15, 20, 32, 0.65);
+  --border-card: rgba(255, 255, 255, 0.12);
+  --border-card-sub: rgba(255, 255, 255, 0.08);
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
 }
 
 .dark {
-  --bg-page: #07080c;
-  --bg-sidebar: rgba(14, 17, 28, 0.38);
-  --bg-card: rgba(17, 21, 35, 0.25);
-  --bg-card-sub: rgba(14, 18, 30, 0.18);
-  --border-card: rgba(255, 255, 255, 0.18);
-  --border-card-sub: rgba(255, 255, 255, 0.10);
+  --bg-page: #0a0e14;
+  --bg-sidebar: rgba(14, 18, 28, 0.65);
+  --bg-card: rgba(18, 24, 36, 0.75);
+  --bg-card-sub: rgba(15, 20, 32, 0.65);
+  --border-card: rgba(255, 255, 255, 0.12);
+  --border-card-sub: rgba(255, 255, 255, 0.08);
   --text-main: #ffffff;
-  --text-muted: #9496a1;
+  --text-muted: #94a3b8;
 }
 
-/* 6 Palette Accents matching user selection */
+/* Palette Accents matching user selection */
+[data-accent="lime"] {
+  --primary-accent: #c6f827;
+  --primary-accent-rgb: 198, 248, 39;
+}
 [data-accent="bronze"] {
   --primary-accent: #a16207;
   --primary-accent-rgb: 161, 98, 7;
