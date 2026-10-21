@@ -251,7 +251,7 @@ export default async function QuotesPage({
             <div className="flex items-end">
               <button
                 type="submit"
-                className="w-full py-2.5 px-4 bg-accent hover:opacity-90 text-white font-semibold text-xs rounded-2xl transition shadow-md cursor-pointer flex items-center justify-center gap-1.5"
+                className="w-full py-2.5 px-4 bg-accent hover:opacity-90 text-[var(--primary-accent-text,#0a0e14)] font-bold text-xs rounded-2xl transition shadow-md shadow-[var(--primary-accent)]/20 cursor-pointer flex items-center justify-center gap-1.5"
               >
                 <span>Emitir Cotización</span>
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -280,7 +280,7 @@ export default async function QuotesPage({
               href="/quotes"
               className={`px-3 py-1.5 rounded-xl transition cursor-pointer ${
                 !status || status === "ALL"
-                  ? "bg-accent text-white shadow-sm"
+                  ? "bg-accent text-[var(--primary-accent-text,#0a0e14)] shadow-sm font-bold"
                   : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
@@ -290,7 +290,7 @@ export default async function QuotesPage({
               href="/quotes?status=SENT"
               className={`px-3 py-1.5 rounded-xl transition cursor-pointer ${
                 status === "SENT"
-                  ? "bg-accent text-white shadow-sm"
+                  ? "bg-accent text-[var(--primary-accent-text,#0a0e14)] shadow-sm font-bold"
                   : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
@@ -300,7 +300,7 @@ export default async function QuotesPage({
               href="/quotes?status=CONVERTED"
               className={`px-3 py-1.5 rounded-xl transition cursor-pointer ${
                 status === "CONVERTED"
-                  ? "bg-emerald-600 text-white shadow-sm"
+                  ? "bg-accent text-[var(--primary-accent-text,#0a0e14)] shadow-sm font-bold"
                   : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
@@ -387,7 +387,7 @@ export default async function QuotesPage({
                         >
                           <button
                             type="submit"
-                            className="inline-flex items-center gap-1 px-3 py-1 rounded-xl bg-accent hover:opacity-90 text-white text-xs font-semibold transition shadow-sm cursor-pointer"
+                            className="inline-flex items-center gap-1 px-3 py-1 rounded-xl bg-accent hover:opacity-90 text-[var(--primary-accent-text,#0a0e14)] text-xs font-bold transition shadow-sm cursor-pointer"
                           >
                             <span>Convertir</span>
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

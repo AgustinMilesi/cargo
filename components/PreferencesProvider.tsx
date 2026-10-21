@@ -5,30 +5,31 @@ import type { Locale, TranslationDict } from "@/lib/i18n";
 import { translations, LOCALES } from "@/lib/i18n";
 
 export type Mode = "dark" | "light";
-export type AccentTheme = "lime" | "bronze" | "indigo" | "crimson" | "emerald" | "amber" | "cyan";
+export type AccentTheme = "lime" | "emerald" | "indigo" | "rose" | "amber" | "cyan" | "violet";
 
 export interface AccentOption {
   id: AccentTheme;
   name: string;
   hex: string;
+  isLight?: boolean;
 }
 
-// VOUT Flagship Cyber-Lime + Palette Accents:
+// VOUT Pocket Flagship Cyber-Lime + Universal Palette Accents:
 export const ACCENT_THEMES: AccentOption[] = [
-  { id: "lime", name: "VOUT Cyber-Lime", hex: "#c6f827" },
-  { id: "bronze", name: "Bronze Gold", hex: "#a16207" },
-  { id: "indigo", name: "Deep Indigo", hex: "#4f46e5" },
-  { id: "crimson", name: "Crimson Berry", hex: "#9f1239" },
-  { id: "emerald", name: "Forest Emerald", hex: "#059669" },
-  { id: "amber", name: "Vibrant Amber", hex: "#f59e0b" },
-  { id: "cyan", name: "Ocean Teal", hex: "#0e7490" },
+  { id: "lime", name: "Cyber Lime (Flagship)", hex: "#C6F827", isLight: true },
+  { id: "emerald", name: "Emerald", hex: "#10B981", isLight: false },
+  { id: "indigo", name: "Electric Indigo", hex: "#6366F1", isLight: false },
+  { id: "rose", name: "Rose Neon", hex: "#F43F5E", isLight: false },
+  { id: "amber", name: "Amber Gold", hex: "#F59E0B", isLight: true },
+  { id: "cyan", name: "Cyber Cyan", hex: "#06B6D4", isLight: true },
+  { id: "violet", name: "Clay Violet", hex: "#8B5CF6", isLight: false },
 ];
 
 function hexToRgb(hex: string): string {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`
-    : "245, 158, 11";
+    : "198, 248, 39";
 }
 
 interface PreferencesContextType {
@@ -68,9 +69,9 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     setModeState(initialMode);
     applyMode(initialMode);
 
-    // Load accent (default to amber as shown in user photo)
-    const savedAccent = localStorage.getItem("onecargo-accent") as AccentTheme | null;
-    const initialAccent = savedAccent && ACCENT_THEMES.some((a) => a.id === savedAccent) ? savedAccent : "amber";
+    // Load accent (default to lime flagship)
+    const savedAccent = (localStorage.getItem("vout-cargo-accent") || localStorage.getItem("onecargo-accent")) as AccentTheme | null;
+    const initialAccent = savedAccent && ACCENT_THEMES.some((a) => a.id === savedAccent) ? savedAccent : "lime";
     setAccentState(initialAccent);
     applyAccent(initialAccent);
 
@@ -96,13 +97,17 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
   const applyAccent = (a: AccentTheme) => {
     const root = document.documentElement;
     root.setAttribute("data-accent", a);
-    const found = ACCENT_THEMES.find((item) => item.id === a) || ACCENT_THEMES[4];
+    const found = ACCENT_THEMES.find((item) => item.id === a) || ACCENT_THEMES[0];
+    const rgb = hexToRgb(found.hex);
     root.style.setProperty("--primary-accent", found.hex);
-    root.style.setProperty("--primary-accent-rgb", hexToRgb(found.hex));
+    root.style.setProperty("--primary-accent-rgb", rgb);
+    root.style.setProperty("--primary-accent-text", found.isLight ? "#0a0e14" : "#ffffff");
+    root.style.setProperty("--primary-accent-shadow", `rgba(${rgb}, 0.35)`);
   };
 
   const setMode = (newMode: Mode) => {
     setModeState(newMode);
+    localStorage.setItem("vout-cargo-mode", newMode);
     localStorage.setItem("onecargo-mode", newMode);
     applyMode(newMode);
   };
@@ -114,6 +119,7 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
 
   const setAccent = (newAccent: AccentTheme) => {
     setAccentState(newAccent);
+    localStorage.setItem("vout-cargo-accent", newAccent);
     localStorage.setItem("onecargo-accent", newAccent);
     applyAccent(newAccent);
   };

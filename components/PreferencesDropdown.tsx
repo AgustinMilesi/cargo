@@ -33,7 +33,7 @@ export function PreferencesDropdown() {
     };
   }, [isOpen]);
 
-  const activeAccent = ACCENT_THEMES.find((a) => a.id === accent) || ACCENT_THEMES[4];
+  const activeAccent = ACCENT_THEMES.find((a) => a.id === accent) || ACCENT_THEMES[0];
 
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
@@ -46,7 +46,7 @@ export function PreferencesDropdown() {
         aria-expanded={isOpen}
         aria-controls="preferences-dialog"
         aria-label="Configuración de preferencias: tema, color e idioma"
-        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100/90 dark:bg-[#1a1b22]/90 hover:bg-slate-200/90 dark:hover:bg-[#252733] border border-slate-300/80 dark:border-white/10 text-slate-800 dark:text-slate-100 text-xs font-semibold shadow-sm transition-all cursor-pointer backdrop-blur-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-amber-500 focus-visible:outline-none"
+        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#121824] hover:bg-[#182030] border border-[#1E293B] text-slate-100 text-xs font-semibold shadow-sm transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--primary-accent)] focus-visible:outline-none"
       >
         {/* Mode Icon */}
         {mode === "dark" ? (
@@ -104,7 +104,7 @@ export function PreferencesDropdown() {
                     ? "text-slate-900 shadow-sm"
                     : "text-slate-400 hover:text-white"
                 }`}
-                style={mode === "light" ? { backgroundColor: activeAccent.hex, color: "#ffffff" } : {}}
+                style={mode === "light" ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#0a0e14" : "#ffffff" } : {}}
               >
                 <span className="text-sm" aria-hidden="true">☼</span>
                 <span>Claro</span>
@@ -120,7 +120,7 @@ export function PreferencesDropdown() {
                     ? "text-white shadow-sm"
                     : "text-slate-400 hover:text-white"
                 }`}
-                style={mode === "dark" ? { backgroundColor: activeAccent.hex, color: "#ffffff" } : {}}
+                style={mode === "dark" ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#0a0e14" : "#ffffff" } : {}}
               >
                 <span className="text-sm" aria-hidden="true">🌙</span>
                 <span>Oscuro</span>
@@ -176,7 +176,7 @@ export function PreferencesDropdown() {
                         ? "text-white font-bold shadow-sm"
                         : "bg-[#0d0e14]/60 hover:bg-[#1a1c26] text-slate-300 border border-white/5"
                     }`}
-                    style={isSelected ? { backgroundColor: activeAccent.hex, color: "#ffffff" } : {}}
+                    style={isSelected ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#0a0e14" : "#ffffff" } : {}}
                   >
                     <span className="font-semibold">{l.label}</span>
                     <span className="text-[10px] uppercase font-mono tracking-wider opacity-80" aria-hidden="true">

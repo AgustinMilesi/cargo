@@ -35,7 +35,7 @@ export default async function ShipmentsPage({
             href="/shipments"
             className={`px-3 py-1.5 rounded-xl transition cursor-pointer ${
               !type || type === "ALL"
-                ? "bg-accent text-white shadow-sm"
+                ? "bg-accent text-[var(--primary-accent-text,#0a0e14)] shadow-sm font-bold"
                 : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >
@@ -45,7 +45,7 @@ export default async function ShipmentsPage({
             href="/shipments?type=MARITIME"
             className={`px-3 py-1.5 rounded-xl transition cursor-pointer ${
               type === "MARITIME"
-                ? "bg-accent text-white shadow-sm"
+                ? "bg-accent text-[var(--primary-accent-text,#0a0e14)] shadow-sm font-bold"
                 : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >
@@ -55,7 +55,7 @@ export default async function ShipmentsPage({
             href="/shipments?type=AIR"
             className={`px-3 py-1.5 rounded-xl transition cursor-pointer ${
               type === "AIR"
-                ? "bg-accent text-white shadow-sm"
+                ? "bg-accent text-[var(--primary-accent-text,#0a0e14)] shadow-sm font-bold"
                 : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >
@@ -69,7 +69,7 @@ export default async function ShipmentsPage({
             href="/shipments"
             className={`px-3 py-1.5 rounded-xl transition cursor-pointer ${
               !status || status === "ALL"
-                ? "bg-accent text-white shadow-sm"
+                ? "bg-accent text-[var(--primary-accent-text,#0a0e14)] shadow-sm font-bold"
                 : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >

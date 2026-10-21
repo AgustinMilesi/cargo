@@ -62,10 +62,10 @@ export function TopBar({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t.searchPlaceholder || "Buscar contenedor, B/L..."}
-            className="w-full pl-9 pr-12 py-2 text-xs md:text-sm rounded-full bg-slate-100/90 dark:bg-[#1a1b22]/80 backdrop-blur-md border border-slate-200/80 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-amber-500 transition-all shadow-sm"
+            className="w-full pl-9 pr-12 py-2 text-xs md:text-sm rounded-full bg-[#0F1520] border border-[#1E293B] text-white placeholder:text-slate-500 outline-none focus:border-accent transition-all shadow-sm"
           />
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none" aria-hidden="true">
-            <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-slate-400 dark:text-slate-400 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-md">
+            <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-slate-400 bg-white/5 border border-white/10 rounded-md">
               ⌘F
             </kbd>
           </div>
@@ -78,9 +78,9 @@ export function TopBar({
         <Link
           href="/shipments/new"
           aria-label={t.newShipment ? "Nueva Carga: registrar embarque" : "New Load: register shipment"}
-          className="shrink-0 px-3.5 py-2 rounded-xl bg-accent text-white text-xs font-semibold shadow-md transition-all flex items-center gap-1.5 cursor-pointer hover:opacity-90"
+          className="shrink-0 px-3.5 py-2 rounded-xl bg-accent text-[var(--primary-accent-text,#0a0e14)] text-xs font-bold shadow-md shadow-[var(--primary-accent)]/20 transition-all flex items-center gap-1.5 cursor-pointer hover:opacity-90 active:scale-95"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg className="w-4 h-4 text-inherit" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
           <span className="hidden sm:inline">{t.newShipment ? "Nueva Carga" : "New Load"}</span>

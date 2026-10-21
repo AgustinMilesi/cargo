@@ -184,7 +184,7 @@ export default async function ClientsPage() {
 
             <button
               type="submit"
-              className="w-full py-2.5 bg-accent hover:opacity-90 text-white font-semibold text-xs rounded-2xl transition shadow-md cursor-pointer"
+              className="w-full py-2.5 bg-accent hover:opacity-90 text-[var(--primary-accent-text,#0a0e14)] font-bold text-xs rounded-2xl transition shadow-md shadow-[var(--primary-accent)]/20 cursor-pointer"
             >
               Guardar Empresa
             </button>

@@ -26,7 +26,7 @@ export function Sidebar() {
       icon: (active) => (
         <svg
           className={`w-5 h-5 transition-colors ${
-            active ? "text-white" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
+            active ? "text-inherit" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
           }`}
           fill="none"
           stroke="currentColor"
@@ -48,7 +48,7 @@ export function Sidebar() {
       icon: (active) => (
         <svg
           className={`w-5 h-5 transition-colors ${
-            active ? "text-white" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
+            active ? "text-inherit" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
           }`}
           fill="none"
           stroke="currentColor"
@@ -70,7 +70,7 @@ export function Sidebar() {
       icon: (active) => (
         <svg
           className={`w-5 h-5 transition-colors ${
-            active ? "text-white" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
+            active ? "text-inherit" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
           }`}
           fill="none"
           stroke="currentColor"
@@ -92,7 +92,7 @@ export function Sidebar() {
       icon: (active) => (
         <svg
           className={`w-5 h-5 transition-colors ${
-            active ? "text-white" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
+            active ? "text-inherit" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
           }`}
           fill="none"
           stroke="currentColor"
@@ -120,7 +120,7 @@ export function Sidebar() {
       icon: (active) => (
         <svg
           className={`w-5 h-5 transition-colors ${
-            active ? "text-white" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
+            active ? "text-inherit" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
           }`}
           fill="none"
           stroke="currentColor"
@@ -142,7 +142,7 @@ export function Sidebar() {
       icon: (active) => (
         <svg
           className={`w-5 h-5 transition-colors ${
-            active ? "text-white" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
+            active ? "text-inherit" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
           }`}
           fill="none"
           stroke="currentColor"
@@ -164,7 +164,7 @@ export function Sidebar() {
       icon: (active) => (
         <svg
           className={`w-5 h-5 transition-colors ${
-            active ? "text-white" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
+            active ? "text-inherit" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
           }`}
           fill="none"
           stroke="currentColor"
@@ -186,7 +186,7 @@ export function Sidebar() {
       icon: (active) => (
         <svg
           className={`w-5 h-5 transition-colors ${
-            active ? "text-white" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
+            active ? "text-inherit" : "text-slate-400 group-hover:text-slate-200 dark:group-hover:text-white"
           }`}
           fill="none"
           stroke="currentColor"
@@ -210,14 +210,14 @@ export function Sidebar() {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
             {/* Logo Icon */}
-            <div className="w-10 h-10 rounded-2xl bg-accent flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform duration-200">
-              <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <div className="w-10 h-10 rounded-2xl bg-accent flex items-center justify-center text-[var(--primary-accent-text,#0a0e14)] shadow-lg shadow-[var(--primary-accent)]/20 group-hover:scale-105 transition-transform duration-200">
+              <svg className="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2a10 10 0 00-7.07 17.07 10 10 0 1014.14-14.14A9.93 9.93 0 0012 2zm0 18a8 8 0 118-8 8.009 8.009 0 01-8 8zm3.5-9.5A2.5 2.5 0 0013 8h-2a2.5 2.5 0 000 5h2a2.5 2.5 0 010 5h-2a2.5 2.5 0 01-2.5-2.5v-.5h2v.5a.5.5 0 00.5.5h2a.5.5 0 000-1h-2a2.5 2.5 0 010-5h2a2.5 2.5 0 012.5 2.5v.5h-2v-.5a.5.5 0 00-.5-.5z" />
               </svg>
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-                OneCargo
+                VOUT Cargo
               </span>
               <span className="text-[10px] text-slate-400 font-medium leading-none">
                 Global Logistics OS
@@ -245,8 +245,8 @@ export function Sidebar() {
                 aria-current={isActive ? "page" : undefined}
                 className={`group flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200 shrink-0 ${
                   isActive
-                    ? "bg-accent text-white shadow-md"
-                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-white/5"
+                    ? "bg-accent text-[var(--primary-accent-text,#0a0e14)] shadow-md shadow-[var(--primary-accent)]/20 font-bold"
+                    : "text-slate-400 hover:text-white hover:bg-[#182030]"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
