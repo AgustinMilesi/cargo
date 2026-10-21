@@ -61,46 +61,37 @@
   --primary-accent-shadow: rgba(198, 248, 39, 0.35);
 }
 
+[data-accent="mint"] {
+  --primary-accent: #00ff88;
+  --primary-accent-rgb: 0, 255, 136;
+  --primary-accent-text: #0a0e14;
+  --primary-accent-shadow: rgba(0, 255, 136, 0.35);
+}
+
 [data-accent="emerald"] {
   --primary-accent: #10b981;
   --primary-accent-rgb: 16, 185, 129;
-  --primary-accent-text: #ffffff;
+  --primary-accent-text: #0a0e14;
   --primary-accent-shadow: rgba(16, 185, 129, 0.35);
 }
 
-[data-accent="indigo"] {
-  --primary-accent: #6366f1;
-  --primary-accent-rgb: 99, 102, 241;
+[data-accent="jade"] {
+  --primary-accent: #059669;
+  --primary-accent-rgb: 5, 150, 105;
   --primary-accent-text: #ffffff;
-  --primary-accent-shadow: rgba(99, 102, 241, 0.35);
+  --primary-accent-shadow: rgba(5, 150, 105, 0.35);
 }
 
-[data-accent="rose"] {
-  --primary-accent: #f43f5e;
-  --primary-accent-rgb: 244, 63, 94;
-  --primary-accent-text: #ffffff;
-  --primary-accent-shadow: rgba(244, 63, 94, 0.35);
-}
-
-[data-accent="amber"] {
-  --primary-accent: #f59e0b;
-  --primary-accent-rgb: 245, 158, 11;
-  --primary-accent-text: #0a0e14;
-  --primary-accent-shadow: rgba(245, 158, 11, 0.35);
-}
-
+/* Fallback Protection: Redirect any legacy accents to Cyber-Lime */
+[data-accent="violet"],
+[data-accent="indigo"],
+[data-accent="rose"],
+[data-accent="amber"],
 [data-accent="cyan"] {
-  --primary-accent: #06b6d4;
-  --primary-accent-rgb: 6, 182, 212;
+  --primary-accent: #c6f827;
+  --primary-accent-rgb: 198, 248, 39;
   --primary-accent-text: #0a0e14;
-  --primary-accent-shadow: rgba(6, 182, 212, 0.35);
-}
-
-[data-accent="violet"] {
-  --primary-accent: #8b5cf6;
-  --primary-accent-rgb: 139, 92, 246;
-  --primary-accent-text: #ffffff;
-  --primary-accent-shadow: rgba(139, 92, 246, 0.35);
+  --primary-accent-shadow: rgba(198, 248, 39, 0.35);
 }
 
 @layer base {

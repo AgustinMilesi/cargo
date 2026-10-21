@@ -50,7 +50,7 @@ export default function PreferencesPage() {
 
           <div className="glass-card-sub p-4 rounded-2xl space-y-1.5">
             <h4 className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-purple-500" />
+              <span className="w-2 h-2 rounded-full bg-[#C6F827]" />
               REST API & Sincronización
             </h4>
             <p className="text-slate-500 dark:text-slate-400">

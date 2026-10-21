@@ -5,7 +5,7 @@ import type { Locale, TranslationDict } from "@/lib/i18n";
 import { translations, LOCALES } from "@/lib/i18n";
 
 export type Mode = "dark" | "light";
-export type AccentTheme = "lime" | "emerald" | "indigo" | "rose" | "amber" | "cyan" | "violet";
+export type AccentTheme = "lime" | "emerald" | "mint" | "jade";
 
 export interface AccentOption {
   id: AccentTheme;
@@ -14,15 +14,12 @@ export interface AccentOption {
   isLight?: boolean;
 }
 
-// VOUT Pocket Flagship Cyber-Lime + Universal Palette Accents:
+// VOUT Pocket Flagship Cyber-Lime + Green Spectrum:
 export const ACCENT_THEMES: AccentOption[] = [
   { id: "lime", name: "Cyber Lime (Flagship)", hex: "#C6F827", isLight: true },
-  { id: "emerald", name: "Emerald", hex: "#10B981", isLight: false },
-  { id: "indigo", name: "Electric Indigo", hex: "#6366F1", isLight: false },
-  { id: "rose", name: "Rose Neon", hex: "#F43F5E", isLight: false },
-  { id: "amber", name: "Amber Gold", hex: "#F59E0B", isLight: true },
-  { id: "cyan", name: "Cyber Cyan", hex: "#06B6D4", isLight: true },
-  { id: "violet", name: "Clay Violet", hex: "#8B5CF6", isLight: false },
+  { id: "mint", name: "Electric Mint", hex: "#00FF88", isLight: true },
+  { id: "emerald", name: "Neon Emerald", hex: "#10B981", isLight: false },
+  { id: "jade", name: "Forest Jade", hex: "#059669", isLight: false },
 ];
 
 function hexToRgb(hex: string): string {

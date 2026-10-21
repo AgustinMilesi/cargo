@@ -210,10 +210,10 @@ export function Sidebar() {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
             {/* Logo Icon */}
-            <div className="w-10 h-10 rounded-2xl bg-accent flex items-center justify-center text-[var(--primary-accent-text,#0a0e14)] shadow-lg shadow-[var(--primary-accent)]/20 group-hover:scale-105 transition-transform duration-200">
-              <svg className="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2a10 10 0 00-7.07 17.07 10 10 0 1014.14-14.14A9.93 9.93 0 0012 2zm0 18a8 8 0 118-8 8.009 8.009 0 01-8 8zm3.5-9.5A2.5 2.5 0 0013 8h-2a2.5 2.5 0 000 5h2a2.5 2.5 0 010 5h-2a2.5 2.5 0 01-2.5-2.5v-.5h2v.5a.5.5 0 00.5.5h2a.5.5 0 000-1h-2a2.5 2.5 0 010-5h2a2.5 2.5 0 012.5 2.5v.5h-2v-.5a.5.5 0 00-.5-.5z" />
-              </svg>
+            <div className="size-10 rounded-2xl bg-[#0A0E14] border border-[#1E293B] flex items-center justify-center shadow-[0_0_15px_rgba(198,248,39,0.25)] group-hover:scale-105 transition-transform duration-200 shrink-0">
+              <span className="font-black text-xl bg-gradient-to-br from-[#C6F827] via-[#10B981] to-[#00FF88] bg-clip-text text-transparent flex items-baseline leading-none select-none pl-0.5">
+                V<span className="text-[11px] font-black text-[#C6F827] ml-0.5">g</span>
+              </span>
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
