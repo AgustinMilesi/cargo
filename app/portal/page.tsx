@@ -52,7 +52,7 @@ export default async function CustomerPortalPage({
               <span className="text-[10px] font-bold bg-[#C6F827]/20 text-[#C6F827] px-2 py-0.5 rounded-full border border-[#C6F827]/30">ECOSYSTEM PASS</span>
             </div>
             <p className="text-xs text-[#94A3B8]">
-              Ingresá tu CUIT o identificador de carga para sincronizar tus despachos automáticamente con tu app móvil VOUT Pocket.
+              Ingresá tu CUIT o identificador de carga (contenedor, B/L) para consultar el estado aduanero y documentos de tu embarque en tiempo real.
             </p>
           </div>
         </div>
