@@ -1,0 +1,27 @@
+# VOUT Cargo — Global Freight & Import Operations System
+
+> Autonomous logistics platform for international container tracking, customs clearance dispatching, quote estimation, and fleet finance auditing. Developed by Agustín Milesi.
+
+## Architecture & Technology Stack
+- **Framework**: Next.js 15 (App Router, Server Components, Server Actions)
+- **Database & ORM**: PostgreSQL via Prisma ORM
+- **Visual Design**: Obsidian Dark theme (`#0A0E14`) with Dynamic Accent system (Cyber Lime `#C6F827`, Emerald, Indigo, Rose, Amber, Cyan, Violet)
+- **Deployment**: Vercel Serverless Edge (Live at https://cargo-am.vercel.app)
+- **Accessibility**: WCAG 2.2 Level AA compliant (skip-to-content, ARIA labels, semantic landmark roles)
+
+## Core Capabilities
+- **Real-Time Container Tracking**: Multi-carrier shipment lookup with interactive milestone progression and ETA recalculation.
+- **Quote Matrix**: Land, air, and ocean freight rate calculator with margin estimation.
+- **Client & Dispatch Directory**: Importers, exporters, customs brokers, and forwarders registry.
+- **Logistics Ledger**: Freight expenses breakdown (fuel, tolls, port handling, resting) and gross profitability analytics.
+- **Customer Portal**: Public tracking interface for consignees without administrative login.
+
+## Key Routes & Manifest
+- Dashboard: https://cargo-am.vercel.app/
+- Live Tracking: https://cargo-am.vercel.app/tracking
+- Instant Quotes: https://cargo-am.vercel.app/quotes
+- Shipments Index: https://cargo-am.vercel.app/shipments
+- Client Directory: https://cargo-am.vercel.app/clients
+- Finance Audit: https://cargo-am.vercel.app/finances
+- Consignee Portal: https://cargo-am.vercel.app/portal
+- Developer Contact & Hub: https://agustinmilesi-contact.vercel.app

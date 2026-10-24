@@ -6,9 +6,82 @@ import { CookieBanner } from "@/components/CookieBanner";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://cargo-am.vercel.app"),
-  title: "VOUT Cargo — Global Logistics & Import Operating System",
-  description: "VOUT Cargo enterprise suite for container tracking, customs, import quotes, and global freight operations.",
-  icons: { icon: "/icon.svg" },
+  title: {
+    default: "VOUT Cargo · Global Freight & Import Operations System",
+    template: "%s · VOUT Cargo",
+  },
+  description:
+    "Autonomous enterprise logistics suite for real-time international container tracking, customs clearance dispatching, quote estimation, and fleet finance auditing.",
+  applicationName: "VOUT Cargo",
+  keywords: [
+    "Freight Logistics",
+    "Container Tracking",
+    "Customs Dispatch",
+    "Supply Chain OS",
+    "Ocean Freight",
+    "Air Cargo",
+    "Next.js",
+    "Prisma",
+    "Agustín Milesi",
+  ],
+  authors: [{ name: "Agustín Milesi", url: "https://github.com/AgustinMilesi" }],
+  creator: "Agustín Milesi",
+  publisher: "VOUT Ecosystem",
+  alternates: {
+    canonical: "/",
+  },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
+  openGraph: {
+    title: "VOUT Cargo · Global Freight & Import Operations System",
+    description:
+      "Enterprise logistics platform for container tracking, customs clearance, quote management, and fleet finance audits.",
+    url: "https://cargo-am.vercel.app",
+    siteName: "VOUT Cargo",
+    locale: "es_AR",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "VOUT Cargo · Global Logistics OS",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "VOUT Cargo · Global Freight & Import Operations System",
+    description:
+      "Track containers, manage international customs clearance, and audit logistics profitability.",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "VOUT Cargo",
+  operatingSystem: "Web",
+  applicationCategory: "BusinessApplication",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+  author: {
+    "@type": "Person",
+    name: "Agustín Milesi",
+    url: "https://github.com/AgustinMilesi",
+  },
+  description:
+    "Autonomous enterprise logistics suite for real-time container tracking, customs dispatching, and supply chain ledger auditing.",
 };
 
 export default function RootLayout({
@@ -19,6 +92,10 @@ export default function RootLayout({
   return (
     <html lang="es" className="dark" data-accent="lime" suppressHydrationWarning>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
