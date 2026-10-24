@@ -78,7 +78,7 @@ export function TopBar({
         <Link
           href="/shipments/new"
           aria-label={t.newShipment ? "Nueva Carga: registrar embarque" : "New Load: register shipment"}
-          className="shrink-0 px-3.5 py-2 rounded-xl bg-accent text-[var(--primary-accent-text,#0a0e14)] text-xs font-bold shadow-md shadow-[var(--primary-accent)]/20 transition-all flex items-center gap-1.5 cursor-pointer hover:opacity-90 active:scale-95"
+          className="shrink-0 px-3.5 py-2 rounded-xl bg-accent text-[var(--primary-accent-text,#0a0e14)] text-xs font-bold shadow-sm hover:shadow-md transition-all flex items-center gap-1.5 cursor-pointer hover:opacity-90 active:scale-95"
         >
           <svg className="w-4 h-4 text-inherit" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />

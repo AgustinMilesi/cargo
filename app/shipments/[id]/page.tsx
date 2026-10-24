@@ -302,7 +302,7 @@ export default async function ShipmentDetailPage({
               <div className="flex justify-end pt-2">
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs rounded-2xl transition shadow-md shadow-emerald-600/20 cursor-pointer"
+                  className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs rounded-2xl transition shadow-sm hover:shadow-md cursor-pointer"
                 >
                   Guardar Datos de Importación & Aduana
                 </button>

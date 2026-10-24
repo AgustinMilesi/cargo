@@ -7,7 +7,7 @@
   --primary-accent: #c6f827;
   --primary-accent-rgb: 198, 248, 39;
   --primary-accent-text: #0a0e14;
-  --primary-accent-shadow: rgba(198, 248, 39, 0.35);
+  --primary-accent-shadow: rgba(0, 0, 0, 0.3);
 
   /* VOUT Pocket Obsidian Palette */
   --bg-page: #0a0e14;
@@ -58,28 +58,28 @@
   --primary-accent: #c6f827;
   --primary-accent-rgb: 198, 248, 39;
   --primary-accent-text: #0a0e14;
-  --primary-accent-shadow: rgba(198, 248, 39, 0.35);
+  --primary-accent-shadow: rgba(0, 0, 0, 0.3);
 }
 
 [data-accent="mint"] {
   --primary-accent: #00ff88;
   --primary-accent-rgb: 0, 255, 136;
   --primary-accent-text: #0a0e14;
-  --primary-accent-shadow: rgba(0, 255, 136, 0.35);
+  --primary-accent-shadow: rgba(0, 0, 0, 0.3);
 }
 
 [data-accent="emerald"] {
   --primary-accent: #10b981;
   --primary-accent-rgb: 16, 185, 129;
   --primary-accent-text: #0a0e14;
-  --primary-accent-shadow: rgba(16, 185, 129, 0.35);
+  --primary-accent-shadow: rgba(0, 0, 0, 0.3);
 }
 
 [data-accent="jade"] {
   --primary-accent: #059669;
   --primary-accent-rgb: 5, 150, 105;
   --primary-accent-text: #ffffff;
-  --primary-accent-shadow: rgba(5, 150, 105, 0.35);
+  --primary-accent-shadow: rgba(0, 0, 0, 0.3);
 }
 
 /* Fallback Protection: Redirect any legacy accents to Cyber-Lime */
@@ -91,7 +91,7 @@
   --primary-accent: #c6f827;
   --primary-accent-rgb: 198, 248, 39;
   --primary-accent-text: #0a0e14;
-  --primary-accent-shadow: rgba(198, 248, 39, 0.35);
+  --primary-accent-shadow: rgba(0, 0, 0, 0.3);
 }
 
 @layer base {

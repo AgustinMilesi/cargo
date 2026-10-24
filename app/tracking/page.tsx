@@ -64,7 +64,7 @@ export default async function TrackingPage({
           <button
             type="submit"
             aria-label="Rastrear carga satelital"
-            className="px-6 py-2.5 rounded-2xl bg-accent hover:opacity-90 text-[var(--primary-accent-text,#0a0e14)] font-bold text-xs transition shadow-md shadow-[var(--primary-accent)]/20 shrink-0 cursor-pointer"
+            className="px-6 py-2.5 rounded-2xl bg-accent hover:opacity-90 text-[var(--primary-accent-text,#0a0e14)] font-bold text-xs transition shadow-sm hover:shadow-md shrink-0 cursor-pointer"
           >
             Rastrear Carga
           </button>

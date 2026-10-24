@@ -251,7 +251,7 @@ export default async function QuotesPage({
             <div className="flex items-end">
               <button
                 type="submit"
-                className="w-full py-2.5 px-4 bg-accent hover:opacity-90 text-[var(--primary-accent-text,#0a0e14)] font-bold text-xs rounded-2xl transition shadow-md shadow-[var(--primary-accent)]/20 cursor-pointer flex items-center justify-center gap-1.5"
+                className="w-full py-2.5 px-4 bg-accent hover:opacity-90 text-[var(--primary-accent-text,#0a0e14)] font-bold text-xs rounded-2xl transition shadow-sm hover:shadow-md cursor-pointer flex items-center justify-center gap-1.5"
               >
                 <span>Emitir Cotización</span>
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center space-y-5 max-w-lg mx-auto">
-      <div className="w-16 h-16 rounded-3xl bg-[var(--primary-accent,#C6F827)]/10 text-[var(--primary-accent,#C6F827)] flex items-center justify-center border border-[var(--primary-accent,#C6F827)]/20 shadow-lg shadow-[var(--primary-accent,#C6F827)]/10">
+      <div className="w-16 h-16 rounded-3xl bg-[var(--primary-accent,#C6F827)]/10 text-[var(--primary-accent,#C6F827)] flex items-center justify-center border border-[var(--primary-accent,#C6F827)]/20 shadow-sm">
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
@@ -29,7 +29,7 @@ export default function NotFound() {
       <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
         <Link
           href="/"
-          className="px-5 py-2.5 rounded-2xl bg-[var(--primary-accent,#C6F827)] text-[#0A0E14] font-bold text-xs hover:opacity-90 transition shadow-md shadow-[var(--primary-accent,#C6F827)]/20 active:scale-95"
+          className="px-5 py-2.5 rounded-2xl bg-[var(--primary-accent,#C6F827)] text-[#0A0E14] font-bold text-xs hover:opacity-90 transition shadow-sm hover:shadow-md active:scale-95"
         >
           Volver al Dashboard
         </Link>
