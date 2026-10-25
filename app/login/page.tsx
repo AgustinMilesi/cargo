@@ -44,23 +44,6 @@ export default function CargoLoginPage() {
 
       {/* Main Centered Login Card */}
       <div className="w-full max-w-md mx-auto my-auto py-8 relative z-10 space-y-4">
-        {/* Active Demo Mode Notice */}
-        <div className="p-3.5 rounded-2xl bg-[#C6F827]/10 border border-[#C6F827]/30 flex items-center justify-between gap-3 shadow-lg">
-          <div className="flex items-center gap-2.5">
-            <span className="size-2 rounded-full bg-[#C6F827] animate-ping shrink-0" />
-            <div>
-              <p className="text-xs font-bold text-white">Modo Demostración Interactivo</p>
-              <p className="text-[11px] text-slate-400">Podés explorar el sistema en vivo sin registrarte.</p>
-            </div>
-          </div>
-          <Link
-            href="/demo"
-            className="px-3.5 py-1.5 rounded-xl bg-[#C6F827] text-[#0A0E14] font-black text-xs hover:bg-[#b0df1f] transition shrink-0"
-          >
-            Probar Demo →
-          </Link>
-        </div>
-
         <div className="border border-[#1E293B] rounded-3xl bg-[#121824] p-8 sm:p-10 shadow-2xl space-y-7">
           <div className="space-y-3 text-center sm:text-left">
             <div className="flex items-center justify-between">
@@ -79,26 +62,12 @@ export default function CargoLoginPage() {
             </div>
           </div>
 
-          {/* Quick Direct 1-Click Demo Evaluation Box */}
-          <div className="p-4 rounded-2xl bg-[#0F1520] border border-[#1E293B] space-y-2.5">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-                Acceso Rápido de Evaluación
-              </span>
-              <span className="text-[9px] font-black bg-[#C6F827] text-[#0A0E14] px-2 py-0.5 rounded-full font-mono">
-                1-CLICK DEMO
-              </span>
-            </div>
-            <p className="text-xs text-[#94A3B8]">
-              Ingresá al panel con datos de contenedores, cotizaciones y clientes precargados.
-            </p>
-            <Link
-              href="/demo"
-              className="w-full py-2.5 px-4 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/15 hover:border-[#C6F827]/40 font-bold text-xs text-center block transition cursor-pointer"
-            >
-              🚀 Ingresar a la Demo en Vivo →
-            </Link>
-          </div>
+          <Link
+            href="/demo"
+            className="w-full py-3 px-4 rounded-xl bg-[#C6F827] hover:bg-[#b0df1f] text-[#0A0E14] font-black text-xs text-center uppercase tracking-wider block transition shadow-md cursor-pointer"
+          >
+            🚀 Live Demo →
+          </Link>
 
           <div className="relative flex items-center justify-center my-1">
             <div className="border-t border-[#1E293B] w-full" />

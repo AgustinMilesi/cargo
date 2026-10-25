@@ -36,7 +36,7 @@ export function TopBar({
           </h1>
           <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20">
             <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            Acceso Invitado / Demo
+            Live Demo
           </span>
         </div>
         <p className="text-xs md:text-sm text-slate-500 dark:text-[#8c8e9b] mt-1 font-normal">
