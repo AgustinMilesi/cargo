@@ -130,7 +130,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-[#0A0E14] text-slate-100 antialiased selection:bg-[var(--primary-accent)] selection:text-[var(--primary-accent-text)] transition-colors duration-200 relative overflow-x-hidden">
+      <body className="min-h-screen bg-[var(--bg-page)] nautical-dot-matrix text-slate-100 antialiased selection:bg-[var(--primary-accent)] selection:text-[var(--primary-accent-text)] transition-colors duration-200 relative overflow-x-hidden">
         {/* Subtle obsidian ambient depth */}
         <div className="fixed top-[-10%] right-[10%] w-[42rem] h-[42rem] bg-[var(--primary-accent)]/5 rounded-full blur-[140px] pointer-events-none z-0" />
 

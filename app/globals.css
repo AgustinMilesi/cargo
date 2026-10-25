@@ -215,6 +215,47 @@ input:focus, textarea:focus, select:focus {
   border-width: 0;
 }
 
+/* ==============================================================================
+   Nautical Navigation & Maritime GPS Coordinate Matrix Canvas
+   ============================================================================== */
+:root {
+  --dot-color: rgba(255, 255, 255, 0.08);
+  --dot-accent: rgba(198, 248, 39, 0.14);
+}
+
+.dark,
+[data-mode="dark"] {
+  --dot-color: rgba(255, 255, 255, 0.08);
+  --dot-accent: rgba(var(--primary-accent-rgb, 198, 248, 39), 0.14);
+}
+
+.light,
+[data-mode="light"] {
+  --dot-color: rgba(15, 23, 42, 0.07);
+  --dot-accent: rgba(var(--primary-accent-rgb, 198, 248, 39), 0.18);
+}
+
+html, body {
+  background-color: var(--bg-page);
+  background-image: 
+    radial-gradient(var(--dot-color) 1.25px, transparent 1.25px),
+    radial-gradient(var(--dot-accent) 2px, transparent 2px);
+  background-size: 28px 28px, 112px 112px;
+  background-position: 0 0, 0 0;
+  background-attachment: fixed;
+  color: var(--text-main);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.nautical-dot-matrix {
+  background-image: 
+    radial-gradient(var(--dot-color) 1.25px, transparent 1.25px),
+    radial-gradient(var(--dot-accent) 2px, transparent 2px);
+  background-size: 28px 28px, 112px 112px;
+  background-position: 0 0, 0 0;
+  background-attachment: fixed;
+}
+
 .skip-link:focus {
   position: fixed;
   top: 1rem;
