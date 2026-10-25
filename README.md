@@ -60,6 +60,17 @@ npm run db:seed
 
 ---
 
+## ⚖️ Licencia y Propiedad Intelectual
+
+**Copyright © 2026 Agustín Milesi. Todos los derechos reservados.**
+
+Este código fuente, arquitectura de comercio exterior, telemetría y diseño son **software propietario y confidencial**.
+- Queda terminantemente prohibida su descarga, clonación, redistribución, sublicenciamiento o uso comercial sin autorización previa expresa por escrito.
+- La [demostración pública en vivo](https://cargo-am.vercel.app) se ofrece únicamente para evaluación de la interfaz de usuario.
+- Consultas de licenciamiento privado o adquisición comercial: [Contacto](https://saas-am.vercel.app/contact).
+
+---
+
 <div align="center">
-  <p>© 2026 VOUT Cargo · Managed Freight & Logistics Infrastructure.</p>
+  <p>© 2026 Agustín Milesi · VOUT Cargo · Managed Freight & Logistics Infrastructure · All Rights Reserved</p>
 </div>
