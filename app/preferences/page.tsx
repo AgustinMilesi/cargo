@@ -54,7 +54,7 @@ export default function PreferencesPage() {
               REST API & Sincronización
             </h4>
             <p className="text-slate-500 dark:text-slate-400">
-              Endpoints RESTful abiertos (<code className="text-accent">/api/v1/shipments</code>, <code className="text-accent">/api/v1/tracking</code>, <code className="text-accent">/api/v1/quotes</code>) para integraciones externas y ERP.
+              Endpoints RESTful disponibles (<code className="text-accent">/api/v1/shipments</code>, <code className="text-accent">/api/v1/tracking</code>, <code className="text-accent">/api/v1/quotes</code>) para integraciones externas y ERP.
             </p>
           </div>
         </div>
