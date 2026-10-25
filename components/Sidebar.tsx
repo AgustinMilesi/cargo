@@ -210,10 +210,16 @@ export function Sidebar() {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
             {/* Logo Icon */}
-            <div className="size-10 rounded-2xl bg-[#0A0E14] border border-[#1E293B] flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-200 shrink-0">
-              <span className="font-black text-xl bg-gradient-to-br from-[#C6F827] via-[#10B981] to-[#00FF88] bg-clip-text text-transparent flex items-baseline leading-none select-none pl-0.5">
-                V<span className="text-[11px] font-black text-[#C6F827] ml-0.5">g</span>
-              </span>
+            <div className="size-10 rounded-2xl bg-[#0A0E14] border border-[#1E293B] flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-200 shrink-0 p-2">
+              <svg viewBox="68 106 416 310" className="w-full h-full" fill="none">
+                <rect x="68" y="228" width="60" height="60" rx="6" fill="#E9E7E0" />
+                <rect x="132" y="292" width="60" height="60" rx="6" fill="#E9E7E0" />
+                <rect x="196" y="356" width="60" height="60" rx="6" fill="#E9E7E0" />
+                <rect x="260" y="292" width="60" height="60" rx="6" fill="#E9E7E0" />
+                <rect x="324" y="228" width="60" height="60" rx="6" fill="#C6F827" />
+                <rect x="390" y="166" width="46" height="46" rx="5" fill="#C6F827" />
+                <rect x="452" y="106" width="32" height="32" rx="4" fill="#C6F827" />
+              </svg>
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
