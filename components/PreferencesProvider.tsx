@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useRef, useCallback } from "react";
 import type { Locale, TranslationDict } from "@/lib/i18n";
 import { translations, LOCALES } from "@/lib/i18n";
 
@@ -37,6 +37,9 @@ interface PreferencesContextType {
   setAccent: (a: AccentTheme) => void;
   locale: Locale;
   setLocale: (l: Locale) => void;
+  sound: boolean;
+  setSound: (s: boolean) => void;
+  playBlip: (freq?: number, duration?: number, gainValue?: number) => void;
   t: TranslationDict;
 }
 
@@ -48,6 +51,9 @@ const PreferencesContext = createContext<PreferencesContextType>({
   setAccent: () => {},
   locale: "es",
   setLocale: () => {},
+  sound: true,
+  setSound: () => {},
+  playBlip: () => {},
   t: translations.es,
 });
 
@@ -55,6 +61,8 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
   const [mode, setModeState] = useState<Mode>("dark");
   const [accent, setAccentState] = useState<AccentTheme>("lime");
   const [locale, setLocaleState] = useState<Locale>("es");
+  const [sound, setSoundState] = useState<boolean>(true);
+  const audioCtxRef = useRef<AudioContext | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -76,6 +84,12 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     const savedLocale = (localStorage.getItem("vout-cargo-locale") || localStorage.getItem("onecargo-locale")) as Locale | null;
     if (savedLocale && (["es", "en", "pt", "zh"] as const).includes(savedLocale)) {
       setLocaleState(savedLocale);
+    }
+
+    // Load sound
+    const savedSound = localStorage.getItem("vout-sound");
+    if (savedSound !== null) {
+      setSoundState(savedSound === "true");
     }
   }, []);
 
@@ -128,6 +142,63 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     document.cookie = `vout-cargo-locale=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
   };
 
+  const setSound = (enabled: boolean) => {
+    setSoundState(enabled);
+    try {
+      localStorage.setItem("vout-sound", String(enabled));
+    } catch {}
+    if (enabled) {
+      playBlip(720, 0.05, 0.04);
+    }
+  };
+
+  const playBlip = useCallback((freq = 600, duration = 0.045, gainValue = 0.035) => {
+    if (!sound) return;
+    try {
+      if (typeof window === "undefined") return;
+      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (!AudioCtx) return;
+
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new AudioCtx();
+      }
+      const ctx = audioCtxRef.current;
+      if (ctx.state === "suspended") {
+        ctx.resume();
+      }
+
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+      gain.gain.setValueAtTime(gainValue, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(ctx.currentTime + duration);
+    } catch {}
+  }, [sound]);
+
+  useEffect(() => {
+    if (!sound) return;
+    const handleClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement)?.closest(
+        "button, a, [role='button'], input[type='submit'], input[type='checkbox']"
+      );
+      if (target) {
+        playBlip(620, 0.04, 0.035);
+      }
+    };
+
+    window.addEventListener("click", handleClick, { capture: true });
+    return () => window.removeEventListener("click", handleClick, { capture: true });
+  }, [sound, playBlip]);
+
   const currentTranslations = translations[locale] || translations.es;
 
   return (
@@ -140,6 +211,9 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
         setAccent,
         locale,
         setLocale,
+        sound,
+        setSound,
+        playBlip,
         t: currentTranslations,
       }}
     >

@@ -111,6 +111,9 @@ export const translations = {
     darkMode: "Modo Oscuro",
     accentColor: "Paleta de Color",
     languageTitle: "Idioma de la Plataforma",
+    soundLabel: "Sonido Táctil",
+    soundOn: "Activado",
+    soundOff: "Silenciado",
     frostedGlassNote: "Efecto frosted glass sutil optimizado para alto contraste en todas las pantallas.",
   },
 
@@ -217,6 +220,9 @@ export const translations = {
     darkMode: "Dark Mode",
     accentColor: "Accent Palette",
     languageTitle: "Platform Language",
+    soundLabel: "Tactile Sound FX",
+    soundOn: "Active",
+    soundOff: "Muted",
     frostedGlassNote: "Subtle frosted glass effect with high-contrast text and crisp typography.",
   },
 
@@ -323,6 +329,9 @@ export const translations = {
     darkMode: "Modo Escuro",
     accentColor: "Paleta de Cores",
     languageTitle: "Idioma do Sistema",
+    soundLabel: "Som Tátil",
+    soundOn: "Ativado",
+    soundOff: "Mudo",
     frostedGlassNote: "Efeito vidro fosco suave de alta legibilidade em todas as resoluções.",
   },
 
@@ -429,6 +438,9 @@ export const translations = {
     darkMode: "深色模式",
     accentColor: "品牌主色调",
     languageTitle: "系统工作语言",
+    soundLabel: "触觉音效",
+    soundOn: "开启",
+    soundOff: "静音",
     frostedGlassNote: "微磨砂玻璃拟态设计，高对比度护眼排版。",
   },
 };

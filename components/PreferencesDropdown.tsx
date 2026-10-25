@@ -8,7 +8,7 @@ export function PreferencesDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const { mode, setMode, accent, setAccent, locale, setLocale, t } = usePreferences();
+  const { mode, setMode, accent, setAccent, locale, setLocale, sound, setSound, t } = usePreferences();
 
   // Close when clicking outside or pressing Escape (WCAG 2.2 SC 2.1.2)
   useEffect(() => {
@@ -159,7 +159,7 @@ export function PreferencesDropdown() {
           {/* SECTION 3: IDIOMA (2x2 Grid) */}
           <div className="space-y-2">
             <span id="label-locale-group" className="block text-[11px] font-bold uppercase tracking-[0.15em] text-[#8c8e9b]">
-              IDIOMA
+              {t.languageTitle || "IDIOMA"}
             </span>
             <div role="group" aria-labelledby="label-locale-group" className="grid grid-cols-2 gap-2">
               {LOCALES.map((l) => {
@@ -185,6 +185,51 @@ export function PreferencesDropdown() {
                   </button>
                 );
               })}
+            </div>
+          </div>
+
+          {/* SECTION 4: SONIDO TACTIL FX */}
+          <div className="space-y-2 pt-2 border-t border-white/5">
+            <div className="flex items-center justify-between">
+              <span id="label-sound-group" className="block text-[11px] font-bold uppercase tracking-[0.15em] text-[#8c8e9b]">
+                {t.soundLabel || "SONIDO TÁCTIL"}
+              </span>
+              <span className="text-[10px] font-mono font-bold" style={{ color: activeAccent.hex }}>
+                {sound ? (t.soundOn || "ON") : (t.soundOff || "OFF")}
+              </span>
+            </div>
+            <div role="group" aria-labelledby="label-sound-group" className="grid grid-cols-2 gap-1.5 p-1 rounded-2xl bg-[#0d0e14]/80 border border-white/5">
+              <button
+                type="button"
+                onClick={() => setSound(true)}
+                aria-pressed={sound}
+                aria-label="Activar sonido táctil"
+                className={`flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  sound
+                    ? "text-slate-900 shadow-sm"
+                    : "text-slate-400 hover:text-white"
+                }`}
+                style={sound ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#0a0e14" : "#ffffff" } : {}}
+              >
+                <span>🔊</span>
+                <span>{t.soundOn || "Activado"}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSound(false)}
+                aria-pressed={!sound}
+                aria-label="Silenciar sonido táctil"
+                className={`flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  !sound
+                    ? "text-slate-900 shadow-sm"
+                    : "text-slate-400 hover:text-white"
+                }`}
+                style={!sound ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#0a0e14" : "#ffffff" } : {}}
+              >
+                <span>🔇</span>
+                <span>{t.soundOff || "Silenciado"}</span>
+              </button>
             </div>
           </div>
         </div>
