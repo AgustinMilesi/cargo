@@ -364,3 +364,41 @@ export async function updateCustomsDetails(id: string, formData: FormData) {
   revalidatePath("/portal");
   return { success: true };
 }
+
+export async function deleteShipment(id: string) {
+  await db.shipment.delete({ where: { id } });
+  revalidatePath("/");
+  revalidatePath("/shipments");
+  revalidatePath("/finances");
+  revalidatePath("/tracking");
+  return { success: true };
+}
+
+export async function deleteQuote(id: string) {
+  await db.quote.delete({ where: { id } });
+  revalidatePath("/quotes");
+  revalidatePath("/");
+  return { success: true };
+}
+
+export async function createClient(formData: FormData) {
+  const name = getFormString(formData, "name", "Nuevo Cliente");
+  const taxId = getFormString(formData, "taxId", "30-00000000-0");
+  const email = getFormString(formData, "email", "contacto@empresa.com");
+  const phone = getFormOptionalString(formData, "phone");
+  const country = getFormString(formData, "country", "Argentina");
+
+  const client = await db.client.create({
+    data: { name, taxId, email, phone, country },
+  });
+  revalidatePath("/portal");
+  revalidatePath("/");
+  return { success: true, id: client.id };
+}
+
+export async function deleteClient(id: string) {
+  await db.client.delete({ where: { id } });
+  revalidatePath("/portal");
+  revalidatePath("/");
+  return { success: true };
+}

@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { db } from "@/lib/db";
-import { updateShipmentStatus, updateCustomsDetails } from "@/app/actions";
+import { updateShipmentStatus, updateCustomsDetails, deleteShipment } from "@/app/actions";
 import { TopBar } from "@/components/TopBar";
 import { DeliveringMap } from "@/components/DeliveringMap";
 
@@ -23,6 +23,12 @@ export default async function ShipmentDetailPage({
     const nextStatus = formData.get("status") as string;
     const location = formData.get("location") as string;
     await updateShipmentStatus(id, nextStatus, location);
+  }
+
+  async function handleDeleteShipment() {
+    "use server";
+    await deleteShipment(id);
+    redirect("/shipments");
   }
 
   let statusBg = "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20";
@@ -428,6 +434,24 @@ export default async function ShipmentDetailPage({
                 className="w-full py-2.5 bg-accent hover:opacity-90 text-white font-semibold text-xs rounded-2xl transition shadow-md cursor-pointer"
               >
                 Update Status & Record Event
+              </button>
+            </form>
+          </div>
+
+          {/* Danger Zone: Delete Shipment */}
+          <div className="bg-white/80 dark:bg-[#181920]/75 backdrop-blur-xl border border-rose-500/20 rounded-3xl p-6 space-y-3 shadow-sm">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-rose-500">
+              Operación de Baja
+            </h2>
+            <p className="text-xs text-slate-400">
+              Eliminar esta carpeta de importación removerá el Bill of Lading, contenedores y los hitos de tracking.
+            </p>
+            <form action={handleDeleteShipment}>
+              <button
+                type="submit"
+                className="w-full py-2.5 px-4 rounded-xl bg-rose-500/10 hover:bg-rose-500 text-rose-500 hover:text-white border border-rose-500/30 text-xs font-bold transition cursor-pointer"
+              >
+                🗑️ Eliminar Carpeta de Embarque
               </button>
             </form>
           </div>

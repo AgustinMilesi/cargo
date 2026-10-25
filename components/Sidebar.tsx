@@ -276,6 +276,14 @@ export function Sidebar() {
 
       {/* Footer Controls */}
       <div className="hidden md:flex flex-col gap-3 pt-5 border-t border-slate-200/80 dark:border-white/5 text-xs text-slate-500 dark:text-slate-400">
+        <Link
+          href="/login"
+          className="w-full text-center text-[11px] font-semibold text-slate-400 hover:text-accent py-1.5 px-2 rounded-xl border border-white/5 hover:border-accent/30 transition block"
+          title="Ver pantalla de acceso y login"
+        >
+          🔑 Acceso / Login
+        </Link>
+
         <div className="flex items-center justify-between pt-1">
           <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
