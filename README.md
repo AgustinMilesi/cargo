@@ -6,7 +6,7 @@
 [![VOUT Ecosystem](https://img.shields.io/badge/VOUT-Managed_Cloud-C6F827?style=for-the-badge&logoColor=black&labelColor=0A0E14)](https://github.com/AgustinMilesi)
 [![SLA](https://img.shields.io/badge/SLA-99.9%25_Uptime-C6F827?style=for-the-badge&logo=shield&logoColor=black&labelColor=0A0E14)](https://cargo-am.vercel.app/legal)
 [![Live Demo](https://img.shields.io/badge/Live_Service-cargo--am.vercel.app-C6F827?style=for-the-badge&logo=vercel&logoColor=black&labelColor=0A0E14)](https://cargo-am.vercel.app)
-[![1-Click Demo](https://img.shields.io/badge/1--Click_Demo-Acceso_Invitado-10b981?style=for-the-badge&logoColor=white&labelColor=0A0E14)](https://cargo-am.vercel.app/portal)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-En_Vivo-10b981?style=for-the-badge&logoColor=white&labelColor=0A0E14)](https://cargo-am.vercel.app/demo)
 
 <p align="center">
   <strong>Sistema operativo gestionado en la nube para transitarios, despachantes de aduana y logística internacional.</strong>

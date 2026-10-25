@@ -71,7 +71,7 @@ export default async function QuotesPage({
           <span className="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 block font-sans">
             {convertedCount} <span className="text-xs font-normal text-emerald-600/70">convertidos</span>
           </span>
-          <span className="text-[11px] text-emerald-700/70 dark:text-emerald-400/70 block font-medium">1-Click a Carpeta de Importación</span>
+          <span className="text-[11px] text-emerald-700/70 dark:text-emerald-400/70 block font-medium">Conversión directa a Carpeta de Importación</span>
         </div>
       </div>
 
