@@ -204,28 +204,28 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-full md:w-64 glass-sidebar border-b md:border-b-0 md:border-r border-slate-200/80 dark:border-white/[0.08] p-5 flex flex-col justify-between shrink-0 sticky top-0 z-40 md:h-screen md:self-start md:overflow-y-auto transition-all duration-200">
+    <aside className="w-full md:w-64 glass-sidebar border-b md:border-b-0 md:border-r border-[#252525] p-5 flex flex-col justify-between shrink-0 sticky top-0 z-40 md:h-screen md:self-start md:overflow-y-auto transition-all duration-150">
       <div className="space-y-6">
         {/* Brand Header */}
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
             {/* Logo Icon */}
-            <div className="size-10 rounded-2xl bg-[#0A0E14] border border-[#1E293B] flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-200 shrink-0 p-2">
+            <div className="size-10 rounded-[4px] bg-[#000000] border border-[#252525] flex items-center justify-center shadow-none group-hover:scale-105 transition-transform duration-150 shrink-0 p-2">
               <svg viewBox="68 106 416 310" className="w-full h-full" fill="none">
-                <rect x="68" y="228" width="60" height="60" rx="6" fill="#E9E7E0" />
-                <rect x="132" y="292" width="60" height="60" rx="6" fill="#E9E7E0" />
-                <rect x="196" y="356" width="60" height="60" rx="6" fill="#E9E7E0" />
-                <rect x="260" y="292" width="60" height="60" rx="6" fill="#E9E7E0" />
-                <rect x="324" y="228" width="60" height="60" rx="6" fill="#C6F827" />
-                <rect x="390" y="166" width="46" height="46" rx="5" fill="#C6F827" />
-                <rect x="452" y="106" width="32" height="32" rx="4" fill="#C6F827" />
+                <rect x="68" y="228" width="60" height="60" rx="2" fill="#E5E5E5" />
+                <rect x="132" y="292" width="60" height="60" rx="2" fill="#E5E5E5" />
+                <rect x="196" y="356" width="60" height="60" rx="2" fill="#E5E5E5" />
+                <rect x="260" y="292" width="60" height="60" rx="2" fill="#E5E5E5" />
+                <rect x="324" y="228" width="60" height="60" rx="2" fill="#c5ff4a" />
+                <rect x="390" y="166" width="46" height="46" rx="2" fill="#c5ff4a" />
+                <rect x="452" y="106" width="32" height="32" rx="2" fill="#c5ff4a" />
               </svg>
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+              <span className="text-xl font-bold tracking-tight text-white">
                 VOUT Cargo
               </span>
-              <span className="text-[10px] text-slate-400 font-medium leading-none">
+              <span className="text-[10px] text-[#7a7a7a] font-mono leading-none">
                 Global Logistics OS
               </span>
             </div>
@@ -249,10 +249,10 @@ export function Sidebar() {
                 key={item.href}
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`group flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200 shrink-0 ${
+                className={`group flex items-center justify-between px-3.5 py-2.5 rounded-[4px] text-xs font-sans uppercase tracking-[0.08em] transition-colors duration-150 shrink-0 ${
                   isActive
-                    ? "bg-accent text-[var(--primary-accent-text,#0a0e14)] shadow-sm font-bold"
-                    : "text-slate-400 hover:text-white hover:bg-[#182030]"
+                    ? "bg-accent text-[#000000] shadow-[0_0_8px_rgba(197,255,74,0.35)] font-semibold"
+                    : "text-[#7a7a7a] hover:text-[#c5ff4a] hover:bg-[#252525]"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -263,7 +263,7 @@ export function Sidebar() {
                 {item.badge !== undefined && (
                   <span
                     aria-label={`${item.badge} pendientes`}
-                    className="ml-2 px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-rose-500 text-white leading-none shadow-sm shadow-rose-500/30"
+                    className="ml-2 px-1.5 py-0.5 text-[10px] font-mono font-medium rounded-[2px] bg-rose-500 text-white leading-none shadow-none"
                   >
                     {item.badge}
                   </span>
@@ -275,10 +275,10 @@ export function Sidebar() {
       </div>
 
       {/* Footer Controls */}
-      <div className="hidden md:flex flex-col gap-3 pt-5 border-t border-slate-200/80 dark:border-white/5 text-xs text-slate-500 dark:text-slate-400">
+      <div className="hidden md:flex flex-col gap-3 pt-5 border-t border-[#252525] text-xs text-[#7a7a7a]">
         <Link
           href="/login"
-          className="w-full text-center text-[11px] font-semibold text-slate-400 hover:text-accent py-1.5 px-2 rounded-xl border border-white/5 hover:border-accent/30 transition block"
+          className="w-full text-center text-[11px] font-sans font-medium uppercase tracking-[0.08em] text-[#7a7a7a] hover:text-[#c5ff4a] py-1.5 px-2 rounded-[4px] border border-[#252525] hover:border-[#313131] transition-colors block"
           title="Ver pantalla de acceso y login"
         >
           🔑 Acceso / Login
@@ -287,7 +287,7 @@ export function Sidebar() {
         <div className="flex items-center justify-between pt-1">
           <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[11px] font-medium text-slate-700 dark:text-slate-300">Neon Cloud</span>
+            <span className="text-[11px] font-mono text-[#7a7a7a]">Neon Cloud</span>
           </div>
 
           <PreferencesDropdown />

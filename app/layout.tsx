@@ -114,13 +114,10 @@ export default function RootLayout({
                 const savedAccent = localStorage.getItem('vout-cargo-accent') || localStorage.getItem('onecargo-accent') || 'lime';
                 document.documentElement.setAttribute('data-accent', savedAccent);
                 const accentColors = {
-                  lime: '#C6F827',
+                  lime: '#c5ff4a',
                   emerald: '#10B981',
-                  indigo: '#6366F1',
-                  rose: '#F43F5E',
-                  amber: '#F59E0B',
-                  cyan: '#06B6D4',
-                  violet: '#8B5CF6'
+                  mint: '#00ff88',
+                  jade: '#059669',
                 };
                 if (accentColors[savedAccent]) {
                   document.documentElement.style.setProperty('--primary-accent', accentColors[savedAccent]);

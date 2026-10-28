@@ -27,19 +27,19 @@ export function TopBar({
   };
 
   return (
-    <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6">
+    <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-[#252525] mb-6">
       {/* Title & Subtitle */}
       <div>
         <div className="flex flex-wrap items-center gap-2.5">
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+          <h1 className="text-2xl md:text-3xl font-serif font-light tracking-tight text-white">
             {title}
           </h1>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20">
-            <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[2px] text-[10px] font-mono uppercase tracking-[0.1em] bg-[#000000] text-[var(--primary-accent)] border border-[var(--primary-accent)]/30">
+            <span className="size-1.5 rounded-full bg-[var(--primary-accent)] animate-pulse" />
             Live Demo
           </span>
         </div>
-        <p className="text-xs md:text-sm text-slate-500 dark:text-[#8c8e9b] mt-1 font-normal">
+        <p className="text-xs md:text-sm text-[#7a7a7a] mt-1 font-sans">
           {subtitle}
         </p>
       </div>
@@ -51,7 +51,7 @@ export function TopBar({
           <label htmlFor="topbar-search" className="sr-only">
             {t.searchPlaceholder || "Buscar contenedor, B/L..."}
           </label>
-          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400" aria-hidden="true">
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#7a7a7a]" aria-hidden="true">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -62,23 +62,23 @@ export function TopBar({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t.searchPlaceholder || "Buscar contenedor, B/L..."}
-            className="w-full pl-9 pr-12 py-2 text-xs md:text-sm rounded-full bg-[#0F1520] border border-[#1E293B] text-white placeholder:text-slate-500 outline-none focus:border-accent transition-all shadow-sm"
+            className="w-full pl-9 pr-12 py-2 text-xs rounded-[4px] bg-[#000000] border border-[#252525] text-white placeholder:text-[#7a7a7a] outline-none focus:border-[var(--primary-accent)] transition-colors shadow-none font-mono"
           />
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none" aria-hidden="true">
-            <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-slate-400 bg-white/5 border border-white/10 rounded-md">
+            <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-[#7a7a7a] bg-[#161616] border border-[#252525] rounded-[2px]">
               ⌘F
             </kbd>
           </div>
         </form>
 
-        {/* Floating Theme & Language Popover (Exact match with user photo) */}
+        {/* Floating Theme & Language Popover */}
         <PreferencesDropdown />
 
         {/* Quick New Shipment CTA */}
         <Link
           href="/shipments/new"
           aria-label={t.newShipment ? "Nueva Carga: registrar embarque" : "New Load: register shipment"}
-          className="shrink-0 px-3.5 py-2 rounded-xl bg-accent text-[var(--primary-accent-text,#0a0e14)] text-xs font-bold shadow-sm hover:shadow-md transition-all flex items-center gap-1.5 cursor-pointer hover:opacity-90 active:scale-95"
+          className="shrink-0 px-3.5 py-2 rounded-[4px] bg-accent text-[#000000] text-xs font-sans font-medium uppercase tracking-[0.04em] shadow-[0_0_8px_rgba(197,255,74,0.45)] hover:opacity-95 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
         >
           <svg className="w-4 h-4 text-inherit" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />

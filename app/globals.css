@@ -1,125 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300..700;1,300..700&family=JetBrains+Mono:wght@400;500;600&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Default Theme: VOUT Cyber-Lime Flagship */
-  --primary-accent: #c6f827;
-  --primary-accent-rgb: 198, 248, 39;
-  --primary-accent-text: #0a0e14;
-  --primary-accent-shadow: rgba(0, 0, 0, 0.3);
+  /* zkPass Broadsheet: Signal Lime Flagship */
+  --primary-accent: #c5ff4a;
+  --primary-accent-rgb: 197, 255, 74;
+  --primary-accent-text: #000000;
+  --primary-accent-shadow: rgba(197, 255, 74, 0.35);
 
-  /* VOUT Pocket Obsidian Palette */
-  --bg-page: #0a0e14;
-  --bg-sidebar: #0d121b;
-  --bg-card: #121824;
-  --bg-card-sub: #182030;
-  --bg-hover: #1e293b;
-  --border-card: #1e293b;
-  --border-card-sub: #1e293b;
-  --input-bg: #0f1520;
-  --input-border: #1e293b;
+  /* Carbon Canvas & Onyx Surfaces */
+  --bg-page: #060606;
+  --bg-sidebar: #121212;
+  --bg-card: #1f1f1f;
+  --bg-card-sub: #161616;
+  --bg-hover: #252525;
+  --border-card: #252525;
+  --border-card-sub: #1c1c1c;
+  --input-bg: #000000;
+  --input-border: #252525;
   --text-main: #ffffff;
-  --text-muted: #94a3b8;
+  --text-muted: #7a7a7a;
+
+  /* Typography */
+  --font-sans: 'Inter Tight', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-serif: 'PT Serif', Georgia, serif;
 }
 
 .dark,
 [data-mode="dark"] {
-  --bg-page: #0a0e14;
-  --bg-sidebar: #0d121b;
-  --bg-card: #121824;
-  --bg-card-sub: #182030;
-  --bg-hover: #1e293b;
-  --border-card: #1e293b;
-  --border-card-sub: #1e293b;
-  --input-bg: #0f1520;
-  --input-border: #1e293b;
+  --bg-page: #060606;
+  --bg-sidebar: #121212;
+  --bg-card: #1f1f1f;
+  --bg-card-sub: #161616;
+  --bg-hover: #252525;
+  --border-card: #252525;
+  --border-card-sub: #1c1c1c;
+  --input-bg: #000000;
+  --input-border: #252525;
   --text-main: #ffffff;
-  --text-muted: #94a3b8;
+  --text-muted: #7a7a7a;
 }
 
 .light,
 [data-mode="light"] {
-  --bg-page: #f8fafc;
-  --bg-sidebar: #ffffff;
+  --bg-page: #f6f6f6;
+  --bg-sidebar: #fafafa;
   --bg-card: #ffffff;
-  --bg-card-sub: #f1f5f9;
-  --bg-hover: #e2e8f0;
-  --border-card: #e2e8f0;
-  --border-card-sub: #cbd5e1;
+  --bg-card-sub: #f0f0f0;
+  --bg-hover: #eaeaea;
+  --border-card: #e0e0e0;
+  --border-card-sub: #ebebeb;
   --input-bg: #ffffff;
-  --input-border: #cbd5e1;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
+  --input-border: #e0e0e0;
+  --text-main: #0a0a0a;
+  --text-muted: #666666;
 }
 
-/* Palette Accents matching user selection */
+/* Palette Accents */
 [data-accent="lime"] {
-  --primary-accent: #c6f827;
-  --primary-accent-rgb: 198, 248, 39;
-  --primary-accent-text: #0a0e14;
-  --primary-accent-shadow: rgba(0, 0, 0, 0.3);
+  --primary-accent: #c5ff4a;
+  --primary-accent-rgb: 197, 255, 74;
+  --primary-accent-text: #000000;
+  --primary-accent-shadow: rgba(197, 255, 74, 0.35);
 }
 
 [data-accent="mint"] {
   --primary-accent: #00ff88;
   --primary-accent-rgb: 0, 255, 136;
-  --primary-accent-text: #0a0e14;
-  --primary-accent-shadow: rgba(0, 0, 0, 0.3);
+  --primary-accent-text: #000000;
+  --primary-accent-shadow: rgba(0, 255, 136, 0.3);
 }
 
 [data-accent="emerald"] {
   --primary-accent: #10b981;
   --primary-accent-rgb: 16, 185, 129;
-  --primary-accent-text: #0a0e14;
-  --primary-accent-shadow: rgba(0, 0, 0, 0.3);
+  --primary-accent-text: #000000;
+  --primary-accent-shadow: rgba(16, 185, 129, 0.3);
 }
 
 [data-accent="jade"] {
   --primary-accent: #059669;
   --primary-accent-rgb: 5, 150, 105;
   --primary-accent-text: #ffffff;
-  --primary-accent-shadow: rgba(0, 0, 0, 0.3);
+  --primary-accent-shadow: rgba(5, 150, 105, 0.3);
 }
 
-/* Fallback Protection: Redirect any legacy accents to Cyber-Lime */
+/* Fallback Protection */
 [data-accent="violet"],
 [data-accent="indigo"],
 [data-accent="rose"],
 [data-accent="amber"],
 [data-accent="cyan"] {
-  --primary-accent: #c6f827;
-  --primary-accent-rgb: 198, 248, 39;
-  --primary-accent-text: #0a0e14;
-  --primary-accent-shadow: rgba(0, 0, 0, 0.3);
+  --primary-accent: #c5ff4a;
+  --primary-accent-rgb: 197, 255, 74;
+  --primary-accent-text: #000000;
+  --primary-accent-shadow: rgba(197, 255, 74, 0.35);
 }
 
 @layer base {
   body {
     background-color: var(--bg-page);
     color: var(--text-main);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+    transition: background-color 0.15s ease, color 0.15s ease;
   }
 }
 
-/* Solid obsidian VOUT cards - clean, high-contrast, modern */
+/* zkPass Architectural Cards */
 .glass-card {
   background-color: var(--bg-card) !important;
   border: 1px solid var(--border-card) !important;
-  border-radius: 1.5rem !important;
-  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.45) !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease !important;
 }
 
 .glass-card:hover {
-  border-color: rgba(var(--primary-accent-rgb), 0.35) !important;
+  border-color: #313131 !important;
 }
 
 .glass-card-sub {
   background-color: var(--bg-card-sub) !important;
   border: 1px solid var(--border-card-sub) !important;
-  border-radius: 1rem !important;
+  border-radius: 4px !important;
 }
 
 .glass-sidebar {
@@ -130,7 +136,7 @@
 /* Dynamic Accent Helpers */
 .bg-accent {
   background-color: var(--primary-accent) !important;
-  color: var(--primary-accent-text, #0a0e14) !important;
+  color: var(--primary-accent-text, #000000) !important;
 }
 
 .bg-accent * {
@@ -145,16 +151,18 @@
   border-color: var(--primary-accent) !important;
 }
 
-/* Inputs, Textareas and Selects matching VOUT Pocket */
+/* Inputs, Textareas and Selects */
 input, textarea, select {
   background-color: var(--input-bg) !important;
   border-color: var(--input-border) !important;
   color: var(--text-main) !important;
+  border-radius: 4px !important;
+  font-family: var(--font-mono);
 }
 
 input:focus, textarea:focus, select:focus {
   border-color: var(--primary-accent) !important;
-  box-shadow: 0 0 0 3px rgba(var(--primary-accent-rgb), 0.2) !important;
+  box-shadow: 0 0 0 1px var(--primary-accent) !important;
   outline: none !important;
 }
 

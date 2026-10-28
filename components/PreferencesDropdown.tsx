@@ -37,7 +37,7 @@ export function PreferencesDropdown() {
 
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
-      {/* Trigger Button: [ 🌙 ☀️ ES ⌃ ] */}
+      {/* Trigger Button */}
       <button
         ref={triggerRef}
         type="button"
@@ -46,7 +46,7 @@ export function PreferencesDropdown() {
         aria-expanded={isOpen}
         aria-controls="preferences-dialog"
         aria-label="Configuración de preferencias: tema, color e idioma"
-        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#121824] hover:bg-[#182030] border border-[#1E293B] text-slate-100 text-xs font-semibold shadow-sm transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--primary-accent)] focus-visible:outline-none"
+        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] bg-[#1f1f1f] hover:bg-[#252525] border border-[#252525] text-slate-100 text-xs font-semibold shadow-none transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--primary-accent)] focus-visible:outline-none"
       >
         {/* Mode Icon */}
         {mode === "dark" ? (
@@ -80,31 +80,31 @@ export function PreferencesDropdown() {
         </svg>
       </button>
 
-      {/* Popover Dropdown Panel (Exactly matching user image) */}
+      {/* Popover Dropdown Panel */}
       {isOpen && (
         <div
           id="preferences-dialog"
           role="dialog"
           aria-label="Panel de configuración de apariencia e idioma"
-          className="absolute right-0 mt-2 w-[310px] sm:w-[330px] rounded-3xl bg-[#14151e]/95 dark:bg-[#13141c]/95 text-white p-5 shadow-2xl border border-white/10 backdrop-blur-2xl z-50 animate-in fade-in zoom-in-95 duration-150 space-y-5"
+          className="absolute right-0 mt-2 w-[310px] sm:w-[330px] rounded-[4px] bg-[#1f1f1f] text-white p-5 shadow-none border border-[#252525] z-50 space-y-5"
         >
           {/* SECTION 1: MODO */}
           <div className="space-y-2">
-            <span id="label-mode-group" className="block text-[11px] font-bold uppercase tracking-[0.15em] text-[#8c8e9b]">
+            <span id="label-mode-group" className="block text-[11px] font-sans font-medium uppercase tracking-[0.22em] text-[#7a7a7a]">
               MODO
             </span>
-            <div role="group" aria-labelledby="label-mode-group" className="grid grid-cols-2 gap-1.5 p-1 rounded-2xl bg-[#0d0e14]/80 border border-white/5">
+            <div role="group" aria-labelledby="label-mode-group" className="grid grid-cols-2 gap-1.5 p-1 rounded-[4px] bg-[#161616] border border-[#252525]">
               <button
                 type="button"
                 onClick={() => setMode("light")}
                 aria-pressed={mode === "light"}
                 aria-label="Activar modo claro"
-                className={`flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`flex items-center justify-center gap-2 py-2 px-3 rounded-[2px] text-xs font-sans font-medium uppercase tracking-[0.04em] transition-all cursor-pointer ${
                   mode === "light"
-                    ? "text-slate-900 shadow-sm"
-                    : "text-slate-400 hover:text-white"
+                    ? "text-[#000000] shadow-none"
+                    : "text-[#7a7a7a] hover:text-white"
                 }`}
-                style={mode === "light" ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#0a0e14" : "#ffffff" } : {}}
+                style={mode === "light" ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#000000" : "#ffffff" } : {}}
               >
                 <span className="text-sm" aria-hidden="true">☼</span>
                 <span>Claro</span>
@@ -115,12 +115,12 @@ export function PreferencesDropdown() {
                 onClick={() => setMode("dark")}
                 aria-pressed={mode === "dark"}
                 aria-label="Activar modo oscuro"
-                className={`flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`flex items-center justify-center gap-2 py-2 px-3 rounded-[2px] text-xs font-sans font-medium uppercase tracking-[0.04em] transition-all cursor-pointer ${
                   mode === "dark"
-                    ? "text-white shadow-sm"
-                    : "text-slate-400 hover:text-white"
+                    ? "text-[#000000] shadow-none"
+                    : "text-[#7a7a7a] hover:text-white"
                 }`}
-                style={mode === "dark" ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#0a0e14" : "#ffffff" } : {}}
+                style={mode === "dark" ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#000000" : "#ffffff" } : {}}
               >
                 <span className="text-sm" aria-hidden="true">🌙</span>
                 <span>Oscuro</span>
@@ -128,9 +128,9 @@ export function PreferencesDropdown() {
             </div>
           </div>
 
-          {/* SECTION 2: TEMA (6 Color Swatches) */}
+          {/* SECTION 2: TEMA */}
           <div className="space-y-2">
-            <span id="label-theme-group" className="block text-[11px] font-bold uppercase tracking-[0.15em] text-[#8c8e9b]">
+            <span id="label-theme-group" className="block text-[11px] font-sans font-medium uppercase tracking-[0.22em] text-[#7a7a7a]">
               TEMA
             </span>
             <div role="group" aria-labelledby="label-theme-group" className="flex items-center justify-between gap-2 pt-1 px-1">
@@ -144,10 +144,10 @@ export function PreferencesDropdown() {
                     title={item.name}
                     aria-label={`Seleccionar tema de color ${item.name}`}
                     aria-pressed={isSelected}
-                    className={`w-8 h-8 rounded-full transition-all cursor-pointer relative ${
+                    className={`w-7 h-7 rounded-[2px] transition-all cursor-pointer relative ${
                       isSelected
-                        ? "ring-2 ring-white ring-offset-2 ring-offset-[#13141c] scale-110 shadow-lg"
-                        : "opacity-70 hover:opacity-100 hover:scale-105"
+                        ? "ring-2 ring-[var(--primary-accent)] scale-110 shadow-none"
+                        : "opacity-60 hover:opacity-100"
                     }`}
                     style={{ backgroundColor: item.hex }}
                   />
@@ -156,9 +156,9 @@ export function PreferencesDropdown() {
             </div>
           </div>
 
-          {/* SECTION 3: IDIOMA (2x2 Grid) */}
+          {/* SECTION 3: IDIOMA */}
           <div className="space-y-2">
-            <span id="label-locale-group" className="block text-[11px] font-bold uppercase tracking-[0.15em] text-[#8c8e9b]">
+            <span id="label-locale-group" className="block text-[11px] font-sans font-medium uppercase tracking-[0.22em] text-[#7a7a7a]">
               {t.languageTitle || "IDIOMA"}
             </span>
             <div role="group" aria-labelledby="label-locale-group" className="grid grid-cols-2 gap-2">
@@ -171,14 +171,14 @@ export function PreferencesDropdown() {
                     onClick={() => setLocale(l.code)}
                     aria-pressed={isSelected}
                     aria-label={`Cambiar idioma a ${l.label}`}
-                    className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs transition-all cursor-pointer ${
+                    className={`flex items-center justify-between px-3 py-2 rounded-[2px] text-xs font-sans transition-all cursor-pointer ${
                       isSelected
-                        ? "text-white font-bold shadow-sm"
-                        : "bg-[#0d0e14]/60 hover:bg-[#1a1c26] text-slate-300 border border-white/5"
+                        ? "text-[#000000] font-medium shadow-none"
+                        : "bg-[#161616] hover:bg-[#252525] text-[#e5e5e5] border border-[#252525]"
                     }`}
-                    style={isSelected ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#0a0e14" : "#ffffff" } : {}}
+                    style={isSelected ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#000000" : "#ffffff" } : {}}
                   >
-                    <span className="font-semibold">{l.label}</span>
+                    <span className="font-sans">{l.label}</span>
                     <span className="text-[10px] uppercase font-mono tracking-wider opacity-80" aria-hidden="true">
                       {l.code}
                     </span>
@@ -189,27 +189,27 @@ export function PreferencesDropdown() {
           </div>
 
           {/* SECTION 4: SONIDO TACTIL FX */}
-          <div className="space-y-2 pt-2 border-t border-white/5">
+          <div className="space-y-2 pt-2 border-t border-[#252525]">
             <div className="flex items-center justify-between">
-              <span id="label-sound-group" className="block text-[11px] font-bold uppercase tracking-[0.15em] text-[#8c8e9b]">
+              <span id="label-sound-group" className="block text-[11px] font-sans font-medium uppercase tracking-[0.22em] text-[#7a7a7a]">
                 {t.soundLabel || "SONIDO TÁCTIL"}
               </span>
-              <span className="text-[10px] font-mono font-bold" style={{ color: activeAccent.hex }}>
+              <span className="text-[10px] font-mono font-medium" style={{ color: activeAccent.hex }}>
                 {sound ? (t.soundOn || "ON") : (t.soundOff || "OFF")}
               </span>
             </div>
-            <div role="group" aria-labelledby="label-sound-group" className="grid grid-cols-2 gap-1.5 p-1 rounded-2xl bg-[#0d0e14]/80 border border-white/5">
+            <div role="group" aria-labelledby="label-sound-group" className="grid grid-cols-2 gap-1.5 p-1 rounded-[4px] bg-[#161616] border border-[#252525]">
               <button
                 type="button"
                 onClick={() => setSound(true)}
                 aria-pressed={sound}
                 aria-label="Activar sonido táctil"
-                className={`flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`flex items-center justify-center gap-1.5 py-2 px-3 rounded-[2px] text-xs font-sans font-medium transition-all cursor-pointer ${
                   sound
-                    ? "text-slate-900 shadow-sm"
-                    : "text-slate-400 hover:text-white"
+                    ? "text-[#000000] shadow-none"
+                    : "text-[#7a7a7a] hover:text-white"
                 }`}
-                style={sound ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#0a0e14" : "#ffffff" } : {}}
+                style={sound ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#000000" : "#ffffff" } : {}}
               >
                 <span>🔊</span>
                 <span>{t.soundOn || "Activado"}</span>
@@ -220,12 +220,12 @@ export function PreferencesDropdown() {
                 onClick={() => setSound(false)}
                 aria-pressed={!sound}
                 aria-label="Silenciar sonido táctil"
-                className={`flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`flex items-center justify-center gap-1.5 py-2 px-3 rounded-[2px] text-xs font-sans font-medium transition-all cursor-pointer ${
                   !sound
-                    ? "text-slate-900 shadow-sm"
-                    : "text-slate-400 hover:text-white"
+                    ? "text-[#000000] shadow-none"
+                    : "text-[#7a7a7a] hover:text-white"
                 }`}
-                style={!sound ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#0a0e14" : "#ffffff" } : {}}
+                style={!sound ? { backgroundColor: activeAccent.hex, color: activeAccent.isLight ? "#000000" : "#ffffff" } : {}}
               >
                 <span>🔇</span>
                 <span>{t.soundOff || "Silenciado"}</span>
