@@ -6,12 +6,48 @@ import { LOCALES } from "@/lib/i18n";
 
 export function PreferencesDropdown({ placement = "down" }: { placement?: "up" | "down" }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [coords, setCoords] = useState<{ left: number; top?: number; bottom?: number; width: number } | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const { mode, setMode, accent, setAccent, locale, setLocale, sound, setSound, t } = usePreferences();
 
+  const updatePosition = React.useCallback(() => {
+    if (!triggerRef.current) return;
+    const rect = triggerRef.current.getBoundingClientRect();
+    const padding = 12;
+    const panelWidth = Math.min(300, window.innerWidth - padding * 2);
+
+    // Compute left coordinate: default to aligning to trigger's right edge
+    let left = rect.right - panelWidth;
+    // Prevent clipping on the left edge (especially inside sidebars docked to the left wall):
+    if (left < padding) {
+      left = padding;
+    }
+    // Prevent clipping on the right edge:
+    if (left + panelWidth > window.innerWidth - padding) {
+      left = window.innerWidth - panelWidth - padding;
+    }
+
+    if (placement === "up") {
+      setCoords({
+        left,
+        bottom: window.innerHeight - rect.top + 8,
+        width: panelWidth,
+      });
+    } else {
+      setCoords({
+        left,
+        top: rect.bottom + 8,
+        width: panelWidth,
+      });
+    }
+  }, [placement]);
+
   // Close when clicking outside or pressing Escape (WCAG 2.2 SC 2.1.2)
   useEffect(() => {
+    if (!isOpen) return;
+    updatePosition();
+
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
@@ -27,11 +63,16 @@ export function PreferencesDropdown({ placement = "down" }: { placement?: "up" |
 
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("resize", updatePosition);
+    window.addEventListener("scroll", updatePosition, true);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition, true);
     };
-  }, [isOpen]);
+  }, [isOpen, updatePosition]);
 
   const activeAccent = ACCENT_THEMES.find((a) => a.id === accent) || ACCENT_THEMES[0];
 
@@ -83,14 +124,18 @@ export function PreferencesDropdown({ placement = "down" }: { placement?: "up" |
       </button>
 
       {/* Popover Dropdown Panel */}
-      {isOpen && (
+      {isOpen && coords && (
         <div
           id="preferences-dialog"
           role="dialog"
           aria-label="Panel de configuración de apariencia e idioma"
-          className={`absolute right-0 ${
-            placement === "up" ? "bottom-full mb-2" : "mt-2 top-full"
-          } w-[calc(100vw-2rem)] max-w-[320px] rounded-[6px] bg-[#121212] text-white p-5 shadow-[0_16px_40px_rgba(0,0,0,0.85)] border border-[#262626] z-50 space-y-4`}
+          style={{
+            left: `${coords.left}px`,
+            top: coords.top !== undefined ? `${coords.top}px` : undefined,
+            bottom: coords.bottom !== undefined ? `${coords.bottom}px` : undefined,
+            width: `${coords.width}px`,
+          }}
+          className="fixed rounded-[6px] bg-[#121212] text-white p-5 shadow-[0_16px_40px_rgba(0,0,0,0.85)] border border-[#262626] z-50 space-y-4 animate-smooth-in"
         >
           {/* SECTION 1: MODO */}
           <div className="space-y-2">
