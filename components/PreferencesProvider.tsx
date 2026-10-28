@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState, useRef, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import type { Locale, TranslationDict } from "@/lib/i18n";
 import { translations, LOCALES } from "@/lib/i18n";
 
@@ -105,9 +106,12 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     }
   };
 
+  const router = useRouter();
+
   const applyAccent = (a: AccentTheme) => {
     const root = document.documentElement;
     root.setAttribute("data-accent", a);
+    root.setAttribute("data-theme", a);
     const found = ACCENT_THEMES.find((item) => item.id === a) || ACCENT_THEMES[0];
     const rgb = hexToRgb(found.hex);
     root.style.setProperty("--primary-accent", found.hex);
@@ -137,9 +141,12 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
 
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale);
-    localStorage.setItem("vout-cargo-locale", newLocale);
-    localStorage.setItem("onecargo-locale", newLocale);
-    document.cookie = `vout-cargo-locale=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+    try {
+      localStorage.setItem("vout-cargo-locale", newLocale);
+      localStorage.setItem("onecargo-locale", newLocale);
+      document.cookie = `vout-cargo-locale=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+      router.refresh();
+    } catch {}
   };
 
   const setSound = (enabled: boolean) => {
