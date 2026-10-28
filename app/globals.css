@@ -114,59 +114,59 @@
 
 /* zkPass Architectural Cards */
 .glass-card {
-  background-color: var(--bg-card) !important;
-  border: 1px solid var(--border-card) !important;
-  border-radius: 4px !important;
-  box-shadow: none !important;
-  transition: border-color 0.15s ease !important;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 4px;
+  box-shadow: none;
+  transition: border-color 0.15s ease;
 }
 
 .glass-card:hover {
-  border-color: #313131 !important;
+  border-color: #313131;
 }
 
 .glass-card-sub {
-  background-color: var(--bg-card-sub) !important;
-  border: 1px solid var(--border-card-sub) !important;
-  border-radius: 4px !important;
+  background-color: var(--bg-card-sub);
+  border: 1px solid var(--border-card-sub);
+  border-radius: 4px;
 }
 
 .glass-sidebar {
-  background-color: var(--bg-sidebar) !important;
-  border-color: var(--border-card) !important;
+  background-color: var(--bg-sidebar);
+  border-color: var(--border-card);
 }
 
 /* Dynamic Accent Helpers */
 .bg-accent {
-  background-color: var(--primary-accent) !important;
-  color: var(--primary-accent-text, #000000) !important;
+  background-color: var(--primary-accent);
+  color: var(--primary-accent-text, #000000);
 }
 
 .bg-accent * {
-  color: inherit !important;
+  color: inherit;
 }
 
 .text-accent {
-  color: var(--primary-accent) !important;
+  color: var(--primary-accent);
 }
 
 .border-accent {
-  border-color: var(--primary-accent) !important;
+  border-color: var(--primary-accent);
 }
 
 /* Inputs, Textareas and Selects */
 input, textarea, select {
-  background-color: var(--input-bg) !important;
-  border-color: var(--input-border) !important;
-  color: var(--text-main) !important;
-  border-radius: 4px !important;
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--text-main);
+  border-radius: 4px;
   font-family: var(--font-mono);
 }
 
 input:focus, textarea:focus, select:focus {
-  border-color: var(--primary-accent) !important;
-  box-shadow: 0 0 0 1px var(--primary-accent) !important;
-  outline: none !important;
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 0 1px var(--primary-accent);
+  outline: none;
 }
 
 /* Custom scrollbars */
@@ -197,8 +197,8 @@ input:focus, textarea:focus, select:focus {
 
 /* Visible Focus Indicator (SC 2.4.11 / 2.4.12) */
 :focus-visible {
-  outline: 2px solid var(--primary-accent) !important;
-  outline-offset: 2px !important;
+  outline: 2px solid var(--primary-accent);
+  outline-offset: 2px;
 }
 
 /* Reduced Motion Safety (SC 2.3.3) */
@@ -206,10 +206,10 @@ input:focus, textarea:focus, select:focus {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+    scroll-behavior: auto;
   }
 }
 
