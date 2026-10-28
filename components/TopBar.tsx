@@ -27,7 +27,7 @@ export function TopBar({
   };
 
   return (
-    <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-[#262626] mb-6 w-full max-w-full overflow-hidden">
+    <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-[#262626] mb-6 w-full max-w-full relative z-30">
       {/* Title & Subtitle */}
       <div>
         <div className="flex flex-wrap items-center gap-2.5">
