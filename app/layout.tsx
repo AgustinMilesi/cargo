@@ -1,8 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { PreferencesProvider } from "@/components/PreferencesProvider";
 import { Sidebar } from "@/components/Sidebar";
 import { CookieBanner } from "@/components/CookieBanner";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#060606",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://cargo-am.vercel.app"),

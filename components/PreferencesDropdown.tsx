@@ -90,7 +90,7 @@ export function PreferencesDropdown({ placement = "down" }: { placement?: "up" |
           aria-label="Panel de configuración de apariencia e idioma"
           className={`absolute right-0 ${
             placement === "up" ? "bottom-full mb-2" : "mt-2 top-full"
-          } w-[310px] sm:w-[330px] rounded-[6px] bg-[#121212] text-white p-5 shadow-[0_16px_40px_rgba(0,0,0,0.85)] border border-[#262626] z-50 space-y-4`}
+          } w-[calc(100vw-2rem)] max-w-[320px] rounded-[6px] bg-[#121212] text-white p-5 shadow-[0_16px_40px_rgba(0,0,0,0.85)] border border-[#262626] z-50 space-y-4`}
         >
           {/* SECTION 1: MODO */}
           <div className="space-y-2">
